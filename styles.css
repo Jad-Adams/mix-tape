@@ -76,47 +76,6 @@ body {
     width: 100%;
 }
 
-/* Screen Layers Container */
-.screen-layers {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 500px;
-    height: 100%;
-    min-height: 280px;
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* Screen Outline Layer (middle) - Screen border/outline */
-.screen-outline-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('assets/screen-outline.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
-}
-
-/* Screen Frame Layer (top) - Inner screen frame, should be just below content */
-.screen-frame-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('assets/screen-frame.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-}
 
 .lcd-screen {
     position: relative;
@@ -130,19 +89,10 @@ body {
 
 .lcd-interior {
     background-image: url('assets/screen-main.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    mask-image: url('assets/screen-shape-mask.png');
-    mask-size: cover;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-image: url('assets/screen-shape-mask.png');
-    -webkit-mask-size: cover;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    border-radius: 8px;
-    padding: 20px;
+    padding: 40px 18px;
     min-height: 280px;
     display: flex;
     flex-direction: column;
@@ -155,6 +105,7 @@ body {
     color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 1px;
+    padding-left: 8px;
 }
 
 .lcd-song-info {
