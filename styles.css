@@ -79,7 +79,6 @@ body {
 
 .screen {
     position: relative;
-    z-index: 10;
     background: transparent;
     padding: 12px;
     width: 100%;
@@ -90,7 +89,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    padding: 50px 50px;
+    padding: 50px 30px 30px 50px;
     min-height: 280px;
     display: flex;
     flex-direction: column;
@@ -131,6 +130,18 @@ body {
     font-family: 'Share Tech Mono', monospace;
     font-size: 14px;
     color: #FFFFFF;
+}
+
+.control-container {
+    background-image: url('assets/booton.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    right: -110px;
+    bottom: 36px;
 }
 
 .progress-bar-container {
