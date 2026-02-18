@@ -1,0 +1,29 @@
+# Cursor IDE worktree directories
+# These are local development artifacts and should not be tracked
+**/.cursor/worktrees/
+.cursor/worktrees/
+Users/**/.cursor/worktrees/
+**/worktrees/
+
+# Cursor IDE specific files
+.cursor/
+*.cursor
+
+# Common IDE and editor files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if you add any in the future)
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment files
+.env
+.env.local

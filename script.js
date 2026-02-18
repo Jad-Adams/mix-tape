@@ -1,0 +1,221 @@
+// Playlist (placeholder paths - user will add actual MP3 files)
+const playlist = [
+    { title: 'The Pot', artist: 'Tool', file: 'music/track1.mp3' },
+    { title: 'Song 2', artist: 'Artist 2', file: 'music/track2.mp3' },
+    { title: 'Song 3', artist: 'Artist 3', file: 'music/track3.mp3' }
+];
+
+// Audio elements
+const audioPlayer = document.getElementById('audioPlayer');
+const clickSound = new Audio('sounds/click.mp3');
+clickSound.volume = 0.3;
+
+// UI Elements
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const volumeDownBtn = document.getElementById('volumeDown');
+const volumeUpBtn = document.getElementById('volumeUp');
+const progressBar = document.getElementById('progressBar');
+const progressContainer = document.getElementById('progressContainer');
+const currentTimeEl = document.getElementById('currentTime');
+const totalTimeEl = document.getElementById('totalTime');
+const songInfoEl = document.getElementById('songInfo');
+const visualizerEl = document.getElementById('visualizer');
+
+// State
+let currentTrackIndex = 0;
+let isPlaying = false;
+let audioContext = null;
+let analyser = null;
+let dataArray = null;
+let animationFrameId = null;
+
+// Initialize visualizer bars
+const barCount = 12;
+for (let i = 0; i < barCount; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'visualizer-bar';
+    visualizerEl.appendChild(bar);
+}
+
+// Format time helper
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Play click sound
+function playClickSound() {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {
+        // Ignore errors if sound file doesn't exist
+    });
+}
+
+// Initialize Web Audio API
+function initAudioContext() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+
+        // Connect audio element to analyser
+        const source = audioContext.createMediaElementSource(audioPlayer);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+    }
+}
+
+// Update visualizer
+function updateVisualizer() {
+    if (analyser && isPlaying) {
+        analyser.getByteFrequencyData(dataArray);
+
+        const bars = visualizerEl.querySelectorAll('.visualizer-bar');
+        const step = Math.floor(dataArray.length / barCount);
+
+        bars.forEach((bar, index) => {
+            const dataIndex = index * step;
+            const value = dataArray[dataIndex];
+            const height = Math.max(2, (value / 255) * 60);
+            bar.style.height = `${height}px`;
+        });
+    } else {
+        // Reset bars when paused
+        const bars = visualizerEl.querySelectorAll('.visualizer-bar');
+        bars.forEach(bar => {
+            const currentHeight = parseInt(bar.style.height) || 2;
+            const newHeight = Math.max(2, currentHeight * 0.9);
+            bar.style.height = `${newHeight}px`;
+        });
+    }
+
+    animationFrameId = requestAnimationFrame(updateVisualizer);
+}
+
+// Load track
+function loadTrack(index) {
+    if (index < 0 || index >= playlist.length) return;
+    
+    currentTrackIndex = index;
+    const track = playlist[currentTrackIndex];
+    audioPlayer.src = track.file;
+    songInfoEl.textContent = `${track.title} - ${track.artist}`;
+    
+    audioPlayer.load();
+}
+
+// Play/Pause
+function togglePlayPause() {
+    playClickSound();
+    
+    if (isPlaying) {
+        audioPlayer.pause();
+        isPlaying = false;
+        playBtn.style.display = 'block';
+        pauseBtn.style.display = 'none';
+    } else {
+        initAudioContext();
+        audioPlayer.play();
+        isPlaying = true;
+        playBtn.style.display = 'none';
+        pauseBtn.style.display = 'block';
+    }
+}
+
+// Previous track
+function playPrevious() {
+    playClickSound();
+    const newIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : playlist.length - 1;
+    loadTrack(newIndex);
+    if (isPlaying) {
+        audioPlayer.play();
+    }
+}
+
+// Next track
+function playNext() {
+    playClickSound();
+    const newIndex = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
+    loadTrack(newIndex);
+    if (isPlaying) {
+        audioPlayer.play();
+    }
+}
+
+// Volume controls
+function adjustVolume(delta) {
+    playClickSound();
+    const currentVolume = audioPlayer.volume;
+    const newVolume = Math.max(0, Math.min(1, currentVolume + delta));
+    audioPlayer.volume = newVolume;
+}
+
+// Seek in track
+function seek(event) {
+    // Validate that duration is loaded and valid
+    if (!audioPlayer.duration || isNaN(audioPlayer.duration) || audioPlayer.duration <= 0) {
+        return; // Cannot seek if duration is not available
+    }
+
+    const rect = progressContainer.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(1, clickX / rect.width)); // Clamp percentage between 0 and 1
+    const newTime = percentage * audioPlayer.duration;
+    
+    // Ensure newTime is within valid bounds
+    if (!isNaN(newTime) && newTime >= 0 && newTime <= audioPlayer.duration) {
+        audioPlayer.currentTime = newTime;
+    }
+}
+
+// Update progress bar
+function updateProgress() {
+    if (audioPlayer.duration) {
+        const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.style.width = `${percentage}%`;
+        currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+    }
+}
+
+// Event Listeners
+playBtn.addEventListener('click', togglePlayPause);
+pauseBtn.addEventListener('click', togglePlayPause);
+prevBtn.addEventListener('click', playPrevious);
+nextBtn.addEventListener('click', playNext);
+volumeDownBtn.addEventListener('click', () => adjustVolume(-0.1));
+volumeUpBtn.addEventListener('click', () => adjustVolume(0.1));
+progressContainer.addEventListener('click', seek);
+
+audioPlayer.addEventListener('timeupdate', updateProgress);
+audioPlayer.addEventListener('loadedmetadata', () => {
+    totalTimeEl.textContent = formatTime(audioPlayer.duration);
+});
+audioPlayer.addEventListener('ended', () => {
+    playNext();
+});
+audioPlayer.addEventListener('play', () => {
+    initAudioContext();
+    isPlaying = true;
+    playBtn.style.display = 'none';
+    pauseBtn.style.display = 'block';
+    if (!animationFrameId) {
+        updateVisualizer();
+    }
+});
+audioPlayer.addEventListener('pause', () => {
+    isPlaying = false;
+    playBtn.style.display = 'block';
+    pauseBtn.style.display = 'none';
+});
+
+// Initialize
+loadTrack(0);
+pauseBtn.style.display = 'none';
+// Start visualizer animation loop
+updateVisualizer();

@@ -1,0 +1,344 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Barlow', sans-serif;
+    background-color: #7EC1D6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Title Section */
+.title-section {
+    align-self: flex-start;
+    margin-bottom: 40px;
+}
+
+.title-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    font-weight: bold;
+    color: #110F05;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.title-subtitle {
+    font-family: 'Barlow', sans-serif;
+    font-size: 18px;
+    color: #110F05;
+    font-weight: 400;
+}
+
+/* MD Player Container */
+.md-player {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    padding: 40px;
+    background: linear-gradient(180deg, #353B4A -1.09%, #7E8DB0 48.49%, #353B4A 100%);
+    border-radius: 30px;
+    filter: drop-shadow(0 8px 12px rgba(3, 23, 39, 0.25)) drop-shadow(0 6px 12px rgba(3, 23, 39, 0.25));
+}
+
+.md-player-inner {
+    background: linear-gradient(171deg, #93A4CE -110.67%, #4A5368 38.28%);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+}
+
+/* LCD Screen */
+.lcd-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.lcd-screen {
+    flex: 1;
+    background: linear-gradient(180deg, #E9F2F3 -2.43%, #B4C4C7 77.57%, #869294 102.43%);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.lcd-interior {
+    background: #000000;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lcd-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.lcd-song-info {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px;
+    color: #FFFFFF;
+    margin: 8px 0;
+}
+
+.lcd-time-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.lcd-time {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.progress-bar-container {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.visualizer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    height: 60px;
+    margin-top: auto;
+}
+
+.visualizer-bar {
+    width: 8px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    min-height: 2px;
+    transition: height 0.1s ease-out;
+}
+
+/* Control Pad */
+.control-pad-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.control-pad {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    background: linear-gradient(180deg, #E9F2F3 -2.43%, #B4C4C7 77.57%, #869294 102.43%);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-pad-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #D0D5D8 0%, #B4B9BC 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.control-button {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #2C2C2C;
+    font-size: 24px;
+    transition: all 0.2s ease;
+    user-select: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.control-button:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+.control-button.pause {
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.control-button.pause:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.control-button.pause:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+.control-button.prev {
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.control-button.prev:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.control-button.prev:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.control-button.next {
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.control-button.next:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.control-button.next:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.control-button.play {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.control-button.play:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.control-button.play:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+/* Volume Controls */
+.volume-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.volume-button {
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(180deg, #E9F2F3 -2.43%, #B4C4C7 77.57%, #869294 102.43%);
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #2C2C2C;
+    cursor: pointer;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.volume-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.volume-button:active {
+    transform: translateY(0);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Device Details */
+.device-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.device-model {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+
+.device-stereo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+/* Hidden audio element */
+#audioPlayer {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title-main {
+        font-size: 48px;
+    }
+
+    .md-player {
+        padding: 20px;
+    }
+
+    .lcd-container {
+        flex-direction: column;
+    }
+
+    .control-pad {
+        width: 150px;
+        height: 150px;
+    }
+}
