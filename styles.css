@@ -12,7 +12,6 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 40px 20px;
-    overflow-x: hidden;
 }
 
 .container {
@@ -54,41 +53,79 @@ body {
     background: linear-gradient(180deg, #353B4A -1.09%, #7E8DB0 48.49%, #353B4A 100%);
     border-radius: 30px;
     filter: drop-shadow(0 8px 12px rgba(3, 23, 39, 0.25)) drop-shadow(0 6px 12px rgba(3, 23, 39, 0.25));
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 .md-player-inner {
     background: linear-gradient(171deg, #93A4CE -110.67%, #4A5368 38.28%);
     border-radius: 20px;
-    padding: 40px 24px 50px 24px;
+    padding: 50px 24px 12px 24px;
     position: relative;
     display: flex;
     flex-direction: column;
-    max-height: 500px;
-    box-sizing: border-box;
-    overflow: hidden;
+    min-height: 100%;
 }
 
 /* LCD Screen */
 .lcd-container {
+    position: relative;
     display: flex;
-    gap: 30px;
-    margin-bottom: 80px;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: auto;
+    min-height: 300px;
     width: 100%;
-    box-sizing: border-box;
+}
+
+/* Screen Layers Container */
+.screen-layers {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    min-height: 280px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Screen Outline Layer (middle) - Screen border/outline */
+.screen-outline-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/screen-outline.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+}
+
+/* Screen Frame Layer (top) - Inner screen frame, should be just below content */
+.screen-frame-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/screen-frame.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
 }
 
 .lcd-screen {
-    flex: 1;
-    min-width: 0;
-    background: linear-gradient(180deg, #E9F2F3 -2.43%, #B4C4C7 77.57%, #869294 102.43%);
+    position: relative;
+    z-index: 10;
+    background: transparent;
     border-radius: 12px;
     padding: 12px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
+    max-width: 500px;
+    width: 100%;
 }
 
 .lcd-interior {
@@ -164,420 +201,22 @@ body {
     transition: height 0.1s ease-out;
 }
 
-/* Control Pad */
-.control-pad-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    flex-shrink: 0;
-    min-width: 0;
-    box-sizing: border-box;
-}
-
-.control-pad {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    background: linear-gradient(180deg, #E9F2F3 -2.43%, #B4C4C7 77.57%, #869294 102.43%);
-    border-radius: 50%;
-    padding: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.control-pad-inner {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #D0D5D8 0%, #B4B9BC 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.control-button {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #2C2C2C;
-    font-size: 24px;
-    transition: all 0.2s ease;
-    user-select: none;
-    background: transparent;
-    border: none;
-    padding: 0;
-}
-
-.control-button:hover {
-    transform: scale(1.1);
-    filter: brightness(1.2);
-}
-
-.control-button:active {
-    transform: scale(0.95);
-}
-
-.control-button.pause {
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-}
-
-.control-button.pause:hover {
-    transform: translateX(-50%) scale(1.1);
-}
-
-.control-button.pause:active {
-    transform: translateX(-50%) scale(0.95);
-}
-
-.control-button.prev {
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.control-button.prev:hover {
-    transform: translateY(-50%) scale(1.1);
-}
-
-.control-button.prev:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-.control-button.next {
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.control-button.next:hover {
-    transform: translateY(-50%) scale(1.1);
-}
-
-.control-button.next:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-.control-button.play {
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.control-button.play:hover {
-    transform: translateX(-50%) scale(1.1);
-}
-
-.control-button.play:active {
-    transform: translateX(-50%) scale(0.95);
-}
-
-/* Volume Controls */
-.volume-controls {
-    display: flex;
-    gap: 12px;
-}
-
-.volume-button {
-    width: 80px;
-    height: 40px;
-    background: linear-gradient(180deg, #E9F2F3 -2.43%, #B4C4C7 77.57%, #869294 102.43%);
-    border-radius: 20px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: #2C2C2C;
-    cursor: pointer;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
-}
-
-.volume-button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-}
-
-.volume-button:active {
-    transform: translateY(0);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Device Details */
-.device-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    bottom: 12px;
-    left: 24px;
-    right: 24px;
-    padding-top: 0;
-    /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
-}
-
-.device-model {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 32px;
-    color: #FFFFFF;
-    text-transform: uppercase;
-}
-
-.device-stereo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-}
-
 /* Hidden audio element */
 #audioPlayer {
     display: none;
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-    body {
-        padding: 20px 10px;
-    }
-
-    .md-player {
-        width: 100%;
-        max-width: 100%;
-        padding: 12px 6px 24px 6px;
-        margin: 0 auto;
-    }
-
-    .md-player-inner {
-        padding: 30px 16px 40px 16px;
-        max-height: none;
-    }
-
-    .lcd-container {
-        gap: 20px;
-        margin-bottom: 60px;
-    }
-
-    .lcd-interior {
-        min-height: 240px;
-        padding: 16px;
-    }
-
-    .control-pad {
-        width: 160px;
-        height: 160px;
-    }
-
-    .device-model {
-        font-size: 24px;
-    }
-
-    .device-stereo {
-        font-size: 18px;
-    }
-}
-
 @media (max-width: 768px) {
-    body {
-        padding: 20px 8px;
-    }
-
     .title-main {
         font-size: 48px;
     }
 
     .md-player {
-        width: 100%;
-        max-width: 100%;
-        padding: 12px 4px 20px 4px;
-        margin: 0;
-    }
-
-    .md-player-inner {
-        padding: 24px 12px 32px 12px;
+        padding: 20px;
     }
 
     .lcd-container {
         flex-direction: column;
-        gap: 24px;
-        margin-bottom: 50px;
-        width: 100%;
-    }
-
-    .lcd-screen {
-        flex: none;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .lcd-interior {
-        min-height: 200px;
-        padding: 14px;
-    }
-
-    .lcd-song-info {
-        font-size: 18px;
-    }
-
-    .control-pad-container {
-        width: 100%;
-        align-items: center;
-        max-width: 100%;
-    }
-
-    .control-pad {
-        width: 150px;
-        height: 150px;
-        max-width: 100%;
-    }
-
-    .volume-button {
-        width: 70px;
-        height: 36px;
-        font-size: 20px;
-    }
-
-    .device-details {
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .device-model {
-        font-size: 20px;
-    }
-
-    .device-stereo {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 15px 4px;
-    }
-
-    .title-main {
-        font-size: 36px;
-    }
-
-    .md-player {
-        width: 100%;
-        max-width: 100%;
-        padding: 10px 2px 16px 2px;
-        margin: 0;
-    }
-
-    .md-player-inner {
-        padding: 20px 8px 28px 8px;
-    }
-
-    .lcd-container {
-        gap: 20px;
-        margin-bottom: 40px;
-        width: 100%;
-    }
-
-    .lcd-interior {
-        min-height: 180px;
-        padding: 12px;
-    }
-
-    .lcd-label {
-        font-size: 12px;
-    }
-
-    .lcd-song-info {
-        font-size: 16px;
-    }
-
-    .lcd-time {
-        font-size: 12px;
-    }
-
-    .control-pad-container {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .control-pad {
-        width: 130px;
-        height: 130px;
-        max-width: 100%;
-    }
-
-    .control-button {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-
-    .volume-button {
-        width: 60px;
-        height: 32px;
-        font-size: 18px;
-    }
-
-    .device-details {
-        left: 8px;
-        right: 8px;
-    }
-
-    .device-model {
-        font-size: 18px;
-    }
-
-    .device-stereo {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 360px) {
-    body {
-        padding: 10px 2px;
-    }
-
-    .md-player {
-        padding: 8px 1px 12px 1px;
-    }
-
-    .md-player-inner {
-        padding: 16px 6px 24px 6px;
-    }
-
-    .control-pad {
-        width: 110px;
-        height: 110px;
-    }
-
-    .control-button {
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
-    }
-
-    .volume-button {
-        width: 50px;
-        height: 28px;
-        font-size: 16px;
-    }
-
-    .device-model {
-        font-size: 16px;
-    }
-
-    .device-stereo {
-        font-size: 12px;
     }
 }
