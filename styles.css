@@ -49,7 +49,7 @@ body {
     width: 100%;
     max-width: 800px;
     position: relative;
-    padding: 40px;
+    padding: 16px 8px 30px 8px;
     background: linear-gradient(180deg, #353B4A -1.09%, #7E8DB0 48.49%, #353B4A 100%);
     border-radius: 30px;
     filter: drop-shadow(0 8px 12px rgba(3, 23, 39, 0.25)) drop-shadow(0 6px 12px rgba(3, 23, 39, 0.25));
@@ -58,7 +58,7 @@ body {
 .md-player-inner {
     background: linear-gradient(171deg, #93A4CE -110.67%, #4A5368 38.28%);
     border-radius: 20px;
-    padding: 30px;
+    padding: 50px 24px 50px 24px;
     position: relative;
 }
 
@@ -301,19 +301,19 @@ body {
     align-items: center;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
 }
 
 .device-model {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
+    font-size: 32px;
     color: #FFFFFF;
     text-transform: uppercase;
 }
 
 .device-stereo {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
+    font-size: 24px;
     color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
 }
