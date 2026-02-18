@@ -129,7 +129,18 @@ body {
 }
 
 .lcd-interior {
-    background: #000000;
+    background-image: url('assets/screen-main.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    mask-image: url('assets/screen-shape-mask.png');
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('assets/screen-shape-mask.png');
+    -webkit-mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
     border-radius: 8px;
     padding: 20px;
     min-height: 280px;
