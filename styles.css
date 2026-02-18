@@ -97,6 +97,13 @@ body {
     gap: 12px;
 }
 
+.screen-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 365px;
+}
+
 .lcd-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 14px;
