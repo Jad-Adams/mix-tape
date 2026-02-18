@@ -66,10 +66,10 @@ body {
 }
 
 /* LCD Screen */
-.lcd-container {
+.screen-container {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: auto;
     min-height: 300px;
@@ -77,22 +77,20 @@ body {
 }
 
 
-.lcd-screen {
+.screen {
     position: relative;
     z-index: 10;
     background: transparent;
-    border-radius: 12px;
     padding: 12px;
-    max-width: 500px;
     width: 100%;
 }
 
-.lcd-interior {
-    background-image: url('assets/screen-main.png');
+.screen-outline {
+    background-image: url('assets/screen-main-2.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    padding: 40px 18px;
+    padding: 50px 50px;
     min-height: 280px;
     display: flex;
     flex-direction: column;
