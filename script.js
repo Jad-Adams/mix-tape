@@ -7,16 +7,8 @@ const playlist = [
 
 // Audio elements
 const audioPlayer = document.getElementById('audioPlayer');
-const clickSound = new Audio('sounds/click.mp3');
-clickSound.volume = 0.3;
 
 // UI Elements
-const playBtn = document.getElementById('playBtn');
-const pauseBtn = document.getElementById('pauseBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const volumeDownBtn = document.getElementById('volumeDown');
-const volumeUpBtn = document.getElementById('volumeUp');
 const progressBar = document.getElementById('progressBar');
 const progressContainer = document.getElementById('progressContainer');
 const currentTimeEl = document.getElementById('currentTime');
@@ -45,14 +37,6 @@ function formatTime(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-}
-
-// Play click sound
-function playClickSound() {
-    clickSound.currentTime = 0;
-    clickSound.play().catch(() => {
-        // Ignore errors if sound file doesn't exist
-    });
 }
 
 // Initialize Web Audio API
@@ -110,37 +94,8 @@ function loadTrack(index) {
     audioPlayer.load();
 }
 
-// Play/Pause
-function togglePlayPause() {
-    playClickSound();
-    
-    if (isPlaying) {
-        audioPlayer.pause();
-        isPlaying = false;
-        playBtn.style.display = 'block';
-        pauseBtn.style.display = 'none';
-    } else {
-        initAudioContext();
-        audioPlayer.play();
-        isPlaying = true;
-        playBtn.style.display = 'none';
-        pauseBtn.style.display = 'block';
-    }
-}
-
-// Previous track
-function playPrevious() {
-    playClickSound();
-    const newIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : playlist.length - 1;
-    loadTrack(newIndex);
-    if (isPlaying) {
-        audioPlayer.play();
-    }
-}
-
 // Next track
 function playNext() {
-    playClickSound();
     const newIndex = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
     loadTrack(newIndex);
     if (isPlaying) {
@@ -148,18 +103,10 @@ function playNext() {
     }
 }
 
-// Volume controls
-function adjustVolume(delta) {
-    playClickSound();
-    const currentVolume = audioPlayer.volume;
-    const newVolume = Math.max(0, Math.min(1, currentVolume + delta));
-    audioPlayer.volume = newVolume;
-}
-
 // Seek in track
 function seek(event) {
     // Validate that duration is loaded and valid
-    if (!audioPlayer.duration || isNaN(audioPlayer.duration) || audioPlayer.duration <= 0) {
+    if (!audioPlayer.duration || Number.isNaN(audioPlayer.duration) || audioPlayer.duration <= 0) {
         return; // Cannot seek if duration is not available
     }
 
@@ -169,7 +116,7 @@ function seek(event) {
     const newTime = percentage * audioPlayer.duration;
     
     // Ensure newTime is within valid bounds
-    if (!isNaN(newTime) && newTime >= 0 && newTime <= audioPlayer.duration) {
+    if (!Number.isNaN(newTime) && newTime >= 0 && newTime <= audioPlayer.duration) {
         audioPlayer.currentTime = newTime;
     }
 }
@@ -184,13 +131,7 @@ function updateProgress() {
 }
 
 // Event Listeners
-playBtn.addEventListener('click', togglePlayPause);
-pauseBtn.addEventListener('click', togglePlayPause);
-prevBtn.addEventListener('click', playPrevious);
-nextBtn.addEventListener('click', playNext);
-volumeDownBtn.addEventListener('click', () => adjustVolume(-0.1));
-volumeUpBtn.addEventListener('click', () => adjustVolume(0.1));
-progressContainer.addEventListener('click', seek);
+if (progressContainer) progressContainer.addEventListener('click', seek);
 
 audioPlayer.addEventListener('timeupdate', updateProgress);
 audioPlayer.addEventListener('loadedmetadata', () => {
@@ -202,20 +143,15 @@ audioPlayer.addEventListener('ended', () => {
 audioPlayer.addEventListener('play', () => {
     initAudioContext();
     isPlaying = true;
-    playBtn.style.display = 'none';
-    pauseBtn.style.display = 'block';
     if (!animationFrameId) {
         updateVisualizer();
     }
 });
 audioPlayer.addEventListener('pause', () => {
     isPlaying = false;
-    playBtn.style.display = 'block';
-    pauseBtn.style.display = 'none';
 });
 
 // Initialize
 loadTrack(0);
-pauseBtn.style.display = 'none';
 // Start visualizer animation loop
 updateVisualizer();
