@@ -46,6 +46,7 @@ body {
 
 /* MD Player Container */
 .md-player {
+    height: 560px;
     width: 100%;
     max-width: 800px;
     position: relative;
@@ -137,11 +138,11 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 70%;
-    height: 70%;
+    width: 260px;
+    height: 260px;
     position: absolute;
-    right: -110px;
-    bottom: 36px;
+    right: 35px;
+    top: 73px;
 }
 
 /* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
@@ -168,6 +169,12 @@ body {
 .transport-btn-play {
     grid-column: 2;
     grid-row: 3;
+}
+
+.transport-btn-play img {
+    width: 32px;
+    height: 32px;
+    transform: translateX(2px);   /* or 1px if you prefer */
 }
 
 .transport-btn-prev {
@@ -222,7 +229,7 @@ body {
 .volume-controls {
     position: absolute;
     left: 50%;
-    bottom: 8px;
+    top: 280px;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -244,7 +251,7 @@ body {
 .volume-btn img {
     display: block;
     width: auto;
-    height: 32px;
+    height: 40px;
     pointer-events: none;
 }
 
