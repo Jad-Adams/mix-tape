@@ -147,6 +147,7 @@ body {
     position: absolute;
     right: 35px;
     top: 73px;
+    z-index: 15;
 }
 
 /* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
