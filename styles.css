@@ -1,3 +1,6 @@
+/* DIN typefaces: DIN Alternate (CDN Fonts), D-DIN Condensed (CDN Fonts).
+   Use: font-family: 'DIN Alternate', sans-serif;
+        font-family: 'D-DIN Condensed', sans-serif; */
 * {
     margin: 0;
     padding: 0;
