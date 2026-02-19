@@ -94,13 +94,41 @@ function loadTrack(index) {
     audioPlayer.load();
 }
 
+// Previous track
+function playPrev() {
+    const newIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : playlist.length - 1;
+    loadTrack(newIndex);
+    if (isPlaying) {
+        audioPlayer.play().catch(() => {
+            isPlaying = false;
+            if (typeof updatePlayPauseIcon === 'function') updatePlayPauseIcon();
+        });
+    }
+}
+
 // Next track
 function playNext() {
     const newIndex = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
     loadTrack(newIndex);
     if (isPlaying) {
-        audioPlayer.play();
+        audioPlayer.play().catch(() => {
+            isPlaying = false;
+            if (typeof updatePlayPauseIcon === 'function') updatePlayPauseIcon();
+        });
     }
+}
+
+// Play
+function playAudio() {
+    audioPlayer.play().catch(() => {
+        isPlaying = false;
+        if (typeof updatePlayPauseIcon === 'function') updatePlayPauseIcon();
+    });
+}
+
+// Pause
+function pauseAudio() {
+    audioPlayer.pause();
 }
 
 // Seek in track
@@ -130,6 +158,41 @@ function updateProgress() {
     }
 }
 
+// Control buttons (4 separate: Play, Pause, Prev, Next)
+const btnPlay = document.getElementById('btnPlay');
+const btnPause = document.getElementById('btnPause');
+const btnPrev = document.getElementById('btnPrev');
+const btnNext = document.getElementById('btnNext');
+
+function updatePlayPauseIcon() {
+    if (!btnPlay || !btnPause) return;
+    if (isPlaying) {
+        btnPause.classList.remove('transport-btn-disabled');
+        btnPlay.classList.add('transport-btn-disabled');
+    } else {
+        btnPlay.classList.remove('transport-btn-disabled');
+        btnPause.classList.add('transport-btn-disabled');
+    }
+}
+
+if (btnPlay) btnPlay.addEventListener('click', playAudio);
+if (btnPause) btnPause.addEventListener('click', pauseAudio);
+if (btnPrev) btnPrev.addEventListener('click', playPrev);
+if (btnNext) btnNext.addEventListener('click', playNext);
+
+audioPlayer.addEventListener('play', () => {
+    initAudioContext();
+    isPlaying = true;
+    updatePlayPauseIcon();
+    if (!animationFrameId) {
+        updateVisualizer();
+    }
+});
+audioPlayer.addEventListener('pause', () => {
+    isPlaying = false;
+    updatePlayPauseIcon();
+});
+
 // Event Listeners
 if (progressContainer) progressContainer.addEventListener('click', seek);
 
@@ -140,18 +203,9 @@ audioPlayer.addEventListener('loadedmetadata', () => {
 audioPlayer.addEventListener('ended', () => {
     playNext();
 });
-audioPlayer.addEventListener('play', () => {
-    initAudioContext();
-    isPlaying = true;
-    if (!animationFrameId) {
-        updateVisualizer();
-    }
-});
-audioPlayer.addEventListener('pause', () => {
-    isPlaying = false;
-});
 
 // Initialize
 loadTrack(0);
+updatePlayPauseIcon();
 // Start visualizer animation loop
 updateVisualizer();
