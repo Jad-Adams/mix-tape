@@ -158,11 +158,26 @@ function updateProgress() {
     }
 }
 
+// Volume step and bounds
+const VOLUME_STEP = 0.1;
+const MIN_VOLUME = 0;
+const MAX_VOLUME = 1;
+
+function volumeDown() {
+    audioPlayer.volume = Math.max(MIN_VOLUME, audioPlayer.volume - VOLUME_STEP);
+}
+
+function volumeUp() {
+    audioPlayer.volume = Math.min(MAX_VOLUME, audioPlayer.volume + VOLUME_STEP);
+}
+
 // Control buttons (4 separate: Play, Pause, Prev, Next)
 const btnPlay = document.getElementById('btnPlay');
 const btnPause = document.getElementById('btnPause');
 const btnPrev = document.getElementById('btnPrev');
 const btnNext = document.getElementById('btnNext');
+const btnVolumeDown = document.getElementById('btnVolumeDown');
+const btnVolumeUp = document.getElementById('btnVolumeUp');
 
 function updatePlayPauseIcon() {
     if (!btnPlay || !btnPause) return;
@@ -179,6 +194,8 @@ if (btnPlay) btnPlay.addEventListener('click', playAudio);
 if (btnPause) btnPause.addEventListener('click', pauseAudio);
 if (btnPrev) btnPrev.addEventListener('click', playPrev);
 if (btnNext) btnNext.addEventListener('click', playNext);
+if (btnVolumeDown) btnVolumeDown.addEventListener('click', volumeDown);
+if (btnVolumeUp) btnVolumeUp.addEventListener('click', volumeUp);
 
 audioPlayer.addEventListener('play', () => {
     initAudioContext();
