@@ -83,41 +83,34 @@ function updateVisualizer() {
         analyser.getByteFrequencyData(dataArray);
 
         const bars = visualizerEl.querySelectorAll('.visualizer-bar');
-        
-        // Use logarithmic distribution for better frequency spread
-        // This ensures higher frequency bars get more interesting data
+        const numBins = dataArray.length;
+
+        // Equal bands: each bar gets an equal slice of the frequency spectrum.
+        // This stops the first bar from being tied to the single hottest (bass) bin
+        // and gives the last bars a full band of high frequencies so they move more.
+        const binsPerBar = numBins / barCount;
+
         bars.forEach((bar, index) => {
-            // Map bar index to frequency using logarithmic scale
-            // This gives us better coverage across the frequency spectrum
-            const normalizedIndex = index / (barCount - 1);
-            
-            // Use exponential mapping to spread bars across frequency range
-            // Lower bars get lower frequencies, higher bars get higher frequencies
-            const frequencyPosition = Math.pow(normalizedIndex, 0.5); // Square root for smoother distribution
-            
-            // Map to actual data array index
-            const dataIndex = Math.floor(frequencyPosition * (dataArray.length - 1));
-            
-            // Average nearby frequencies for smoother, more stable visualization
-            const windowSize = 3;
+            const bandStart = Math.floor(index * binsPerBar);
+            const bandEnd = Math.floor((index + 1) * binsPerBar);
             let sum = 0;
             let count = 0;
-            for (let i = Math.max(0, dataIndex - windowSize); i <= Math.min(dataArray.length - 1, dataIndex + windowSize); i++) {
+            for (let i = bandStart; i < bandEnd && i < numBins; i++) {
                 sum += dataArray[i];
                 count++;
             }
-            const avgValue = sum / count;
-            
-            // Scale the value with some amplification for higher frequencies to make them more visible
-            // Lower bars (bass) get normal scaling, higher bars get slight boost
-            const boostFactor = 1 + (normalizedIndex * 0.4); // Up to 40% boost for higher frequencies
-            const adjustedValue = Math.min(255, avgValue * boostFactor);
-            
-            // Calculate height with minimum threshold to keep bars lively
-            const minHeight = 3 + (normalizedIndex * 2); // Higher bars have slightly higher minimum
+            const avgValue = count > 0 ? sum / count : 0;
+
+            // Balance: bass (first bars) is naturally much louder, so we tilt the scale
+            // so low-index bars are scaled down and high-index bars scaled up for even movement.
+            const normalizedIndex = index / (barCount - 1);
+            const tilt = 0.6 + 0.5 * normalizedIndex; // 0.6 for first bar, 1.1 for last
+            const adjustedValue = Math.min(255, avgValue * tilt);
+
+            const minHeight = 2;
             const maxHeight = 60;
             const height = Math.max(minHeight, (adjustedValue / 255) * maxHeight);
-            
+
             bar.style.height = `${height}px`;
         });
     } else {
