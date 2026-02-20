@@ -159,7 +159,7 @@ body {
 }
 
 /* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
-.transport-controls {
+.playback-controls {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -174,33 +174,33 @@ body {
     min-height: clamp(100px, 20vw, 140px);
 }
 
-.transport-btn-pause {
+.playback-controls-btn-pause {
     grid-column: 2;
     grid-row: 1;
 }
 
-.transport-btn-play {
+.playback-controls-btn-play {
     grid-column: 2;
     grid-row: 3;
 }
 
-.transport-btn-play img {
+.playback-controls-btn-play img {
     width: 32px;
     height: 32px;
     transform: translateX(2px);   /* or 1px if you prefer */
 }
 
-.transport-btn-prev {
+.playback-controls-btn-prev {
     grid-column: 1;
     grid-row: 2;
 }
 
-.transport-btn-next {
+.playback-controls-btn-next {
     grid-column: 3;
     grid-row: 2;
 }
 
-.transport-btn {
+.playback-controls-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -214,31 +214,31 @@ body {
     transition: background 0.15s ease, transform 0.1s ease;
 }
 
-.transport-btn:hover {
+.playback-controls-btn:hover {
     background: rgba(255, 255, 255, 0.12);
 }
 
-.transport-btn:active {
+.playback-controls-btn:active {
     transform: scale(0.96);
 }
 
-.transport-btn-play img {
+.playback-controls-btn-play img {
     width: 32px;
     height: 32px;
 }
 
-.transport-btn img {
+.playback-controls-btn img {
     display: block;
     pointer-events: none;
 }
 
-.transport-btn-disabled {
+.playback-controls-btn-disabled {
     opacity: 0.4;
     cursor: default;
     pointer-events: none;
 }
 
-/* Volume buttons: PNG assets, fixed at bottom of control area so transport stays put */
+/* Volume buttons: PNG assets, fixed at bottom of control area so playback-controls stays put */
 .volume-controls {
     position: absolute;
     left: 50%;
@@ -412,18 +412,18 @@ body {
         margin-top: 16px;
     }
 
-    .transport-controls {
+    .playback-controls {
         gap: 10px;
         min-width: 100px;
         min-height: 100px;
     }
 
-    .transport-btn {
+    .playback-controls-btn {
         width: 36px;
         height: 36px;
     }
 
-    .transport-btn img {
+    .playback-controls-btn img {
         width: 24px;
         height: 24px;
     }
@@ -432,7 +432,4 @@ body {
         height: 32px;
     }
 
-    .lcd-container {
-        flex-direction: column;
-    }
 }

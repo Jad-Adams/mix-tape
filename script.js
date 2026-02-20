@@ -182,11 +182,11 @@ const btnVolumeUp = document.getElementById('btnVolumeUp');
 function updatePlayPauseIcon() {
     if (!btnPlay || !btnPause) return;
     if (isPlaying) {
-        btnPause.classList.remove('transport-btn-disabled');
-        btnPlay.classList.add('transport-btn-disabled');
+        btnPause.classList.remove('playback-controls-btn-disabled');
+        btnPlay.classList.add('playback-controls-btn-disabled');
     } else {
-        btnPlay.classList.remove('transport-btn-disabled');
-        btnPause.classList.add('transport-btn-disabled');
+        btnPlay.classList.remove('playback-controls-btn-disabled');
+        btnPause.classList.add('playback-controls-btn-disabled');
     }
 }
 
