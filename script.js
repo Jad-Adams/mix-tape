@@ -83,12 +83,41 @@ function updateVisualizer() {
         analyser.getByteFrequencyData(dataArray);
 
         const bars = visualizerEl.querySelectorAll('.visualizer-bar');
-        const step = Math.floor(dataArray.length / barCount);
-
+        
+        // Use logarithmic distribution for better frequency spread
+        // This ensures higher frequency bars get more interesting data
         bars.forEach((bar, index) => {
-            const dataIndex = index * step;
-            const value = dataArray[dataIndex];
-            const height = Math.max(2, (value / 255) * 60);
+            // Map bar index to frequency using logarithmic scale
+            // This gives us better coverage across the frequency spectrum
+            const normalizedIndex = index / (barCount - 1);
+            
+            // Use exponential mapping to spread bars across frequency range
+            // Lower bars get lower frequencies, higher bars get higher frequencies
+            const frequencyPosition = Math.pow(normalizedIndex, 0.5); // Square root for smoother distribution
+            
+            // Map to actual data array index
+            const dataIndex = Math.floor(frequencyPosition * (dataArray.length - 1));
+            
+            // Average nearby frequencies for smoother, more stable visualization
+            const windowSize = 3;
+            let sum = 0;
+            let count = 0;
+            for (let i = Math.max(0, dataIndex - windowSize); i <= Math.min(dataArray.length - 1, dataIndex + windowSize); i++) {
+                sum += dataArray[i];
+                count++;
+            }
+            const avgValue = sum / count;
+            
+            // Scale the value with some amplification for higher frequencies to make them more visible
+            // Lower bars (bass) get normal scaling, higher bars get slight boost
+            const boostFactor = 1 + (normalizedIndex * 0.4); // Up to 40% boost for higher frequencies
+            const adjustedValue = Math.min(255, avgValue * boostFactor);
+            
+            // Calculate height with minimum threshold to keep bars lively
+            const minHeight = 3 + (normalizedIndex * 2); // Higher bars have slightly higher minimum
+            const maxHeight = 60;
+            const height = Math.max(minHeight, (adjustedValue / 255) * maxHeight);
+            
             bar.style.height = `${height}px`;
         });
     } else {
