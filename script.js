@@ -251,7 +251,14 @@ audioPlayer.addEventListener('loadedmetadata', () => {
     totalTimeEl.textContent = formatTime(audioPlayer.duration);
 });
 audioPlayer.addEventListener('ended', () => {
-    playNext();
+    // When a track ends, automatically play the next one
+    const newIndex = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
+    loadTrack(newIndex);
+    audioPlayer.play().catch(() => {
+        isPlaying = false;
+        updatePlayPauseIcon();
+        updateLcdLabel();
+    });
 });
 
 // Initialize
