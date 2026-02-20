@@ -1,8 +1,29 @@
-// Playlist (placeholder paths - user will add actual MP3 files)
+// Playlist with all tracks
 const playlist = [
-    { title: 'The Pot', artist: 'Tool', file: 'music/track1.mp3' },
-    { title: 'Song 2', artist: 'Artist 2', file: 'music/track2.mp3' },
-    { title: 'Song 3', artist: 'Artist 3', file: 'music/track3.mp3' }
+    { title: 'Key', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 01 Key.mp3' },
+    { title: 'Door', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 02 Door.mp3' },
+    { title: 'Subwoofer Lullaby', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 03 Subwoofer Lullaby.mp3' },
+    { title: 'Death', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 04 Death.mp3' },
+    { title: 'Living Mice', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 05 Living Mice.mp3' },
+    { title: 'Moog City', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 06 Moog City.mp3' },
+    { title: 'Haggstrom', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 07 Haggstrom.mp3' },
+    { title: 'Minecraft', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 08 Minecraft.mp3' },
+    { title: 'Oxygène', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 09 Oxygène.mp3' },
+    { title: 'Équinoxe', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 10 Équinoxe.mp3' },
+    { title: 'Mice on Venus', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 11 Mice on Venus.mp3' },
+    { title: 'Dry Hands', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 12 Dry Hands.mp3' },
+    { title: 'Wet Hands', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 13 Wet Hands.mp3' },
+    { title: 'Clark', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 14 Clark.mp3' },
+    { title: 'Chris', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 15 Chris.mp3' },
+    { title: 'Thirteen', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 16 Thirteen.mp3' },
+    { title: 'Excuse', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 17 Excuse.mp3' },
+    { title: 'Sweden', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 18 Sweden.mp3' },
+    { title: 'Cat', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 19 Cat.mp3' },
+    { title: 'Dog', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 20 Dog.mp3' },
+    { title: 'Danny', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 21 Danny.mp3' },
+    { title: 'Beginning', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 22 Beginning.mp3' },
+    { title: 'Droopy likes ricochet', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 23 Droopy likes ricochet.mp3' },
+    { title: 'Droopy likes your face', artist: 'C418', file: 'music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 24 Droopy likes your face.mp3' }
 ];
 
 // Audio elements
@@ -15,6 +36,7 @@ const currentTimeEl = document.getElementById('currentTime');
 const totalTimeEl = document.getElementById('totalTime');
 const songInfoEl = document.getElementById('songInfo');
 const visualizerEl = document.getElementById('visualizer');
+const lcdLabelEl = document.getElementById('lcdLabel');
 
 // State
 let currentTrackIndex = 0;
@@ -61,12 +83,41 @@ function updateVisualizer() {
         analyser.getByteFrequencyData(dataArray);
 
         const bars = visualizerEl.querySelectorAll('.visualizer-bar');
-        const step = Math.floor(dataArray.length / barCount);
-
+        
+        // Use logarithmic distribution for better frequency spread
+        // This ensures higher frequency bars get more interesting data
         bars.forEach((bar, index) => {
-            const dataIndex = index * step;
-            const value = dataArray[dataIndex];
-            const height = Math.max(2, (value / 255) * 60);
+            // Map bar index to frequency using logarithmic scale
+            // This gives us better coverage across the frequency spectrum
+            const normalizedIndex = index / (barCount - 1);
+            
+            // Use exponential mapping to spread bars across frequency range
+            // Lower bars get lower frequencies, higher bars get higher frequencies
+            const frequencyPosition = Math.pow(normalizedIndex, 0.5); // Square root for smoother distribution
+            
+            // Map to actual data array index
+            const dataIndex = Math.floor(frequencyPosition * (dataArray.length - 1));
+            
+            // Average nearby frequencies for smoother, more stable visualization
+            const windowSize = 3;
+            let sum = 0;
+            let count = 0;
+            for (let i = Math.max(0, dataIndex - windowSize); i <= Math.min(dataArray.length - 1, dataIndex + windowSize); i++) {
+                sum += dataArray[i];
+                count++;
+            }
+            const avgValue = sum / count;
+            
+            // Scale the value with some amplification for higher frequencies to make them more visible
+            // Lower bars (bass) get normal scaling, higher bars get slight boost
+            const boostFactor = 1 + (normalizedIndex * 0.4); // Up to 40% boost for higher frequencies
+            const adjustedValue = Math.min(255, avgValue * boostFactor);
+            
+            // Calculate height with minimum threshold to keep bars lively
+            const minHeight = 3 + (normalizedIndex * 2); // Higher bars have slightly higher minimum
+            const maxHeight = 60;
+            const height = Math.max(minHeight, (adjustedValue / 255) * maxHeight);
+            
             bar.style.height = `${height}px`;
         });
     } else {
@@ -120,6 +171,10 @@ function playNext() {
 
 // Play
 function playAudio() {
+    // If no track is loaded, load the first track
+    if (!audioPlayer.src || audioPlayer.src === '') {
+        loadTrack(0);
+    }
     audioPlayer.play().catch(() => {
         isPlaying = false;
         if (typeof updatePlayPauseIcon === 'function') updatePlayPauseIcon();
@@ -181,12 +236,17 @@ const btnVolumeUp = document.getElementById('btnVolumeUp');
 
 function updatePlayPauseIcon() {
     if (!btnPlay || !btnPause) return;
+    // Both buttons should always be visible
+    btnPlay.style.display = 'flex';
+    btnPause.style.display = 'flex';
+}
+
+function updateLcdLabel() {
+    if (!lcdLabelEl) return;
     if (isPlaying) {
-        btnPause.classList.remove('playback-controls-btn-disabled');
-        btnPlay.classList.add('playback-controls-btn-disabled');
+        lcdLabelEl.textContent = 'NOW PLAYING';
     } else {
-        btnPlay.classList.remove('playback-controls-btn-disabled');
-        btnPause.classList.add('playback-controls-btn-disabled');
+        lcdLabelEl.textContent = 'NOW PLAYING - Paused';
     }
 }
 
@@ -201,6 +261,7 @@ audioPlayer.addEventListener('play', () => {
     initAudioContext();
     isPlaying = true;
     updatePlayPauseIcon();
+    updateLcdLabel();
     if (!animationFrameId) {
         updateVisualizer();
     }
@@ -208,6 +269,7 @@ audioPlayer.addEventListener('play', () => {
 audioPlayer.addEventListener('pause', () => {
     isPlaying = false;
     updatePlayPauseIcon();
+    updateLcdLabel();
 });
 
 // Event Listeners
@@ -218,11 +280,29 @@ audioPlayer.addEventListener('loadedmetadata', () => {
     totalTimeEl.textContent = formatTime(audioPlayer.duration);
 });
 audioPlayer.addEventListener('ended', () => {
-    playNext();
+    // When a track ends, automatically play the next one
+    // If it's the last track, loop back to the first but pause
+    if (currentTrackIndex < playlist.length - 1) {
+        // Not the last track - play next track
+        const newIndex = currentTrackIndex + 1;
+        loadTrack(newIndex);
+        audioPlayer.play().catch(() => {
+            isPlaying = false;
+            updatePlayPauseIcon();
+            updateLcdLabel();
+        });
+    } else {
+        // Last track ended - loop back to first track but keep paused
+        loadTrack(0);
+        isPlaying = false;
+        updatePlayPauseIcon();
+        updateLcdLabel();
+    }
 });
 
 // Initialize
 loadTrack(0);
 updatePlayPauseIcon();
+updateLcdLabel();
 // Start visualizer animation loop
 updateVisualizer();
