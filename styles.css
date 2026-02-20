@@ -12,7 +12,8 @@
 
 body {
     font-family: 'Barlow', sans-serif;
-    background-color: #7EC1D6;
+    /* background-color: #7EC1D6; */
+    background-color:hsl(143, 52.70%, 81.80%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
