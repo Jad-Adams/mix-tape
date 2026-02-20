@@ -281,13 +281,23 @@ audioPlayer.addEventListener('loadedmetadata', () => {
 });
 audioPlayer.addEventListener('ended', () => {
     // When a track ends, automatically play the next one
-    const newIndex = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
-    loadTrack(newIndex);
-    audioPlayer.play().catch(() => {
+    // If it's the last track, loop back to the first but pause
+    if (currentTrackIndex < playlist.length - 1) {
+        // Not the last track - play next track
+        const newIndex = currentTrackIndex + 1;
+        loadTrack(newIndex);
+        audioPlayer.play().catch(() => {
+            isPlaying = false;
+            updatePlayPauseIcon();
+            updateLcdLabel();
+        });
+    } else {
+        // Last track ended - loop back to first track but keep paused
+        loadTrack(0);
         isPlaying = false;
         updatePlayPauseIcon();
         updateLcdLabel();
-    });
+    }
 });
 
 // Initialize
