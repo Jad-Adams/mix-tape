@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radio Jads - MIXTAPE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400&family=Barlow+Condensed:wght@400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/din-alternate" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/d-din" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -46,19 +41,21 @@
                 </div>
 
                 <div class="control-container">
-                    <div class="transport-controls">
-                        <button type="button" class="transport-btn transport-btn-pause" id="btnPause" aria-label="Pause">
+                    <div class="control-knob-area">
+                        <div class="playback-controls">
+                        <button type="button" class="playback-controls-btn playback-controls-btn-pause" id="btnPause" aria-label="Pause">
                             <img src="assets/icon-pause.svg" alt="" width="28" height="28">
                         </button>
-                        <button type="button" class="transport-btn transport-btn-play" id="btnPlay" aria-label="Play">
+                        <button type="button" class="playback-controls-btn playback-controls-btn-play" id="btnPlay" aria-label="Play">
                             <img src="assets/icon-play.svg" alt="" width="28" height="28">
                         </button>
-                        <button type="button" class="transport-btn transport-btn-prev" id="btnPrev" aria-label="Previous track">
+                        <button type="button" class="playback-controls-btn playback-controls-btn-prev" id="btnPrev" aria-label="Previous track">
                             <img src="assets/icon-skip-back.svg" alt="" width="28" height="28">
                         </button>
-                        <button type="button" class="transport-btn transport-btn-next" id="btnNext" aria-label="Next track">
+                        <button type="button" class="playback-controls-btn playback-controls-btn-next" id="btnNext" aria-label="Next track">
                             <img src="assets/icon-skip-forward.svg" alt="" width="28" height="28">
                         </button>
+                        </div>
                     </div>
                     <div class="volume-controls">
                         <button type="button" class="volume-btn volume-btn-down" id="btnVolumeDown" aria-label="Volume down">
@@ -69,7 +66,10 @@
                         </button>
                     </div>
                 </div>
-                <!-- <p>MD PLAYER MP-1337</p> -->
+                <div class="md-player-text">
+                    <p class="md-player-label">MD PLAYER MP-1337</p>
+                    <p class="md-player-stereo">STEREO</p>
+                </div>
             </div>
         </div>
     </div>

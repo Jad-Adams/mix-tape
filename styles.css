@@ -1,6 +1,9 @@
-/* DIN typefaces: DIN Alternate (CDN Fonts), D-DIN Condensed (CDN Fonts).
-   Use: font-family: 'DIN Alternate', sans-serif;
-        font-family: 'D-DIN Condensed', sans-serif; */
+/* Fonts: load once here, use via font-family below */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400&family=Barlow+Condensed:wght@400&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.cdnfonts.com/css/din-alternate');
+@import url('https://fonts.cdnfonts.com/css/d-din');
+
+/* DIN typefaces available: 'DIN Alternate', 'D-DIN Condensed' */
 * {
     margin: 0;
     padding: 0;
@@ -138,20 +141,25 @@ body {
 }
 
 .control-container {
-    background-image: url('assets/booton.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 260px;
-    height: 260px;
+    width: clamp(180px, 32vw, 260px);
+    height: clamp(180px, 32vw, 260px);
     position: absolute;
-    right: 35px;
-    top: 73px;
+    right: clamp(20px, 4vw, 35px);
+    top: clamp(50px, 13vh, 73px);
     z-index: 15;
 }
 
+.control-knob-area {
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/control-knob.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 /* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
-.transport-controls {
+.playback-controls {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -161,38 +169,38 @@ body {
     grid-template-rows: auto 1fr auto;
     align-items: center;
     justify-items: center;
-    gap: 20px;
-    min-width: 140px;
-    min-height: 140px;
+    gap: clamp(12px, 1.5vw, 20px);
+    min-width: clamp(100px, 20vw, 140px);
+    min-height: clamp(100px, 20vw, 140px);
 }
 
-.transport-btn-pause {
+.playback-controls-btn-pause {
     grid-column: 2;
     grid-row: 1;
 }
 
-.transport-btn-play {
+.playback-controls-btn-play {
     grid-column: 2;
     grid-row: 3;
 }
 
-.transport-btn-play img {
+.playback-controls-btn-play img {
     width: 32px;
     height: 32px;
     transform: translateX(2px);   /* or 1px if you prefer */
 }
 
-.transport-btn-prev {
+.playback-controls-btn-prev {
     grid-column: 1;
     grid-row: 2;
 }
 
-.transport-btn-next {
+.playback-controls-btn-next {
     grid-column: 3;
     grid-row: 2;
 }
 
-.transport-btn {
+.playback-controls-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -206,35 +214,35 @@ body {
     transition: background 0.15s ease, transform 0.1s ease;
 }
 
-.transport-btn:hover {
+.playback-controls-btn:hover {
     background: rgba(255, 255, 255, 0.12);
 }
 
-.transport-btn:active {
+.playback-controls-btn:active {
     transform: scale(0.96);
 }
 
-.transport-btn-play img {
+.playback-controls-btn-play img {
     width: 32px;
     height: 32px;
 }
 
-.transport-btn img {
+.playback-controls-btn img {
     display: block;
     pointer-events: none;
 }
 
-.transport-btn-disabled {
+.playback-controls-btn-disabled {
     opacity: 0.4;
     cursor: default;
     pointer-events: none;
 }
 
-/* Volume buttons: PNG assets, fixed at bottom of control area so transport stays put */
+/* Volume buttons: PNG assets, fixed at bottom of control area so playback-controls stays put */
 .volume-controls {
     position: absolute;
     left: 50%;
-    top: 280px;
+    top: clamp(200px, 35vw, 280px);
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -308,17 +316,120 @@ body {
     display: none;
 }
 
-/* Responsive */
+/* MD Player Text */
+.md-player-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.md-player-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.md-player-stereo {
+    font-family: 'DIN Alternate', sans-serif;
+    font-size: 24px;
+    color:hsl(0, 0.00%, 60.00%);
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+}
+
+/* Stacked layout: screen on top, controls below (before overlap at ~853px) */
+@media (max-width: 900px) {
+    .md-player {
+        height: auto;
+        min-height: 560px;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 12px 24px;
+    }
+
+    .md-player-inner {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px 16px;
+    }
+
+    .screen-container {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        min-height: 200px;
+    }
+
+    .screen-outline {
+        min-height: 200px;
+        padding: 30px 20px 20px 30px;
+    }
+
+    .control-container {
+        position: static;
+        width: auto;
+        height: auto;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 24px;
+    }
+
+    .control-knob-area {
+        position: relative;
+        inset: unset;
+        width: clamp(140px, 36vw, 200px);
+        aspect-ratio: 1;
+        flex-shrink: 0;
+    }
+
+    .volume-controls {
+        position: static;
+        transform: none;
+        margin-top: 12px;
+    }
+}
+
+/* Small screens: tighter spacing and touch-friendly sizes */
 @media (max-width: 768px) {
     .title-main {
         font-size: 48px;
     }
 
     .md-player {
-        padding: 20px;
+        padding: 12px 10px 20px;
     }
 
-    .lcd-container {
-        flex-direction: column;
+    .md-player-inner {
+        padding: 20px 12px 12px;
     }
+
+    .control-container {
+        margin-top: 16px;
+    }
+
+    .playback-controls {
+        gap: 10px;
+        min-width: 100px;
+        min-height: 100px;
+    }
+
+    .playback-controls-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .playback-controls-btn img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .volume-btn img {
+        height: 32px;
+    }
+
 }
