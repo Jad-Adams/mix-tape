@@ -13,12 +13,27 @@
 body {
     font-family: 'Barlow', sans-serif;
     /* background-color: #7EC1D6; */
-    background-color:hsl(143, 52.70%, 81.80%);
+    background-color:hsl(208, 35.90%, 84.70%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px 20px;
+    position: relative;
+}
+
+/* Large screens: center player vertically, keep title at top */
+@media (min-width: 901px) {
+    body {
+        justify-content: center;
+    }
+    
+    .title-section {
+        position: absolute;
+        top: 40px;
+        left: max(20px, calc(50% - 600px));
+        margin-bottom: 0;
+    }
 }
 
 .container {
