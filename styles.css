@@ -316,6 +316,29 @@ body {
     display: none;
 }
 
+/* MD Player Text */
+.md-player-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.md-player-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.md-player-stereo {
+    font-family: 'DIN Alternate', sans-serif;
+    font-size: 24px;
+    color:hsl(0, 0.00%, 60.00%);
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+}
+
 /* Stacked layout: screen on top, controls below (before overlap at ~853px) */
 @media (max-width: 900px) {
     .md-player {
