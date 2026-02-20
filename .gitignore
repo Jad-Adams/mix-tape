@@ -27,3 +27,6 @@ build/
 # Environment files
 .env
 .env.local
+
+# Assets
+music/
