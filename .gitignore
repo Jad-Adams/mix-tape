@@ -30,3 +30,5 @@ build/
 
 # Assets
 music/
+.vercel
+.env*.local
