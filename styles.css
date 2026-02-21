@@ -88,6 +88,14 @@ body {
     min-height: 100%;
 }
 
+/* Wrapper for mobile outline: passthrough on desktop */
+.player-outline-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
 /* LCD Screen */
 .screen-container {
     position: relative;
@@ -355,11 +363,14 @@ body {
     letter-spacing: 2.4px;
 }
 
-/* Stacked layout: screen on top, controls below (before overlap at ~853px) */
+/* Stacked layout: screen on top, controls below, volume to right of knob */
 @media (max-width: 900px) {
     .md-player {
         height: auto;
-        min-height: 560px;
+        min-height: 0;
+        width: min(100%, 380px);
+        aspect-ratio: 9 / 16;
+        max-height: min(85vh, 680px);
         display: flex;
         flex-direction: column;
         padding: 16px 12px 24px;
@@ -373,6 +384,18 @@ body {
         padding: 24px 16px 16px;
     }
 
+    .player-outline-wrap {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 28px 12px 12px 12px;
+        background-image: url('assets/player-outline-mobile.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
     .screen-container {
         flex: 0 0 auto;
         margin-bottom: 0;
@@ -382,6 +405,7 @@ body {
     .screen-outline {
         min-height: 200px;
         padding: 30px 20px 20px 30px;
+        background-image: none;
     }
 
     .control-container {
@@ -390,8 +414,10 @@ body {
         height: auto;
         flex: 0 0 auto;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        justify-content: center;
+        gap: 16px;
         margin-top: 24px;
     }
 
@@ -406,7 +432,10 @@ body {
     .volume-controls {
         position: static;
         transform: none;
-        margin-top: 12px;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 }
 
@@ -424,8 +453,26 @@ body {
         padding: 20px 12px 12px;
     }
 
+    .screen-outline {
+        min-height: 180px;
+        padding: 12px;
+    }
+
+    .lcd-label {
+        font-size: 12px;
+    }
+
+    .lcd-song-info {
+        font-size: clamp(14px, 4vw, 18px);
+    }
+
+    .lcd-time {
+        font-size: 12px;
+    }
+
     .control-container {
         margin-top: 16px;
+        gap: 12px;
     }
 
     .playback-controls {
@@ -435,8 +482,10 @@ body {
     }
 
     .playback-controls-btn {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
     }
 
     .playback-controls-btn img {
@@ -444,8 +493,17 @@ body {
         height: 24px;
     }
 
+    .volume-controls {
+        gap: 6px;
+    }
+
+    .volume-btn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 8px;
+    }
+
     .volume-btn img {
         height: 32px;
     }
-
 }
