@@ -228,7 +228,7 @@ body {
     min-height: clamp(100px, 20vw, 140px);
 }
 
-.playback-controls-btn-pause {
+.playback-controls-btn-stop {
     grid-column: 2;
     grid-row: 1;
 }
@@ -241,7 +241,7 @@ body {
 .playback-controls-btn-play img {
     width: 32px;
     height: 32px;
-    transform: translateX(2px);   /* or 1px if you prefer */
+    /* transform: translateX(1px);   or 1px if you prefer */
 }
 
 .playback-controls-btn-prev {

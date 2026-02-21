@@ -310,6 +310,15 @@ function pauseAudio() {
 	audioPlayer.pause();
 }
 
+// Stop: pause and reset to first track
+function stopAudio() {
+	audioPlayer.pause();
+	loadTrack(0);
+	isPlaying = false;
+	updatePlayPauseIcon();
+	updateLcdLabel();
+}
+
 // Seek in track
 function seek(event) {
 	// Validate that duration is loaded and valid
@@ -358,19 +367,19 @@ function volumeUp() {
 	audioPlayer.volume = Math.min(MAX_VOLUME, audioPlayer.volume + VOLUME_STEP);
 }
 
-// Control buttons (4 separate: Play, Pause, Prev, Next)
+// Control buttons (Stop, Play/Pause, Prev, Next)
 const btnPlay = document.getElementById("btnPlay");
-const btnPause = document.getElementById("btnPause");
+const btnStop = document.getElementById("btnStop");
 const btnPrev = document.getElementById("btnPrev");
 const btnNext = document.getElementById("btnNext");
 const btnVolumeDown = document.getElementById("btnVolumeDown");
 const btnVolumeUp = document.getElementById("btnVolumeUp");
 
 function updatePlayPauseIcon() {
-	if (!btnPlay || !btnPause) return;
-	// Both buttons should always be visible
-	btnPlay.style.display = "flex";
-	btnPause.style.display = "flex";
+	if (!btnPlay) return;
+	const img = btnPlay.querySelector("img");
+	if (img) img.src = isPlaying ? "assets/icon-pause.svg" : "assets/icon-play.svg";
+	btnPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
 }
 
 function updateLcdLabel() {
@@ -384,8 +393,8 @@ function updateLcdLabel() {
 	}
 }
 
-if (btnPlay) btnPlay.addEventListener("click", playAudio);
-if (btnPause) btnPause.addEventListener("click", pauseAudio);
+if (btnPlay) btnPlay.addEventListener("click", () => (isPlaying ? pauseAudio() : playAudio()));
+if (btnStop) btnStop.addEventListener("click", stopAudio);
 if (btnPrev) btnPrev.addEventListener("click", playPrev);
 if (btnNext) btnNext.addEventListener("click", playNext);
 if (btnVolumeDown) btnVolumeDown.addEventListener("click", volumeDown);
