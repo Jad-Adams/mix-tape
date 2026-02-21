@@ -352,7 +352,8 @@ body {
     background: #FFFFFF;
     border-radius: 2px;
     min-height: 2px;
-    transition: height 0.1s ease-out;
+    /* Slight delay/ease so bar height changes aren’t jumpy */
+    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 /* Hidden audio element */
