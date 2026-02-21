@@ -124,6 +124,7 @@ const playlist = [
 
 // Audio elements
 const audioPlayer = document.getElementById("audioPlayer");
+const clickSound = new Audio("assets/button-click.mp3");
 
 // UI Elements
 const progressBar = document.getElementById("progressBar");
@@ -371,6 +372,15 @@ function volumeUp() {
 	audioPlayer.volume = Math.min(MAX_VOLUME, audioPlayer.volume + VOLUME_STEP);
 }
 
+// Click sound uses main volume, scaled down so it's a bit quieter than the music
+const CLICK_VOLUME_SCALE = 0.5;
+function playClickSound() {
+	if (!clickSound) return;
+	clickSound.currentTime = 0;
+	clickSound.volume = Math.min(1, audioPlayer.volume * CLICK_VOLUME_SCALE);
+	clickSound.play().catch(() => {});
+}
+
 // Control buttons (Stop, Play/Pause, Prev, Next)
 const btnPlay = document.getElementById("btnPlay");
 const btnStop = document.getElementById("btnStop");
@@ -397,12 +407,17 @@ function updateLcdLabel() {
 	}
 }
 
-if (btnPlay) btnPlay.addEventListener("click", () => (isPlaying ? pauseAudio() : playAudio()));
-if (btnStop) btnStop.addEventListener("click", stopAudio);
-if (btnPrev) btnPrev.addEventListener("click", playPrev);
-if (btnNext) btnNext.addEventListener("click", playNext);
-if (btnVolumeDown) btnVolumeDown.addEventListener("click", volumeDown);
-if (btnVolumeUp) btnVolumeUp.addEventListener("click", volumeUp);
+function onButtonPointerDown(btn, action) {
+	if (!btn) return;
+	btn.addEventListener("pointerdown", () => playClickSound());
+	btn.addEventListener("click", action);
+}
+onButtonPointerDown(btnPlay, () => (isPlaying ? pauseAudio() : playAudio()));
+onButtonPointerDown(btnStop, stopAudio);
+onButtonPointerDown(btnPrev, playPrev);
+onButtonPointerDown(btnNext, playNext);
+onButtonPointerDown(btnVolumeDown, volumeDown);
+onButtonPointerDown(btnVolumeUp, volumeUp);
 
 audioPlayer.addEventListener("play", () => {
 	initAudioContext();
