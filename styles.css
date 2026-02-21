@@ -389,7 +389,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 28px 12px 12px 12px;
+        padding: 32px 16px 12px 14px;
         background-image: url('assets/player-outline-mobile.png');
         background-size: contain;
         background-repeat: no-repeat;
@@ -399,11 +399,16 @@ body {
     .screen-container {
         flex: 0 0 auto;
         margin-bottom: 0;
-        min-height: 200px;
+        min-height: 160px;
+    }
+
+    .screen-content {
+        max-width: 100%;
+        gap: 8px;
     }
 
     .screen-outline {
-        min-height: 200px;
+        min-height: 160px;
         padding: 30px 20px 20px 30px;
         background-image: none;
     }
@@ -454,20 +459,34 @@ body {
     }
 
     .screen-outline {
-        min-height: 180px;
-        padding: 12px;
+        min-height: 160px;
+        padding: 10px;
     }
 
     .lcd-label {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .lcd-song-info {
-        font-size: clamp(14px, 4vw, 18px);
+        font-size: clamp(12px, 3.5vw, 16px);
     }
 
     .lcd-time {
-        font-size: 12px;
+        font-size: 10px;
+    }
+
+    .progress-bar-container {
+        height: 3px;
+        margin: 0 6px;
+    }
+
+    .visualizer {
+        height: 40px;
+        gap: 2px;
+    }
+
+    .visualizer-bar {
+        width: 6px;
     }
 
     .control-container {
@@ -505,5 +524,43 @@ body {
 
     .volume-btn img {
         height: 32px;
+    }
+}
+
+/* Very small viewports: fit screen content inside outline */
+@media (max-width: 480px) {
+    .screen-outline {
+        min-height: 140px;
+        padding: 8px;
+    }
+
+    .screen-content {
+        gap: 6px;
+    }
+
+    .lcd-label {
+        font-size: 9px;
+    }
+
+    .lcd-song-info {
+        font-size: clamp(11px, 3vw, 14px);
+    }
+
+    .lcd-time {
+        font-size: 9px;
+    }
+
+    .progress-bar-container {
+        height: 2px;
+        margin: 0 4px;
+    }
+
+    .visualizer {
+        height: 32px;
+        gap: 2px;
+    }
+
+    .visualizer-bar {
+        width: 5px;
     }
 }
