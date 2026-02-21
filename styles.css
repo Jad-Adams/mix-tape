@@ -145,6 +145,16 @@ body {
     padding-left: 8px;
 }
 
+/* On/off flicker when paused so the user can see playback is stopped */
+.lcd-label--paused {
+    animation: lcd-label-paused-flicker 1500ms steps(1, end) infinite;
+}
+
+@keyframes lcd-label-paused-flicker {
+    0%, 49.99% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
 .lcd-song-info {
     font-family: 'Share Tech Mono', monospace;
     font-size: 20px;
@@ -352,7 +362,8 @@ body {
     background: #FFFFFF;
     border-radius: 2px;
     min-height: 2px;
-    transition: height 0.1s ease-out;
+    /* Slight delay/ease so bar height changes aren’t jumpy */
+    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 /* Hidden audio element */
