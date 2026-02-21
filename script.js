@@ -138,6 +138,7 @@ const lcdLabelEl = document.getElementById("lcdLabel");
 // State
 let currentTrackIndex = 0;
 let isPlaying = false;
+let userHasPaused = false;  // true only when user clicked pause (so LCD shows "Paused" not "Ready")
 let audioContext = null;
 let analyser = null;
 let dataArray = null;
@@ -295,6 +296,7 @@ function playNext() {
 
 // Play
 function playAudio() {
+	userHasPaused = false;
 	// If no track is loaded, load the first track
 	if (!audioPlayer.src || audioPlayer.src === "") {
 		loadTrack(0);
@@ -307,11 +309,13 @@ function playAudio() {
 
 // Pause
 function pauseAudio() {
+	userHasPaused = true;
 	audioPlayer.pause();
 }
 
 // Stop: pause and reset to first track
 function stopAudio() {
+	userHasPaused = false;
 	audioPlayer.pause();
 	loadTrack(0);
 	isPlaying = false;
@@ -388,7 +392,7 @@ function updateLcdLabel() {
 		lcdLabelEl.textContent = "NOW PLAYING";
 		lcdLabelEl.classList.remove("lcd-label--paused");
 	} else {
-		lcdLabelEl.textContent = "NOW PLAYING - Paused";
+		lcdLabelEl.textContent = userHasPaused ? "NOW PLAYING - Paused" : "NOW PLAYING - Ready";
 		lcdLabelEl.classList.add("lcd-label--paused");
 	}
 }
@@ -430,12 +434,14 @@ audioPlayer.addEventListener("ended", () => {
 		const newIndex = currentTrackIndex + 1;
 		loadTrack(newIndex);
 		audioPlayer.play().catch(() => {
+			userHasPaused = false;
 			isPlaying = false;
 			updatePlayPauseIcon();
 			updateLcdLabel();
 		});
 	} else {
 		// Last track ended - loop back to first track but keep paused
+		userHasPaused = false;
 		loadTrack(0);
 		isPlaying = false;
 		updatePlayPauseIcon();
