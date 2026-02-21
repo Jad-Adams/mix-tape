@@ -29,8 +29,8 @@ body {
     }
     
     .title-section {
-        position: absolute;
-        top: 40px;
+        position: block;
+        top: 32px;
         left: max(20px, calc(50% - 600px));
         margin-bottom: 0;
     }
@@ -51,7 +51,7 @@ body {
 }
 
 .title-main {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow', sans-serif;
     font-size: 72px;
     font-weight: bold;
     color: #110F05;
@@ -860,7 +860,7 @@ body {
 
     .control-container {
         position: relative;
-        top: -11px;
+        top: -12px;
         left: 5px;
         width: auto;
         height: auto;
@@ -875,7 +875,7 @@ body {
     .control-knob-area {
         position: relative;
         inset: 0;
-        width: 70%;
+        width: 60%;
         background-image: url('assets/control-knob.svg');
         background-size: contain;
         background-repeat: no-repeat;
@@ -932,7 +932,7 @@ body {
         align-items: flex-end;
         justify-content: center;
         gap: 4px;
-        height: 30px;
+        height: 48px;
         margin-top: 0;
     }
 
@@ -941,7 +941,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-top: 12px;
+        padding-top: 20px;
     }
 
     .md-player-label {
