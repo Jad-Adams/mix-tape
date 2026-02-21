@@ -393,7 +393,7 @@ body {
         background-image: url('assets/player-outline-mobile.png');
         background-size: contain;
         background-repeat: no-repeat;
-        background-position: center center;
+        background-position: 10% 0;
     }
 
     .screen-container {
