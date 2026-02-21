@@ -389,7 +389,6 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 32px 16px 12px 14px;
         background-image: url('assets/player-outline-mobile.png');
         background-size: contain;
         background-repeat: no-repeat;
@@ -409,7 +408,7 @@ body {
 
     .screen-outline {
         min-height: 160px;
-        padding: 30px 20px 20px 30px;
+        padding: 20px;
         background-image: none;
     }
 
@@ -442,6 +441,15 @@ body {
         flex-direction: column;
         gap: 8px;
     }
+
+    .visualizer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    height: 48px;
+    margin-top: 0;
+}
 }
 
 /* Small screens: tighter spacing and touch-friendly sizes */
