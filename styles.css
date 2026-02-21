@@ -29,8 +29,8 @@ body {
     }
     
     .title-section {
-        position: absolute;
-        top: 40px;
+        position: block;
+        top: 32px;
         left: max(20px, calc(50% - 600px));
         margin-bottom: 0;
     }
@@ -51,7 +51,7 @@ body {
 }
 
 .title-main {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow', sans-serif;
     font-size: 72px;
     font-weight: bold;
     color: #110F05;
@@ -86,6 +86,14 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+}
+
+/* Wrapper for mobile outline: passthrough on desktop */
+.player-outline-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 /* LCD Screen */
@@ -141,6 +149,25 @@ body {
     font-size: 20px;
     color: #FFFFFF;
     margin: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.lcd-song-info-inner {
+    display: inline-block;
+}
+
+/* When text overflows, scroll left-to-right (JS adds .lcd-song-info--scroll and sets --scroll-end) */
+.lcd-song-info--scroll .lcd-song-info-inner {
+    animation: lcd-song-info-scroll 14s ease-in-out infinite;
+}
+
+@keyframes lcd-song-info-scroll {
+    0%, 12% { transform: translateX(0); }
+    45% { transform: translateX(var(--scroll-end, 0)); }
+    55% { transform: translateX(var(--scroll-end, 0)); }
+    88% { transform: translateX(0); }
+    100% { transform: translateX(0); }
 }
 
 .lcd-time-container {
@@ -185,7 +212,7 @@ body {
     grid-template-rows: auto 1fr auto;
     align-items: center;
     justify-items: center;
-    gap: clamp(12px, 1.5vw, 20px);
+    gap: 22px;
     min-width: clamp(100px, 20vw, 140px);
     min-height: clamp(100px, 20vw, 140px);
 }
@@ -355,11 +382,13 @@ body {
     letter-spacing: 2.4px;
 }
 
-/* Stacked layout: screen on top, controls below (before overlap at ~853px) */
+/* Stacked layout: screen on top, controls below, volume to right of knob */
 @media (max-width: 900px) {
     .md-player {
-        height: auto;
-        min-height: 560px;
+        height: 525px;
+        min-height: 0;
+        width: min(100%, 380px);
+        aspect-ratio: 9 / 16;
         display: flex;
         flex-direction: column;
         padding: 16px 12px 24px;
@@ -373,26 +402,46 @@ body {
         padding: 24px 16px 16px;
     }
 
+    .player-outline-wrap {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        background-image: url('assets/player-outline-mobile.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 10% 0;
+    }
+
     .screen-container {
         flex: 0 0 auto;
         margin-bottom: 0;
-        min-height: 200px;
+        min-height: 160px;
+    }
+
+    .screen-content {
+        max-width: 100%;
+        gap: 8px;
     }
 
     .screen-outline {
-        min-height: 200px;
-        padding: 30px 20px 20px 30px;
+        min-height: 160px;
+        padding: 20px;
+        background-image: none;
     }
 
     .control-container {
-        position: static;
+        position: relative;
+        top: -11px;
+        left: 5px;
         width: auto;
         height: auto;
         flex: 0 0 auto;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        margin-top: 24px;
+        justify-content: center;
+        gap: 16px;
     }
 
     .control-knob-area {
@@ -403,49 +452,530 @@ body {
         flex-shrink: 0;
     }
 
+    .playback-controls {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        min-width: clamp(100px, 20vw, 140px);
+        min-height: clamp(100px, 20vw, 140px);
+    }
+
     .volume-controls {
         position: static;
         transform: none;
-        margin-top: 12px;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Rotate volume buttons 90° so pills are vertical, then stack */
+    .volume-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 56px;
+        min-width: 32px;
+        min-height: 56px;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .volume-btn img {
+        width: 56px;
+        height: 32px;
+        transform: rotate(270deg);
+        object-fit: contain;
+    }
+
+    .visualizer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 4px;
+        height: 48px;
+        margin-top: 0;
+    }
+
+    /* MD Player Text */
+    .md-player-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 12px;
+    }
+
+    .md-player-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 16px;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .md-player-stereo {
+        font-family: 'DIN Alternate', sans-serif;
+        font-size: 12px;
+        color:hsl(0, 0.00%, 60.00%);
+        text-transform: uppercase;
+        letter-spacing: 2.4px;
     }
 }
 
 /* Small screens: tighter spacing and touch-friendly sizes */
 @media (max-width: 768px) {
-    .title-main {
-        font-size: 48px;
-    }
-
     .md-player {
-        padding: 12px 10px 20px;
+        height: 525px;
+        min-height: 0;
+        width: min(100%, 380px);
+        aspect-ratio: 9 / 16;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 12px 24px;
     }
 
     .md-player-inner {
-        padding: 20px 12px 12px;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px 16px;
+    }
+
+    .player-outline-wrap {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        background-image: url('assets/player-outline-mobile.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 10% 0;
+    }
+
+    .screen-container {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        min-height: 160px;
+    }
+
+    .screen-content {
+        max-width: 100%;
+        gap: 8px;
+    }
+
+    .screen-outline {
+        min-height: 160px;
+        padding: 20px;
+        background-image: none;
     }
 
     .control-container {
-        margin-top: 16px;
+        position: relative;
+        top: -11px;
+        left: 5px;
+        width: auto;
+        height: auto;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .control-knob-area {
+        position: relative;
+        inset: unset;
+        width: clamp(140px, 36vw, 200px);
+        aspect-ratio: 1;
+        flex-shrink: 0;
     }
 
     .playback-controls {
-        gap: 10px;
-        min-width: 100px;
-        min-height: 100px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        min-width: clamp(100px, 20vw, 140px);
+        min-height: clamp(100px, 20vw, 140px);
     }
 
-    .playback-controls-btn {
-        width: 36px;
-        height: 36px;
+    .volume-controls {
+        position: static;
+        transform: none;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 8px;
     }
 
-    .playback-controls-btn img {
-        width: 24px;
-        height: 24px;
+    /* Rotate volume buttons 90° so pills are vertical, then stack */
+    .volume-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 56px;
+        min-width: 32px;
+        min-height: 56px;
+        overflow: hidden;
+        padding: 0;
     }
 
     .volume-btn img {
+        width: 56px;
         height: 32px;
+        transform: rotate(270deg);
+        object-fit: contain;
     }
 
+    .visualizer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 4px;
+        height: 48px;
+        margin-top: 0;
+    }
+
+    /* MD Player Text */
+    .md-player-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 12px;
+    }
+
+    .md-player-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 16px;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .md-player-stereo {
+        font-family: 'DIN Alternate', sans-serif;
+        font-size: 12px;
+        color:hsl(0, 0.00%, 60.00%);
+        text-transform: uppercase;
+        letter-spacing: 2.4px;
+    }
+}
+
+/* Very small viewports: fit screen content inside outline */
+@media (max-width: 600px) {
+    .md-player {
+        height: 525px;
+        min-height: 0;
+        width: min(100%, 380px);
+        aspect-ratio: 9 / 16;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 12px 24px;
+    }
+
+    .md-player-inner {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px 16px;
+    }
+
+    .player-outline-wrap {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        background-image: url('assets/player-outline-mobile.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 10% 0;
+    }
+
+    .screen-container {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        min-height: 160px;
+    }
+
+    .screen-content {
+        max-width: 100%;
+        gap: 8px;
+    }
+
+    .screen-outline {
+        min-height: 160px;
+        padding: 20px;
+        background-image: none;
+    }
+
+    .control-container {
+        position: relative;
+        top: -11px;
+        left: 5px;
+        width: auto;
+        height: auto;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .control-knob-area {
+        position: relative;
+        inset: unset;
+        width: clamp(140px, 36vw, 200px);
+        aspect-ratio: 1;
+        flex-shrink: 0;
+    }
+
+    .playback-controls {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        min-width: clamp(100px, 20vw, 140px);
+        min-height: clamp(100px, 20vw, 140px);
+    }
+
+    .volume-controls {
+        position: static;
+        transform: none;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Rotate volume buttons 90° so pills are vertical, then stack */
+    .volume-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 56px;
+        min-width: 32px;
+        min-height: 56px;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .volume-btn img {
+        width: 56px;
+        height: 32px;
+        transform: rotate(270deg);
+        object-fit: contain;
+    }
+
+    .visualizer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 4px;
+        height: 48px;
+        margin-top: 0;
+    }
+
+    /* MD Player Text */
+    .md-player-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 12px;
+    }
+
+    .md-player-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 16px;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .md-player-stereo {
+        font-family: 'DIN Alternate', sans-serif;
+        font-size: 12px;
+        color:hsl(0, 0.00%, 60.00%);
+        text-transform: uppercase;
+        letter-spacing: 2.4px;
+    }
+}
+
+/* Very small viewports: fit screen content inside outline */
+@media (max-width: 500px) {
+    .md-player {
+        height: 525px;
+        min-height: 0;
+        width: min(100%, 380px);
+        aspect-ratio: 9 / 16;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 12px 24px;
+    }
+
+    .md-player-inner {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px 16px;
+    }
+
+    .player-outline-wrap {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        background-image: url('assets/player-outline-mobile.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 10% 0;
+    }
+
+    .screen-container {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        min-height: 160px;
+    }
+
+    .screen-content {
+        max-width: 100%;
+        gap: 8px;
+    }
+
+    .screen-outline {
+        min-height: 160px;
+        padding: 20px;
+        background-image: none;
+    }
+
+    .control-container {
+        position: relative;
+        top: -12px;
+        left: 5px;
+        width: auto;
+        height: auto;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .control-knob-area {
+        position: relative;
+        inset: 0;
+        width: 60%;
+        background-image: url('assets/control-knob.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .playback-controls {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        min-width: clamp(100px, 20vw, 140px);
+        min-height: clamp(100px, 20vw, 140px);
+    }
+
+    .volume-controls {
+        position: static;
+        transform: none;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Rotate volume buttons 90° so pills are vertical, then stack */
+    .volume-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 56px;
+        min-width: 32px;
+        min-height: 56px;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .volume-btn img {
+        width: 56px;
+        height: 32px;
+        transform: rotate(270deg);
+        object-fit: contain;
+    }
+
+    .visualizer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 4px;
+        height: 48px;
+        margin-top: 0;
+    }
+
+    /* MD Player Text */
+    .md-player-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 20px;
+    }
+
+    .md-player-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 16px;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .md-player-stereo {
+        font-family: 'DIN Alternate', sans-serif;
+        font-size: 12px;
+        color:hsl(0, 0.00%, 60.00%);
+        text-transform: uppercase;
+        letter-spacing: 2.4px;
+    }
 }
