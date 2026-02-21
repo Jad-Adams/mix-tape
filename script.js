@@ -377,8 +377,10 @@ function updateLcdLabel() {
 	if (!lcdLabelEl) return;
 	if (isPlaying) {
 		lcdLabelEl.textContent = "NOW PLAYING";
+		lcdLabelEl.classList.remove("lcd-label--paused");
 	} else {
 		lcdLabelEl.textContent = "NOW PLAYING - Paused";
+		lcdLabelEl.classList.add("lcd-label--paused");
 	}
 }
 
