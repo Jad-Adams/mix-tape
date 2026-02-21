@@ -149,6 +149,25 @@ body {
     font-size: 20px;
     color: #FFFFFF;
     margin: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.lcd-song-info-inner {
+    display: inline-block;
+}
+
+/* When text overflows, scroll left-to-right (JS adds .lcd-song-info--scroll and sets --scroll-end) */
+.lcd-song-info--scroll .lcd-song-info-inner {
+    animation: lcd-song-info-scroll 14s ease-in-out infinite;
+}
+
+@keyframes lcd-song-info-scroll {
+    0%, 12% { transform: translateX(0); }
+    45% { transform: translateX(var(--scroll-end, 0)); }
+    55% { transform: translateX(var(--scroll-end, 0)); }
+    88% { transform: translateX(0); }
+    100% { transform: translateX(0); }
 }
 
 .lcd-time-container {

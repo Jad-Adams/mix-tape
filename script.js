@@ -35,6 +35,7 @@ const progressContainer = document.getElementById('progressContainer');
 const currentTimeEl = document.getElementById('currentTime');
 const totalTimeEl = document.getElementById('totalTime');
 const songInfoEl = document.getElementById('songInfo');
+const songInfoInnerEl = document.getElementById('songInfoInner');
 const visualizerEl = document.getElementById('visualizer');
 const lcdLabelEl = document.getElementById('lcdLabel');
 
@@ -133,9 +134,23 @@ function loadTrack(index) {
     currentTrackIndex = index;
     const track = playlist[currentTrackIndex];
     audioPlayer.src = track.file;
-    songInfoEl.textContent = `${track.title} - ${track.artist}`;
-    
+    songInfoInnerEl.textContent = `${track.title} - ${track.artist}`;
+    updateSongInfoScroll();
+
     audioPlayer.load();
+}
+
+function updateSongInfoScroll() {
+    if (!songInfoEl || !songInfoInnerEl) return;
+    const overflow = songInfoInnerEl.scrollWidth > songInfoEl.clientWidth;
+    if (overflow) {
+        const scrollEnd = -(songInfoInnerEl.scrollWidth - songInfoEl.clientWidth);
+        songInfoEl.style.setProperty('--scroll-end', `${scrollEnd}px`);
+        songInfoEl.classList.add('lcd-song-info--scroll');
+    } else {
+        songInfoEl.style.removeProperty('--scroll-end');
+        songInfoEl.classList.remove('lcd-song-info--scroll');
+    }
 }
 
 // Previous track
