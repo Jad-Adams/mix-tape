@@ -492,6 +492,10 @@ body {
         min-height: clamp(100px, 20vw, 140px);
     }
 
+    .playback-controls-btn-stop {
+        transform: scale(0.85);
+    }
+
     .volume-controls {
         position: static;
         transform: none;
