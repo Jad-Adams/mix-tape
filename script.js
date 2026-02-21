@@ -124,6 +124,7 @@ const playlist = [
 
 // Audio elements
 const audioPlayer = document.getElementById("audioPlayer");
+const clickSound = new Audio("assets/button-click.mp3");
 
 // UI Elements
 const progressBar = document.getElementById("progressBar");
@@ -138,6 +139,7 @@ const lcdLabelEl = document.getElementById("lcdLabel");
 // State
 let currentTrackIndex = 0;
 let isPlaying = false;
+let userHasPaused = false;  // true only when user clicked pause (so LCD shows "Paused" not "Ready")
 let audioContext = null;
 let analyser = null;
 let dataArray = null;
@@ -295,6 +297,7 @@ function playNext() {
 
 // Play
 function playAudio() {
+	userHasPaused = false;
 	// If no track is loaded, load the first track
 	if (!audioPlayer.src || audioPlayer.src === "") {
 		loadTrack(0);
@@ -307,7 +310,18 @@ function playAudio() {
 
 // Pause
 function pauseAudio() {
+	userHasPaused = true;
 	audioPlayer.pause();
+}
+
+// Stop: pause and reset to first track
+function stopAudio() {
+	userHasPaused = false;
+	audioPlayer.pause();
+	loadTrack(0);
+	isPlaying = false;
+	updatePlayPauseIcon();
+	updateLcdLabel();
 }
 
 // Seek in track
@@ -358,19 +372,28 @@ function volumeUp() {
 	audioPlayer.volume = Math.min(MAX_VOLUME, audioPlayer.volume + VOLUME_STEP);
 }
 
-// Control buttons (4 separate: Play, Pause, Prev, Next)
+// Click sound uses main volume, scaled down so it's a bit quieter than the music
+const CLICK_VOLUME_SCALE = 0.5;
+function playClickSound() {
+	if (!clickSound) return;
+	clickSound.currentTime = 0;
+	clickSound.volume = Math.min(1, audioPlayer.volume * CLICK_VOLUME_SCALE);
+	clickSound.play().catch(() => {});
+}
+
+// Control buttons (Stop, Play/Pause, Prev, Next)
 const btnPlay = document.getElementById("btnPlay");
-const btnPause = document.getElementById("btnPause");
+const btnStop = document.getElementById("btnStop");
 const btnPrev = document.getElementById("btnPrev");
 const btnNext = document.getElementById("btnNext");
 const btnVolumeDown = document.getElementById("btnVolumeDown");
 const btnVolumeUp = document.getElementById("btnVolumeUp");
 
 function updatePlayPauseIcon() {
-	if (!btnPlay || !btnPause) return;
-	// Both buttons should always be visible
-	btnPlay.style.display = "flex";
-	btnPause.style.display = "flex";
+	if (!btnPlay) return;
+	const img = btnPlay.querySelector("img");
+	if (img) img.src = isPlaying ? "assets/icon-pause.svg" : "assets/icon-play.svg";
+	btnPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
 }
 
 function updateLcdLabel() {
@@ -379,17 +402,22 @@ function updateLcdLabel() {
 		lcdLabelEl.textContent = "NOW PLAYING";
 		lcdLabelEl.classList.remove("lcd-label--paused");
 	} else {
-		lcdLabelEl.textContent = "NOW PLAYING - Paused";
+		lcdLabelEl.textContent = userHasPaused ? "NOW PLAYING - Paused" : "NOW PLAYING - Ready";
 		lcdLabelEl.classList.add("lcd-label--paused");
 	}
 }
 
-if (btnPlay) btnPlay.addEventListener("click", playAudio);
-if (btnPause) btnPause.addEventListener("click", pauseAudio);
-if (btnPrev) btnPrev.addEventListener("click", playPrev);
-if (btnNext) btnNext.addEventListener("click", playNext);
-if (btnVolumeDown) btnVolumeDown.addEventListener("click", volumeDown);
-if (btnVolumeUp) btnVolumeUp.addEventListener("click", volumeUp);
+function onButtonPointerDown(btn, action) {
+	if (!btn) return;
+	btn.addEventListener("pointerdown", () => playClickSound());
+	btn.addEventListener("click", action);
+}
+onButtonPointerDown(btnPlay, () => (isPlaying ? pauseAudio() : playAudio()));
+onButtonPointerDown(btnStop, stopAudio);
+onButtonPointerDown(btnPrev, playPrev);
+onButtonPointerDown(btnNext, playNext);
+onButtonPointerDown(btnVolumeDown, volumeDown);
+onButtonPointerDown(btnVolumeUp, volumeUp);
 
 audioPlayer.addEventListener("play", () => {
 	initAudioContext();
@@ -421,12 +449,14 @@ audioPlayer.addEventListener("ended", () => {
 		const newIndex = currentTrackIndex + 1;
 		loadTrack(newIndex);
 		audioPlayer.play().catch(() => {
+			userHasPaused = false;
 			isPlaying = false;
 			updatePlayPauseIcon();
 			updateLcdLabel();
 		});
 	} else {
 		// Last track ended - loop back to first track but keep paused
+		userHasPaused = false;
 		loadTrack(0);
 		isPlaying = false;
 		updatePlayPauseIcon();

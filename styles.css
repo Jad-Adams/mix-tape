@@ -89,6 +89,12 @@ body {
     min-height: 100%;
 }
 
+.eject-button {
+    position: absolute;
+    top: 12px;
+    left: 62px;
+}
+
 /* Wrapper for mobile outline: passthrough on desktop */
 .player-outline-wrap {
     display: flex;
@@ -228,7 +234,7 @@ body {
     min-height: clamp(100px, 20vw, 140px);
 }
 
-.playback-controls-btn-pause {
+.playback-controls-btn-stop {
     grid-column: 2;
     grid-row: 1;
 }
@@ -241,7 +247,7 @@ body {
 .playback-controls-btn-play img {
     width: 32px;
     height: 32px;
-    transform: translateX(2px);   /* or 1px if you prefer */
+    /* transform: translateX(1px);   or 1px if you prefer */
 }
 
 .playback-controls-btn-prev {
@@ -397,7 +403,7 @@ body {
 /* Stacked layout: screen on top, controls below, volume to right of knob */
 @media (max-width: 900px) {
     .md-player {
-        height: 525px;
+        height: 540px;
         min-height: 0;
         width: min(100%, 380px);
         aspect-ratio: 9 / 16;
@@ -411,7 +417,14 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 24px 16px 16px;
+        padding: 40px 16px 24px 16px;
+    }
+
+    .eject-button {
+    position: absolute;
+    top: 0px;
+    left: 36px;
+    transform: scale(0.7);
     }
 
     .player-outline-wrap {
@@ -477,6 +490,10 @@ body {
         gap: 8px;
         min-width: clamp(100px, 20vw, 140px);
         min-height: clamp(100px, 20vw, 140px);
+    }
+
+    .playback-controls-btn-stop {
+        transform: scale(0.85);
     }
 
     .volume-controls {
@@ -546,7 +563,7 @@ body {
 /* Small screens: tighter spacing and touch-friendly sizes */
 @media (max-width: 768px) {
     .md-player {
-        height: 525px;
+        height: 540px;
         min-height: 0;
         width: min(100%, 380px);
         aspect-ratio: 9 / 16;
@@ -560,7 +577,14 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 24px 16px 16px;
+        padding: 40px 16px 24px 16px;
+    }
+
+    .eject-button {
+        position: absolute;
+        top: 0px;
+        left: 36px;
+        transform: scale(0.7);
     }
 
     .player-outline-wrap {
@@ -695,7 +719,7 @@ body {
 /* Very small viewports: fit screen content inside outline */
 @media (max-width: 600px) {
     .md-player {
-        height: 525px;
+        height: 545px;
         min-height: 0;
         width: min(100%, 380px);
         aspect-ratio: 9 / 16;
@@ -709,7 +733,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 24px 16px 16px;
+        padding: 40px 16px 24px 16px;
     }
 
     .player-outline-wrap {
@@ -844,7 +868,7 @@ body {
 /* Very small viewports: fit screen content inside outline */
 @media (max-width: 500px) {
     .md-player {
-        height: 525px;
+        height: 545px;
         min-height: 0;
         width: min(100%, 380px);
         aspect-ratio: 9 / 16;
@@ -858,7 +882,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 24px 16px 16px;
+        padding: 40px 16px 24px 16px;
     }
 
     .player-outline-wrap {

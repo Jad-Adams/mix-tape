@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radio Jads - MIXTAPE</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Sound Effect by Lesiakower from Pixabay -->
 </head>
 <body>
     <div class="container">
@@ -15,6 +16,11 @@
 
         <div class="md-player">
             <div class="md-player-inner">
+                <div class="eject-container">
+                    <div class="eject-button">
+                        <img src="assets/icon-eject.svg" alt="" width="40" height="40">
+                    </div>
+                </div>
                 <div class="player-outline-wrap">
                 <div class="screen-container">
                     
@@ -44,8 +50,8 @@
                 <div class="control-container">
                     <div class="control-knob-area">
                         <div class="playback-controls">
-                        <button type="button" class="playback-controls-btn playback-controls-btn-pause" id="btnPause" aria-label="Pause">
-                            <img src="assets/icon-pause.svg" alt="" width="28" height="28">
+                        <button type="button" class="playback-controls-btn playback-controls-btn-stop" id="btnStop" aria-label="Stop">
+                            <img src="assets/button-stop.svg" alt="" width="22" height="22">
                         </button>
                         <button type="button" class="playback-controls-btn playback-controls-btn-play" id="btnPlay" aria-label="Play">
                             <img src="assets/icon-play.svg" alt="" width="28" height="28">
