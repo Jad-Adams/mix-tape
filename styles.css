@@ -64,6 +64,7 @@ body {
     font-size: 18px;
     color: #110F05;
     font-weight: 400;
+    padding-left: 3px;
 }
 
 /* MD Player Container */
@@ -911,7 +912,7 @@ body {
         grid-template-rows: auto 1fr auto;
         align-items: center;
         justify-items: center;
-        gap: 8px;
+        gap: 4px;
         min-width: clamp(100px, 20vw, 140px);
         min-height: clamp(100px, 20vw, 140px);
     }
