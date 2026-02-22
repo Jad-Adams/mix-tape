@@ -397,12 +397,16 @@ audioPlayer.addEventListener("ended", () => {
 	refreshThemeImages();
 })();
 
-// Theme toggle button
+// Theme toggle button: brief icon fade so the switch feels smoother
 const themeToggle = document.getElementById("themeToggle");
 if (themeToggle) {
 	themeToggle.addEventListener("click", () => {
 		const next = currentTheme === "dark" ? "light" : "dark";
-		setTheme(next);
+		themeToggle.classList.add("theme-toggle--switching");
+		setTimeout(() => {
+			setTheme(next);
+			themeToggle.classList.remove("theme-toggle--switching");
+		}, 220);
 	});
 }
 
