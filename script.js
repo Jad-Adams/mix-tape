@@ -1,130 +1,12 @@
-// Playlist with all tracks
-const playlist = [
-	{
-		title: "Key",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 01 Key.mp3",
-	},
-	{
-		title: "Door",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 02 Door.mp3",
-	},
-	{
-		title: "Subwoofer Lullaby",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 03 Subwoofer Lullaby.mp3",
-	},
-	{
-		title: "Death",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 04 Death.mp3",
-	},
-	{
-		title: "Living Mice",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 05 Living Mice.mp3",
-	},
-	{
-		title: "Moog City",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 06 Moog City.mp3",
-	},
-	{
-		title: "Haggstrom",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 07 Haggstrom.mp3",
-	},
-	{
-		title: "Minecraft",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 08 Minecraft.mp3",
-	},
-	{
-		title: "Oxygène",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 09 Oxygène.mp3",
-	},
-	{
-		title: "Équinoxe",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 10 Équinoxe.mp3",
-	},
-	{
-		title: "Mice on Venus",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 11 Mice on Venus.mp3",
-	},
-	{
-		title: "Dry Hands",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 12 Dry Hands.mp3",
-	},
-	{
-		title: "Wet Hands",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 13 Wet Hands.mp3",
-	},
-	{
-		title: "Clark",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 14 Clark.mp3",
-	},
-	{
-		title: "Chris",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 15 Chris.mp3",
-	},
-	{
-		title: "Thirteen",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 16 Thirteen.mp3",
-	},
-	{
-		title: "Excuse",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 17 Excuse.mp3",
-	},
-	{
-		title: "Sweden",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 18 Sweden.mp3",
-	},
-	{
-		title: "Cat",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 19 Cat.mp3",
-	},
-	{
-		title: "Dog",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 20 Dog.mp3",
-	},
-	{
-		title: "Danny",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 21 Danny.mp3",
-	},
-	{
-		title: "Beginning",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 22 Beginning.mp3",
-	},
-	{
-		title: "Droopy likes ricochet",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 23 Droopy likes ricochet.mp3",
-	},
-	{
-		title: "Droopy likes your face",
-		artist: "C418",
-		file: "music/C418 - Minecraft - Volume Alpha/C418 - Minecraft - Volume Alpha - 24 Droopy likes your face.mp3",
-	},
-];
+// Playlist: loaded from playlist.json so you can add/remove tracks without editing code.
+// Each entry: { "title": "...", "artist": "...", "file": "music/.../track.mp3"
+// Run node generate-playlist.js to create playlist.json from your music folder
+let playlist = [];
 
 // Theme: single source of truth
 const THEME_STORAGE_KEY = "mixtape-theme";
-let currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+let currentTheme =
+	document.documentElement.getAttribute("data-theme") || "light";
 
 function getThemeAssetPath(filename) {
 	return `assets/themes/${currentTheme}/${filename}`;
@@ -524,9 +406,35 @@ if (themeToggle) {
 	});
 }
 
-// Initialize
-loadTrack(0);
-updatePlayPauseIcon();
-updateLcdLabel();
-// Start visualizer animation loop
-updateVisualizer();
+// Load playlist from JSON, then initialize player (no code changes needed when you add/remove tracks)
+function initPlaylist() {
+	fetch("playlist.json")
+		.then((res) => {
+			if (!res.ok) throw new Error(res.statusText);
+			return res.json();
+		})
+		.then((data) => {
+			playlist = Array.isArray(data)
+				? data
+				: data.tracks || data.playlist || [];
+			playlist = playlist.filter(
+				(t) => t && typeof t.file === "string" && t.file.trim() !== "",
+			);
+		})
+		.catch(() => {
+			playlist = [];
+		})
+		.finally(() => {
+			if (playlist.length > 0) {
+				loadTrack(0);
+			} else if (songInfoInnerEl) {
+				songInfoInnerEl.textContent =
+					"No tracks — add playlist.json or run generate-playlist.js";
+			}
+			updatePlayPauseIcon();
+			updateLcdLabel();
+			updateVisualizer();
+		});
+}
+
+initPlaylist();
