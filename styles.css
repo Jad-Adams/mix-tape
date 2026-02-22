@@ -35,7 +35,7 @@
 [data-theme="dark"] {
     --color-page-bg: #202020;
     --color-title: #808080;
-    --gradient-player-outer: linear-gradient(178deg, #202020 0.31%, #4D4D4D 52.97%, #050506 98.13%);
+    --gradient-player-outer: linear-gradient(178deg, #1C1C1C 13.01%, #4D4D4D 54.4%, #131314 87.32%);
     --shadow-player-outer: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
     --gradient-player-inner: linear-gradient(180deg, #383838 -8.89%, #2B2A2C 11.18%, #1E1B20 100%);
     --color-lcd-text: #FFFFFF;
