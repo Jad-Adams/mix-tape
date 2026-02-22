@@ -44,8 +44,8 @@
     --color-btn-hover: rgba(255, 255, 255, 0.12);
     --color-player-label: rgba(0, 0, 0, 0.2);
     --color-player-stereo: rgba(0, 0, 0, 0.2);
-    --font-family-player-label: "DIN Condensed", "D-DIN Condensed", sans-serif;
-    --font-family-player-stereo: "DIN Condensed", "D-DIN Condensed", sans-serif;
+    --font-family-player-label: 'Barlow Condensed', sans-serif;
+    --font-family-player-stereo: 'DIN Alternate', sans-serif;
     --font-size-player-label: 31px;
     --font-size-player-stereo: 31px;
     --font-weight-player-label: 700;
