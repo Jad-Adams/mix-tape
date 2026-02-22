@@ -116,7 +116,7 @@ body {
 
 .title-main {
     font-family: 'Barlow', sans-serif;
-    font-size: 72px;
+    font-size: 56px;
     font-weight: bold;
     color: var(--color-title);
     line-height: 1;
@@ -129,6 +129,18 @@ body {
     color: var(--color-title);
     font-weight: 400;
     padding-left: 3px;
+}
+
+.title-subtitle.body {
+    font-size: 14px;
+    color: var(--color-title);
+    font-weight: 500;
+    padding-left: 3px;
+    padding-top: 8px;
+}
+
+.title-subtitle.body a {
+    color: var(--color-title);
 }
 
 /* MD Player Container */
