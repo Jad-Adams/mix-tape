@@ -122,9 +122,35 @@ const playlist = [
 	},
 ];
 
+// Theme: single source of truth
+const THEME_STORAGE_KEY = "mixtape-theme";
+let currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+
+function getThemeAssetPath(filename) {
+	return `assets/themes/${currentTheme}/${filename}`;
+}
+
+function refreshThemeImages() {
+	document.querySelectorAll("img[data-asset]").forEach((img) => {
+		const asset = img.getAttribute("data-asset");
+		if (asset) img.src = getThemeAssetPath(asset);
+	});
+}
+
+function setTheme(theme) {
+	if (!["light", "dark", "grey"].includes(theme)) theme = "light";
+	currentTheme = theme;
+	document.documentElement.setAttribute("data-theme", theme);
+	try {
+		localStorage.setItem(THEME_STORAGE_KEY, theme);
+	} catch (_) {}
+	refreshThemeImages();
+	updatePlayPauseIcon();
+}
+
 // Audio elements
 const audioPlayer = document.getElementById("audioPlayer");
-const clickSound = new Audio("assets/button-click.mp3");
+const clickSound = new Audio("assets/shared/button-click.mp3");
 
 // UI Elements
 const progressBar = document.getElementById("progressBar");
@@ -401,7 +427,7 @@ function updatePlayPauseIcon() {
 	if (!btnPlay) return;
 	const img = btnPlay.querySelector("img");
 	if (img)
-		img.src = isPlaying ? "assets/icon-pause.svg" : "assets/icon-play.svg";
+		img.src = getThemeAssetPath(isPlaying ? "icon-pause.svg" : "icon-play.svg");
 	btnPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
 }
 
@@ -474,6 +500,29 @@ audioPlayer.addEventListener("ended", () => {
 		updateLcdLabel();
 	}
 });
+
+// Theme: apply stored or default, then refresh all theme-dependent images
+(function applyInitialTheme() {
+	try {
+		const stored = localStorage.getItem(THEME_STORAGE_KEY);
+		if (stored && ["light", "dark", "grey"].includes(stored)) {
+			currentTheme = stored;
+			document.documentElement.setAttribute("data-theme", stored);
+		}
+	} catch (_) {
+		// localStorage can throw in private browsing (e.g. older Safari); keep default theme
+	}
+	refreshThemeImages();
+})();
+
+// Theme toggle button
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+	themeToggle.addEventListener("click", () => {
+		const next = currentTheme === "dark" ? "light" : "dark";
+		setTheme(next);
+	});
+}
 
 // Initialize
 loadTrack(0);

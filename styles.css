@@ -4,6 +4,56 @@
 @import url('https://fonts.cdnfonts.com/css/d-din');
 
 /* DIN typefaces available: 'DIN Alternate', 'D-DIN Condensed' */
+
+/* Theme: default and light */
+:root,
+[data-theme="light"] {
+    --color-page-bg: hsl(208, 35.90%, 84.70%);
+    --color-title: #110F05;
+    --gradient-player-outer: linear-gradient(180deg, #353B4A -1.09%, #7E8DB0 48.49%, #353B4A 100%);
+    --shadow-player-outer: drop-shadow(0 8px 12px rgba(3, 23, 39, 0.25)) drop-shadow(0 6px 12px rgba(3, 23, 39, 0.25));
+    --gradient-player-inner: linear-gradient(171deg, #93A4CE -110.67%, #4A5368 38.28%);
+    --color-lcd-text: #FFFFFF;
+    --color-lcd-muted: hsl(0, 0.00%, 60.00%);
+    --color-progress-track: rgba(255, 255, 255, 0.2);
+    --color-progress-fill: #FFFFFF;
+    --color-btn-hover: rgba(255, 255, 255, 0.12);
+    --color-player-label: #FFFFFF;
+    --color-player-stereo: hsl(0, 0.00%, 60.00%);
+    --font-family-player-label: 'Barlow Condensed', sans-serif;
+    --font-family-player-stereo: 'DIN Alternate', sans-serif;
+    --font-size-player-label: 24px;
+    --font-size-player-stereo: 24px;
+    --font-weight-player-label: bold;
+    --font-weight-player-stereo: 400;
+    --asset-screen-bg: url('assets/themes/light/screen-main-2.png');
+    --asset-player-outline-mobile: url('assets/themes/light/player-outline-mobile.png');
+}
+
+/* Theme: dark */
+[data-theme="dark"] {
+    --color-page-bg: #202020;
+    --color-title: #808080;
+    --gradient-player-outer: linear-gradient(154deg, #4D4D4D 7.49%, #050506 84.91%);
+    --shadow-player-outer: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+    --gradient-player-inner: linear-gradient(154deg, #383838 7.49%, #1E1B20 84.91%);
+    --color-lcd-text: #FFFFFF;
+    --color-lcd-muted: hsl(0, 0.00%, 60.00%);
+    --color-progress-track: rgba(255, 255, 255, 0.2);
+    --color-progress-fill: #FFFFFF;
+    --color-btn-hover: rgba(255, 255, 255, 0.12);
+    --color-player-label: rgba(45, 45, 45, 0.10);
+    --color-player-stereo: rgba(45, 45, 45, 0.10);
+    --font-family-player-label: "DIN Condensed", "D-DIN Condensed", sans-serif;
+    --font-family-player-stereo: "DIN Condensed", "D-DIN Condensed", sans-serif;
+    --font-size-player-label: 31px;
+    --font-size-player-stereo: 31px;
+    --font-weight-player-label: 700;
+    --font-weight-player-stereo: 700;
+    --asset-screen-bg: url('assets/themes/dark/screen-main-2.png');
+    --asset-player-outline-mobile: url('assets/themes/dark/player-outline-mobile.png');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,8 +62,7 @@
 
 body {
     font-family: 'Barlow', sans-serif;
-    /* background-color: #7EC1D6; */
-    background-color:hsl(208, 35.90%, 84.70%);
+    background-color: var(--color-page-bg);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -48,13 +97,34 @@ body {
 .title-section {
     align-self: flex-start;
     margin-bottom: 40px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: opacity 0.15s ease;
+}
+.theme-toggle:hover {
+    opacity: 0.8;
+}
+.theme-toggle img {
+    display: block;
 }
 
 .title-main {
     font-family: 'Barlow', sans-serif;
     font-size: 72px;
     font-weight: bold;
-    color: #110F05;
+    color: var(--color-title);
     line-height: 1;
     margin-bottom: 8px;
 }
@@ -62,7 +132,7 @@ body {
 .title-subtitle {
     font-family: 'Barlow', sans-serif;
     font-size: 18px;
-    color: #110F05;
+    color: var(--color-title);
     font-weight: 400;
     padding-left: 3px;
 }
@@ -74,13 +144,13 @@ body {
     max-width: 800px;
     position: relative;
     padding: 16px 8px 30px 8px;
-    background: linear-gradient(180deg, #353B4A -1.09%, #7E8DB0 48.49%, #353B4A 100%);
+    background: var(--gradient-player-outer);
     border-radius: 30px;
-    filter: drop-shadow(0 8px 12px rgba(3, 23, 39, 0.25)) drop-shadow(0 6px 12px rgba(3, 23, 39, 0.25));
+    filter: var(--shadow-player-outer);
 }
 
 .md-player-inner {
-    background: linear-gradient(171deg, #93A4CE -110.67%, #4A5368 38.28%);
+    background: var(--gradient-player-inner);
     border-radius: 20px;
     padding: 50px 24px 12px 24px;
     position: relative;
@@ -124,7 +194,7 @@ body {
 }
 
 .screen-outline {
-    background-image: url('assets/screen-main-2.png');
+    background-image: var(--asset-screen-bg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -145,7 +215,7 @@ body {
 .lcd-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 14px;
-    color: #FFFFFF;
+    color: var(--color-lcd-text);
     text-transform: uppercase;
     letter-spacing: 1px;
     padding-left: 8px;
@@ -164,7 +234,7 @@ body {
 .lcd-song-info {
     font-family: 'Share Tech Mono', monospace;
     font-size: 20px;
-    color: #FFFFFF;
+    color: var(--color-lcd-text);
     margin: 8px 0;
     overflow: hidden;
     white-space: nowrap;
@@ -197,7 +267,7 @@ body {
 .lcd-time {
     font-family: 'Share Tech Mono', monospace;
     font-size: 14px;
-    color: #FFFFFF;
+    color: var(--color-lcd-text);
 }
 
 .control-container {
@@ -212,10 +282,7 @@ body {
 .control-knob-area {
     position: absolute;
     inset: 0;
-    background-image: url('assets/control-knob.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: transparent;
 }
 
 /* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
@@ -275,7 +342,7 @@ body {
 }
 
 .playback-controls-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--color-btn-hover);
 }
 
 .playback-controls-btn:active {
@@ -339,7 +406,7 @@ body {
 .progress-bar-container {
     flex: 1;
     height: 4px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-progress-track);
     border-radius: 2px;
     margin: 0 10px;
     cursor: pointer;
@@ -348,7 +415,7 @@ body {
 
 .progress-bar {
     height: 100%;
-    background: #FFFFFF;
+    background: var(--color-progress-fill);
     border-radius: 2px;
     width: 0%;
     transition: width 0.1s linear;
@@ -365,7 +432,7 @@ body {
 
 .visualizer-bar {
     width: 8px;
-    background: #FFFFFF;
+    background: var(--color-progress-fill);
     border-radius: 2px;
     min-height: 2px;
     /* Slight delay/ease so bar height changes aren’t jumpy */
@@ -385,17 +452,19 @@ body {
 }
 
 .md-player-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 24px;
-    color: #FFFFFF;
+    font-family: var(--font-family-player-label);
+    font-size: var(--font-size-player-label);
+    font-weight: var(--font-weight-player-label);
+    color: var(--color-player-label);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .md-player-stereo {
-    font-family: 'DIN Alternate', sans-serif;
-    font-size: 24px;
-    color:hsl(0, 0.00%, 60.00%);
+    font-family: var(--font-family-player-stereo);
+    font-size: var(--font-size-player-stereo);
+    font-weight: var(--font-weight-player-stereo);
+    color: var(--color-player-stereo);
     text-transform: uppercase;
     letter-spacing: 2.4px;
 }
@@ -432,7 +501,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        background-image: url('assets/player-outline-mobile.png');
+        background-image: var(--asset-player-outline-mobile);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: 10% 0;
@@ -544,17 +613,17 @@ body {
     }
 
     .md-player-label {
-        font-family: 'Barlow Condensed', sans-serif;
+        font-family: var(--font-family-player-label);
         font-size: 16px;
-        color: #FFFFFF;
+        color: var(--color-player-label);
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     .md-player-stereo {
-        font-family: 'DIN Alternate', sans-serif;
+        font-family: var(--font-family-player-stereo);
         font-size: 12px;
-        color:hsl(0, 0.00%, 60.00%);
+        color: var(--color-player-stereo);
         text-transform: uppercase;
         letter-spacing: 2.4px;
     }
@@ -592,7 +661,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        background-image: url('assets/player-outline-mobile.png');
+        background-image: var(--asset-player-outline-mobile);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: 10% 0;
@@ -700,17 +769,17 @@ body {
     }
 
     .md-player-label {
-        font-family: 'Barlow Condensed', sans-serif;
+        font-family: var(--font-family-player-label);
         font-size: 16px;
-        color: #FFFFFF;
+        color: var(--color-player-label);
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     .md-player-stereo {
-        font-family: 'DIN Alternate', sans-serif;
+        font-family: var(--font-family-player-stereo);
         font-size: 12px;
-        color:hsl(0, 0.00%, 60.00%);
+        color: var(--color-player-stereo);
         text-transform: uppercase;
         letter-spacing: 2.4px;
     }
@@ -741,7 +810,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        background-image: url('assets/player-outline-mobile.png');
+        background-image: var(--asset-player-outline-mobile);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: 10% 0;
@@ -849,17 +918,17 @@ body {
     }
 
     .md-player-label {
-        font-family: 'Barlow Condensed', sans-serif;
+        font-family: var(--font-family-player-label);
         font-size: 16px;
-        color: #FFFFFF;
+        color: var(--color-player-label);
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     .md-player-stereo {
-        font-family: 'DIN Alternate', sans-serif;
+        font-family: var(--font-family-player-stereo);
         font-size: 12px;
-        color:hsl(0, 0.00%, 60.00%);
+        color: var(--color-player-stereo);
         text-transform: uppercase;
         letter-spacing: 2.4px;
     }
@@ -890,7 +959,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        background-image: url('assets/player-outline-mobile.png');
+        background-image: var(--asset-player-outline-mobile);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: 10% 0;
@@ -931,10 +1000,7 @@ body {
         position: relative;
         inset: 0;
         width: 60%;
-        background-image: url('assets/control-knob.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+        background: transparent;
     }
 
     .playback-controls {
@@ -1000,17 +1066,17 @@ body {
     }
 
     .md-player-label {
-        font-family: 'Barlow Condensed', sans-serif;
+        font-family: var(--font-family-player-label);
         font-size: 16px;
-        color: #FFFFFF;
+        color: var(--color-player-label);
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     .md-player-stereo {
-        font-family: 'DIN Alternate', sans-serif;
+        font-family: var(--font-family-player-stereo);
         font-size: 12px;
-        color:hsl(0, 0.00%, 60.00%);
+        color: var(--color-player-stereo);
         text-transform: uppercase;
         letter-spacing: 2.4px;
     }
