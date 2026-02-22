@@ -35,9 +35,9 @@
 [data-theme="dark"] {
     --color-page-bg: #202020;
     --color-title: #808080;
-    --gradient-player-outer: linear-gradient(154deg, #4D4D4D 7.49%, #050506 84.91%);
+    --gradient-player-outer: linear-gradient(178deg, #202020 0.31%, #4D4D4D 52.97%, #050506 98.13%);
     --shadow-player-outer: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
-    --gradient-player-inner: linear-gradient(154deg, #383838 7.49%, #1E1B20 84.91%);
+    --gradient-player-inner: linear-gradient(180deg, #383838 -8.89%, #2B2A2C 11.18%, #1E1B20 100%);
     --color-lcd-text: #FFFFFF;
     --color-lcd-muted: hsl(0, 0.00%, 60.00%);
     --color-progress-track: rgba(255, 255, 255, 0.2);
