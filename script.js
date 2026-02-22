@@ -139,7 +139,7 @@ const lcdLabelEl = document.getElementById("lcdLabel");
 // State
 let currentTrackIndex = 0;
 let isPlaying = false;
-let userHasPaused = false;  // true only when user clicked pause (so LCD shows "Paused" not "Ready")
+let userHasPaused = false; // true only when user clicked pause (so LCD shows "Paused" not "Ready")
 let audioContext = null;
 let analyser = null;
 let dataArray = null;
@@ -150,7 +150,7 @@ const barCount = 12;
 const barSmoothedValues = new Array(barCount).fill(0);
 const visualizerSmoothing = 0.25;
 const visualizerMinHeight = 2;
-const visualizerMaxHeight = 60;
+const visualizerMaxHeight = 50;
 for (let i = 0; i < barCount; i++) {
 	const bar = document.createElement("div");
 	bar.className = "visualizer-bar";
@@ -198,9 +198,17 @@ function updateVisualizer() {
 		// so low frequencies (bass) don't dominate the first few bars.
 		for (let index = 0; index < barCount; index++) {
 			const lowFreq = Math.exp(logMin + (index / barCount) * (logMax - logMin));
-			const highFreq = Math.exp(logMin + ((index + 1) / barCount) * (logMax - logMin));
-			const bandStart = Math.min(numBins - 1, Math.max(0, Math.floor(lowFreq * fftSize / sampleRate)));
-			const bandEnd = Math.min(numBins, Math.max(bandStart + 1, Math.ceil(highFreq * fftSize / sampleRate)));
+			const highFreq = Math.exp(
+				logMin + ((index + 1) / barCount) * (logMax - logMin),
+			);
+			const bandStart = Math.min(
+				numBins - 1,
+				Math.max(0, Math.floor((lowFreq * fftSize) / sampleRate)),
+			);
+			const bandEnd = Math.min(
+				numBins,
+				Math.max(bandStart + 1, Math.ceil((highFreq * fftSize) / sampleRate)),
+			);
 
 			let sum = 0;
 			let count = 0;
@@ -392,7 +400,8 @@ const btnVolumeUp = document.getElementById("btnVolumeUp");
 function updatePlayPauseIcon() {
 	if (!btnPlay) return;
 	const img = btnPlay.querySelector("img");
-	if (img) img.src = isPlaying ? "assets/icon-pause.svg" : "assets/icon-play.svg";
+	if (img)
+		img.src = isPlaying ? "assets/icon-pause.svg" : "assets/icon-play.svg";
 	btnPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
 }
 
@@ -402,7 +411,9 @@ function updateLcdLabel() {
 		lcdLabelEl.textContent = "NOW PLAYING";
 		lcdLabelEl.classList.remove("lcd-label--paused");
 	} else {
-		lcdLabelEl.textContent = userHasPaused ? "NOW PLAYING - Paused" : "NOW PLAYING - Ready";
+		lcdLabelEl.textContent = userHasPaused
+			? "NOW PLAYING - Paused"
+			: "NOW PLAYING - Ready";
 		lcdLabelEl.classList.add("lcd-label--paused");
 	}
 }
