@@ -70,19 +70,11 @@ body {
     padding: 40px 20px;
     position: relative;
 }
-
-/* Large screens: center player vertically, keep title at top */
-@media (min-width: 901px) {
-    body {
-        justify-content: center;
-    }
-    
-    .title-section {
-        position: block;
-        top: 32px;
-        left: max(20px, calc(50% - 600px));
-        margin-bottom: 0;
-    }
+  
+.title-section {
+    position: block;
+    left: max(20px, calc(50% - 600px));
+    margin-bottom: 32px;
 }
 
 .container {
@@ -91,6 +83,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 32px;
 }
 
 /* Title Section */
