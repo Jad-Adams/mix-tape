@@ -13,7 +13,6 @@
     --gradient-player-outer: linear-gradient(180deg, #353B4A -1.09%, #7E8DB0 48.49%, #353B4A 100%);
     --shadow-player-outer: drop-shadow(0 8px 12px rgba(3, 23, 39, 0.25)) drop-shadow(0 6px 12px rgba(3, 23, 39, 0.25));
     --gradient-player-inner: linear-gradient(171deg, #93A4CE -110.67%, #4A5368 38.28%);
-    --shadow-player-inner: none;
     --color-lcd-text: #FFFFFF;
     --color-lcd-muted: hsl(0, 0.00%, 60.00%);
     --color-progress-track: rgba(255, 255, 255, 0.2);
@@ -35,9 +34,9 @@
 [data-theme="dark"] {
     --color-page-bg: #202020;
     --color-title: #808080;
-    --gradient-player-outer: linear-gradient(178deg, #1C1C1C 13.01%, #4D4D4D 54.4%, #131314 87.32%);
+    --gradient-player-outer: linear-gradient(154deg, #4D4D4D 7.49%, #050506 84.91%);
     --shadow-player-outer: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
-    --gradient-player-inner: linear-gradient(180deg, #383838 -8.89%, #2B2A2C 11.18%, #1E1B20 100%);
+    --gradient-player-inner: linear-gradient(154deg, #383838 7.49%, #1E1B20 84.91%);
     --color-lcd-text: #FFFFFF;
     --color-lcd-muted: hsl(0, 0.00%, 60.00%);
     --color-progress-track: rgba(255, 255, 255, 0.2);
@@ -70,15 +69,8 @@ body {
     align-items: center;
     padding: 40px 20px;
     position: relative;
-    transition: background-color 0.4s ease, color 0.4s ease;
 }
   
-.title-section {
-    position: block;
-    left: max(20px, calc(50% - 600px));
-    margin-bottom: 32px;
-}
-
 .container {
     max-width: 1200px;
     width: 100%;
@@ -93,6 +85,7 @@ body {
     align-self: flex-start;
     margin-bottom: 40px;
     position: relative;
+    left: max(20px, calc(50% - 600px));
     width: 100%;
     max-width: 1200px;
 }
@@ -100,40 +93,29 @@ body {
 .theme-toggle {
     position: absolute;
     top: 12px;
-    right: 12px;
+    right: 16px;
     padding: 4px;
     border: none;
     background: transparent;
     cursor: pointer;
     border-radius: 4px;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.15s ease;
 }
 
 .theme-toggle:hover {
     opacity: 0.8;
 }
-
-.theme-toggle:active {
-    transform: scale(0.92);
-}
-
 .theme-toggle img {
     display: block;
-    transition: opacity 0.25s ease;
-}
-
-.theme-toggle--switching img {
-    opacity: 0;
 }
 
 .title-main {
     font-family: 'Barlow', sans-serif;
-    font-size: 56px;
+    font-size: 72px;
     font-weight: bold;
     color: var(--color-title);
     line-height: 1;
     margin-bottom: 8px;
-    transition: color 0.4s ease;
 }
 
 .title-subtitle {
@@ -142,7 +124,6 @@ body {
     color: var(--color-title);
     font-weight: 400;
     padding-left: 3px;
-    transition: color 0.4s ease;
 }
 
 .title-subtitle.body {
@@ -153,12 +134,23 @@ body {
     padding-top: 8px;
 }
 
-.title-subtitle.body a {
+.title-subtitle.body a,
+.title-subtitle.body a:link,
+.title-subtitle.body a:visited {
     color: var(--color-title);
-    transition: color 0.4s ease;
+    text-decoration: underline;
+}
+
+.title-subtitle.body a:hover {
+    opacity: 0.8;
 }
 
 /* MD Player Container */
+.md-player-scale-wrap {
+    width: 800px;
+    transform-origin: top center;
+}
+
 .md-player {
     height: 560px;
     width: 100%;
@@ -168,7 +160,6 @@ body {
     background: var(--gradient-player-outer);
     border-radius: 30px;
     filter: var(--shadow-player-outer);
-    transition: background 0.4s ease, filter 0.4s ease;
 }
 
 .md-player-inner {
@@ -179,8 +170,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    filter: var(--shadow-player-inner);
-    transition: background 0.4s ease, filter 0.4s ease;
 }
 
 .eject-button {
@@ -227,7 +216,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transition: opacity 0.3s ease;
 }
 
 .screen-content {
@@ -244,7 +232,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     padding-left: 8px;
-    transition: color 0.35s ease;
 }
 
 /* On/off flicker when paused so the user can see playback is stopped */
@@ -263,7 +250,6 @@ body {
     color: var(--color-lcd-text);
     margin: 8px 0;
     overflow: hidden;
-    transition: color 0.35s ease;
     white-space: nowrap;
 }
 
@@ -295,7 +281,6 @@ body {
     font-family: 'Share Tech Mono', monospace;
     font-size: 14px;
     color: var(--color-lcd-text);
-    transition: color 0.35s ease;
 }
 
 .control-container {
@@ -316,7 +301,7 @@ body {
 /* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
 .playback-controls {
     position: absolute;
-    left: 52%;
+    left: 51%;
     top: 50%;
     transform: translate(-50%, -50%);
     display: grid;
@@ -370,16 +355,11 @@ body {
 }
 
 .playback-controls-btn:hover {
-    background: var(--color-btn-hover);
+    /* background: var(--color-btn-hover); */
 }
 
 .playback-controls-btn:active {
     transform: scale(0.96);
-}
-
-.playback-controls-btn-play img {
-    width: 32px;
-    height: 32px;
 }
 
 .playback-controls-btn img {
@@ -439,7 +419,6 @@ body {
     margin: 0 10px;
     cursor: pointer;
     position: relative;
-    transition: background 0.35s ease;
 }
 
 .progress-bar {
@@ -447,7 +426,7 @@ body {
     background: var(--color-progress-fill);
     border-radius: 2px;
     width: 0%;
-    transition: width 0.1s linear, background 0.35s ease;
+    transition: width 0.1s linear;
 }
 
 .visualizer {
@@ -487,7 +466,6 @@ body {
     color: var(--color-player-label);
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: color 0.35s ease;
 }
 
 .md-player-stereo {
@@ -497,13 +475,29 @@ body {
     color: var(--color-player-stereo);
     text-transform: uppercase;
     letter-spacing: 2.4px;
-    transition: color 0.35s ease;
 }
 
-/* Stacked layout: screen on top, controls below, volume to right of knob */
+/* Desktop scaling between ~900px and 1000px viewport widths */
+@media (min-width: 901px) {
+    .md-player-scale-wrap {
+        --player-scale: clamp(0.88, calc((100vw - 40px) / 900px), 1);
+        transform: scale(var(--player-scale));
+        margin-bottom: calc((var(--player-scale) - 1) * 560px);
+    }
+}
+
+/* Stacked mobile layout: screen on top, controls below, volume to right of knob */
 @media (max-width: 900px) {
+    .md-player-scale-wrap {
+        width: 100%;
+        transform: none;
+        margin-bottom: 0;
+        display: flex;
+        justify-content: center;
+    }
+
     .md-player {
-        height: 540px;
+        height: 560px;
         min-height: 0;
         width: min(100%, 380px);
         aspect-ratio: 9 / 16;
@@ -517,7 +511,7 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 40px 16px 24px 16px;
+        padding: 52px 16px 24px 16px;
     }
 
     .theme-toggle {
@@ -530,7 +524,7 @@ body {
         cursor: pointer;
         scale: 0.8;
         border-radius: 4px;
-        transition: opacity 0.2s ease, transform 0.2s ease;
+        transition: opacity 0.15s ease;
     }
 
     .eject-button {
@@ -673,455 +667,29 @@ body {
     }
 }
 
-/* Small screens: tighter spacing and touch-friendly sizes */
+/* Small screens: unique overrides only (rest inherits from 900px) */
 @media (max-width: 768px) {
-    .md-player {
-        height: 540px;
-        min-height: 0;
-        width: min(100%, 380px);
-        aspect-ratio: 9 / 16;
-        display: flex;
-        flex-direction: column;
-        padding: 16px 12px 24px;
-    }
-
-    .md-player-inner {
-        flex: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        padding: 40px 16px 24px 16px;
-    }
-
-    .eject-button {
-        position: absolute;
-        top: 0px;
-        left: 36px;
-        transform: scale(0.7);
-    }
-
-    .player-outline-wrap {
-        flex: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        background-image: var(--asset-player-outline-mobile);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: 10% 0;
-    }
-
-    .screen-container {
-        flex: 0 0 auto;
-        margin-bottom: 0;
-        min-height: 160px;
-    }
-
-    .screen-content {
-        max-width: 100%;
-        gap: 8px;
-    }
-
-    .screen-outline {
-        min-height: 160px;
-        padding: 20px;
-        background-image: none;
-    }
-
-    .control-container {
-        position: relative;
-        top: -11px;
-        left: 5px;
-        width: auto;
-        height: auto;
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-    }
-
-    .control-knob-area {
-        position: relative;
-        inset: unset;
-        width: clamp(140px, 36vw, 200px);
-        aspect-ratio: 1;
-        flex-shrink: 0;
-    }
-
     .playback-controls {
-        position: absolute;
-        left: 50%;
-        top: 50%;
         transform: translate(-50%, -47%);
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: auto 1fr auto;
-        align-items: center;
-        justify-items: center;
-        gap: 1px;
-        min-width: clamp(100px, 20vw, 140px);
-        min-height: clamp(100px, 20vw, 140px);
-    }
-
-    .volume-controls {
-        position: static;
-        transform: none;
-        margin-top: 0;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Rotate volume buttons 90° so pills are vertical, then stack */
-    .volume-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 56px;
-        min-width: 32px;
-        min-height: 56px;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .volume-btn img {
-        width: 56px;
-        height: 32px;
-        transform: rotate(270deg);
-        object-fit: contain;
-    }
-
-    .visualizer {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        gap: 4px;
-        height: 48px;
-        margin-top: 0;
-    }
-
-    /* MD Player Text */
-    .md-player-text {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 12px;
-    }
-
-    .md-player-label {
-        font-family: var(--font-family-player-label);
-        font-size: 16px;
-        color: var(--color-player-label);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .md-player-stereo {
-        font-family: var(--font-family-player-stereo);
-        font-size: 12px;
-        color: var(--color-player-stereo);
-        text-transform: uppercase;
-        letter-spacing: 2.4px;
     }
 }
 
-/* Very small viewports: fit screen content inside outline */
-@media (max-width: 600px) {
-    .md-player {
-        height: 545px;
-        min-height: 0;
-        width: min(100%, 380px);
-        aspect-ratio: 9 / 16;
-        display: flex;
-        flex-direction: column;
-        padding: 16px 12px 24px;
-    }
-
-    .md-player-inner {
-        flex: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        padding: 40px 16px 24px 16px;
-    }
-
-    .player-outline-wrap {
-        flex: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        background-image: var(--asset-player-outline-mobile);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: 10% 0;
-    }
-
-    .screen-container {
-        flex: 0 0 auto;
-        margin-bottom: 0;
-        min-height: 160px;
-    }
-
-    .screen-content {
-        max-width: 100%;
-        gap: 8px;
-    }
-
-    .screen-outline {
-        min-height: 160px;
-        padding: 20px;
-        background-image: none;
-    }
-
-    .control-container {
-        position: relative;
-        top: -11px;
-        left: 5px;
-        width: auto;
-        height: auto;
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-    }
-
-    .control-knob-area {
-        position: relative;
-        inset: unset;
-        width: clamp(140px, 36vw, 200px);
-        aspect-ratio: 1;
-        flex-shrink: 0;
-    }
-
-    .playback-controls {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -47%);
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: auto 1fr auto;
-        align-items: center;
-        justify-items: center;
-        gap: 1px;
-        min-width: clamp(100px, 20vw, 140px);
-        min-height: clamp(100px, 20vw, 140px);
-    }
-
-    .volume-controls {
-        position: static;
-        transform: none;
-        margin-top: 0;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Rotate volume buttons 90° so pills are vertical, then stack */
-    .volume-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 56px;
-        min-width: 32px;
-        min-height: 56px;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .volume-btn img {
-        width: 56px;
-        height: 32px;
-        transform: rotate(270deg);
-        object-fit: contain;
-    }
-
-    .visualizer {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        gap: 4px;
-        height: 48px;
-        margin-top: 0;
-    }
-
-    /* MD Player Text */
-    .md-player-text {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 12px;
-    }
-
-    .md-player-label {
-        font-family: var(--font-family-player-label);
-        font-size: 16px;
-        color: var(--color-player-label);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .md-player-stereo {
-        font-family: var(--font-family-player-stereo);
-        font-size: 12px;
-        color: var(--color-player-stereo);
-        text-transform: uppercase;
-        letter-spacing: 2.4px;
-    }
-}
-
-/* Very small viewports: fit screen content inside outline */
+/* Very small viewports: unique overrides only (rest inherits from 900px/768px) */
 @media (max-width: 500px) {
-    .md-player {
-        height: 545px;
-        min-height: 0;
-        width: min(100%, 380px);
-        aspect-ratio: 9 / 16;
-        display: flex;
-        flex-direction: column;
-        padding: 16px 12px 24px;
-    }
-
-    .md-player-inner {
-        flex: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        padding: 40px 16px 24px 16px;
-    }
-
-    .player-outline-wrap {
-        flex: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        background-image: var(--asset-player-outline-mobile);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: 10% 0;
-    }
-
-    .screen-container {
-        flex: 0 0 auto;
-        margin-bottom: 0;
-        min-height: 160px;
-    }
-
-    .screen-content {
-        max-width: 100%;
-        gap: 8px;
-    }
-
-    .screen-outline {
-        min-height: 160px;
-        padding: 20px;
-        background-image: none;
-    }
-
     .control-container {
-        position: relative;
         top: -12px;
-        left: 5px;
-        width: auto;
-        height: auto;
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
     }
 
     .control-knob-area {
-        position: relative;
         inset: 0;
         width: 60%;
-        background: transparent;
     }
 
     .playback-controls {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -45%);
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: auto 1fr auto;
-        align-items: center;
-        justify-items: center;
-        gap: 1px;
-        min-width: clamp(100px, 20vw, 140px);
-        min-height: clamp(100px, 20vw, 140px);
+        transform: translate(-50%, -47%);
     }
 
-    .volume-controls {
-        position: static;
-        transform: none;
-        margin-top: 0;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Rotate volume buttons 90° so pills are vertical, then stack */
-    .volume-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 56px;
-        min-width: 32px;
-        min-height: 56px;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .volume-btn img {
-        width: 56px;
-        height: 32px;
-        transform: rotate(270deg);
-        object-fit: contain;
-    }
-
-    .visualizer {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        gap: 4px;
-        height: 48px;
-        margin-top: 0;
-    }
-
-    /* MD Player Text */
     .md-player-text {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         padding-top: 20px;
-    }
-
-    .md-player-label {
-        font-family: var(--font-family-player-label);
-        font-size: 16px;
-        color: var(--color-player-label);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .md-player-stereo {
-        font-family: var(--font-family-player-stereo);
-        font-size: 12px;
-        color: var(--color-player-stereo);
-        text-transform: uppercase;
-        letter-spacing: 2.4px;
     }
 }
