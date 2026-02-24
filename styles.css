@@ -22,10 +22,10 @@
     --color-player-stereo: oklch(0.6 0 0);
     --font-family-player-label: 'Barlow Condensed', sans-serif;
     --font-family-player-stereo: 'DIN Alternate', sans-serif;
-    --font-size-player-label: 24px;
-    --font-size-player-stereo: 24px;
-    --font-weight-player-label: bold;
-    --font-weight-player-stereo: 400;
+    --font-size-player-label: 31px;
+    --font-size-player-stereo: 31px;
+    --font-weight-player-label: 700;
+    --font-weight-player-stereo: 700;
     --asset-screen-bg: url('assets/themes/light/screen-main-2.png');
     --asset-player-outline-mobile: url('assets/themes/light/player-outline-mobile.png');
 }
