@@ -54,6 +54,22 @@
     --asset-player-outline-mobile: url('assets/themes/dark/player-outline-mobile.png');
 }
 
+/* Theme transition: short ease so the switch feels responsive */
+body,
+.title-main,
+.title-sub,
+.title-section a,
+.md-player-outer,
+.md-player-inner,
+.lcd-label,
+.lcd-song-info,
+.lcd-time,
+.progress-bar-container,
+.md-player-label,
+.md-player-stereo {
+    transition: background-color 0.15s ease, color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -426,7 +442,7 @@ body {
     background: var(--color-progress-fill);
     border-radius: 2px;
     width: 0%;
-    transition: width 0.1s linear;
+    transition: width 0.1s linear, background 0.15s ease;
 }
 
 .visualizer {
@@ -444,7 +460,7 @@ body {
     border-radius: 2px;
     min-height: 2px;
     /* Slight delay/ease so bar height changes aren’t jumpy */
-    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1);
+    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1), background 0.15s ease;
 }
 
 /* Hidden audio element */
