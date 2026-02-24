@@ -8,18 +8,18 @@
 /* Theme: default and light */
 :root,
 [data-theme="light"] {
-    --color-page-bg: hsl(208, 35.90%, 84.70%);
-    --color-title: #110F05;
-    --gradient-player-outer: linear-gradient(180deg, #353B4A -1.09%, #7E8DB0 48.49%, #353B4A 100%);
-    --shadow-player-outer: drop-shadow(0 8px 12px rgba(3, 23, 39, 0.25)) drop-shadow(0 6px 12px rgba(3, 23, 39, 0.25));
-    --gradient-player-inner: linear-gradient(171deg, #93A4CE -110.67%, #4A5368 38.28%);
-    --color-lcd-text: #FFFFFF;
-    --color-lcd-muted: hsl(0, 0.00%, 60.00%);
-    --color-progress-track: rgba(255, 255, 255, 0.2);
-    --color-progress-fill: #FFFFFF;
-    --color-btn-hover: rgba(255, 255, 255, 0.12);
-    --color-player-label: #FFFFFF;
-    --color-player-stereo: hsl(0, 0.00%, 60.00%);
+    --color-page-bg: oklch(0.875 0.042 248);
+    --color-title: oklch(0.13 0.02 75);
+    --gradient-player-outer: linear-gradient(180deg, oklch(0.29 0.032 264) -1.09%, oklch(0.57 0.065 264) 48.49%, oklch(0.29 0.032 264) 100%);
+    --shadow-player-outer: drop-shadow(0 8px 12px oklch(0.16 0.03 264 / 0.25)) drop-shadow(0 6px 12px oklch(0.16 0.03 264 / 0.25));
+    --gradient-player-inner: linear-gradient(171deg, oklch(0.68 0.085 264) -110.67%, oklch(0.39 0.038 264) 38.28%);
+    --color-lcd-text: oklch(1 0 0);
+    --color-lcd-muted: oklch(0.6 0 0);
+    --color-progress-track: oklch(1 0 0 / 0.2);
+    --color-progress-fill: oklch(1 0 0);
+    --color-btn-hover: oklch(1 0 0 / 0.12);
+    --color-player-label: oklch(1 0 0);
+    --color-player-stereo: oklch(0.6 0 0);
     --font-family-player-label: 'Barlow Condensed', sans-serif;
     --font-family-player-stereo: 'DIN Alternate', sans-serif;
     --font-size-player-label: 24px;
@@ -32,18 +32,18 @@
 
 /* Theme: dark */
 [data-theme="dark"] {
-    --color-page-bg: #202020;
-    --color-title: #808080;
-    --gradient-player-outer: linear-gradient(154deg, #4D4D4D 7.49%, #050506 84.91%);
-    --shadow-player-outer: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
-    --gradient-player-inner: linear-gradient(154deg, #383838 7.49%, #1E1B20 84.91%);
-    --color-lcd-text: #FFFFFF;
-    --color-lcd-muted: hsl(0, 0.00%, 60.00%);
-    --color-progress-track: rgba(255, 255, 255, 0.2);
-    --color-progress-fill: #FFFFFF;
-    --color-btn-hover: rgba(255, 255, 255, 0.12);
-    --color-player-label: rgba(0, 0, 0, 0.2);
-    --color-player-stereo: rgba(0, 0, 0, 0.2);
+    --color-page-bg: oklch(0.22 0 0);
+    --color-title: oklch(0.55 0 0);
+    --gradient-player-outer: linear-gradient(154deg, oklch(0.38 0 0) 7.49%, oklch(0.05 0 0) 84.91%);
+    --shadow-player-outer: drop-shadow(0 8px 12px oklch(0 0 0 / 0.25)) drop-shadow(0 6px 12px oklch(0 0 0 / 0.25));
+    --gradient-player-inner: linear-gradient(154deg, oklch(0.28 0 0) 7.49%, oklch(0.17 0.01 285) 84.91%);
+    --color-lcd-text: oklch(1 0 0);
+    --color-lcd-muted: oklch(0.6 0 0);
+    --color-progress-track: oklch(1 0 0 / 0.2);
+    --color-progress-fill: oklch(1 0 0);
+    --color-btn-hover: oklch(1 0 0 / 0.12);
+    --color-player-label: oklch(0 0 0 / 0.2);
+    --color-player-stereo: oklch(0 0 0 / 0.2);
     --font-family-player-label: 'Barlow Condensed', sans-serif;
     --font-family-player-stereo: 'DIN Alternate', sans-serif;
     --font-size-player-label: 31px;
