@@ -93,7 +93,7 @@ body {
 .theme-toggle {
     position: absolute;
     top: 12px;
-    right: 12px;
+    right: 16px;
     padding: 4px;
     border: none;
     background: transparent;
@@ -355,7 +355,7 @@ body {
 }
 
 .playback-controls-btn:hover {
-    background: var(--color-btn-hover);
+    /* background: var(--color-btn-hover); */
 }
 
 .playback-controls-btn:active {
@@ -686,7 +686,7 @@ body {
     }
 
     .playback-controls {
-        transform: translate(-50%, -45%);
+        transform: translate(-50%, -47%);
     }
 
     .md-player-text {
