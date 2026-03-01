@@ -1,0 +1,143 @@
+/* =============================================================================
+   mix tape — Design Tokens
+   All CSS custom properties for both themes.
+   Never hardcode any of these values in styles.css — always reference a token.
+   Theme is applied via data-theme="dark" or data-theme="light" on <body>.
+   ============================================================================= */
+
+/* =============================================================================
+   SHARED — values that never change between themes
+   ============================================================================= */
+
+:root {
+  /* Screen (always the same regardless of theme) */
+  --screen-bg:              #1a3d22;
+  --screen-text:            #74a871;
+  --screen-text-dim:        #4a8f57;
+  --screen-inner-shadow:    inset 20px 20px 40px rgba(0, 0, 0, 0.20),
+                            inset 15px 15px 30px rgba(0, 0, 0, 0.15),
+                            inset 10px 10px 20px rgba(0, 0, 0, 0.15),
+                            inset 20px 20px 20px rgba(0, 0, 0, 0.15);
+  --screen-glow:            0px 0px 1.07px rgba(102, 210, 96, 0.30),
+                            0px 0px 1.60px rgba(178, 234, 175, 0.20),
+                            0px 0px 2.14px rgba(154, 207, 151, 0.05);
+
+  /* Clock display */
+  --clock-text:             #cfcfcf;
+  --clock-inner-shadow:     inset 12px 12px 32px rgba(0, 0, 0, 0.20),
+                            inset 7px 7px 22px rgba(0, 0, 0, 0.15),
+                            inset 2px 2px 12px rgba(0, 0, 0, 0.15),
+                            inset 12px 12px 12px rgba(0, 0, 0, 0.15);
+
+  /* Power LED */
+  --led-gradient:           radial-gradient(50% 50% at 50% 50%, #68da62 0%, #579253 100%);
+  --led-stroke:             #1f291e;
+  --led-glow:               drop-shadow(0 0 2px rgba(102, 210, 96, 0.30))
+                            drop-shadow(0 0 3px rgba(102, 210, 96, 0.20))
+                            drop-shadow(0 0 4px rgba(102, 210, 96, 0.05));
+
+  /* Slider thumb (shared geometry, colours differ per theme) */
+  --slider-thumb-radius:    2px;
+  --slider-thumb-border:    0.2px solid #808080;
+  --slider-thumb-shadow:    20px 20px 40px rgba(0, 0, 0, 0.10),
+                            16px 16px 32px rgba(0, 0, 0, 0.15),
+                            12px 12px 24px rgba(0, 0, 0, 0.20),
+                            8px 8px 16px rgba(0, 0, 0, 0.15),
+                            4px 4px 8px rgba(0, 0, 0, 0.30);
+
+  /* Typography */
+  --font-screen:            'Share Tech Mono', monospace;
+  --font-ui:                'Space Grotesk', sans-serif;
+
+  /* Border radius */
+  --radius-device:          16px;
+  --radius-panel:           10px;
+  --radius-button:          8px;
+  --radius-screen:          6px;
+
+  /* Transitions */
+  --transition-button:      box-shadow 80ms ease;
+  --transition-theme:       background-color 200ms ease, color 200ms ease;
+}
+
+/* =============================================================================
+   DARK THEME (default)
+   ============================================================================= */
+
+[data-theme="dark"] {
+  /* Page */
+  --color-background:       #1c1c1c;
+
+  /* Device layers */
+  --color-frame:            #000000;
+  --color-body:             #2b2b2b;
+  --color-panel:            #2b2b2b;
+  --color-button-face:      #2b2b2b;
+
+  /* Icon colour */
+  --color-icon:             rgba(255, 255, 255, 0.75);
+
+  /* Page copy text */
+  --color-text-primary:     rgba(255, 255, 255, 0.90);
+  --color-text-secondary:   rgba(255, 255, 255, 0.60);
+
+  /* Shadows */
+  --shadow-button:          6px 6px 12px 6px rgba(0, 0, 0, 0.35),
+                            4px 4px 8px 4px rgba(0, 0, 0, 0.20),
+                            3px 3px 4px 0px rgba(0, 0, 0, 0.40),
+                            -2px -2px 6px 0px rgba(112, 112, 112, 0.40);
+
+  --shadow-button-pressed:  inset -2px -2px 5px 4px rgba(0, 0, 0, 0.30),
+                            inset 8px 8px 7px 0px rgba(0, 0, 0, 0.20),
+                            inset 7px 7px 7px 0px rgba(0, 0, 0, 0.15),
+                            inset 5px 5px 4px 0px rgba(0, 0, 0, 0.15),
+                            inset 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
+
+  --shadow-panel:           2px 2px 5px rgba(0, 0, 0, 0.25),
+                            -1px 0px 3px rgba(112, 112, 112, 0.25);
+
+  /* Slider */
+  --slider-track-color:     #000000;
+  --slider-thumb-gradient:  linear-gradient(176deg, #585858 -12.98%, #969696 44.63%, #1a1a1a 101.95%);
+}
+
+/* =============================================================================
+   LIGHT THEME
+   ============================================================================= */
+
+[data-theme="light"] {
+  /* Page */
+  --color-background:       #cac8c8;
+
+  /* Device layers */
+  --color-frame:            #383838;
+  --color-body:             #909090;
+  --color-panel:            #909090;
+  --color-button-face:      #909090;
+
+  /* Icon colour */
+  --color-icon:             #3a3a3a;
+
+  /* Page copy text */
+  --color-text-primary:     rgba(0, 0, 0, 0.85);
+  --color-text-secondary:   rgba(0, 0, 0, 0.55);
+
+  /* Shadows */
+  --shadow-button:          6px 6px 12px 6px rgba(0, 0, 0, 0.35),
+                            4px 4px 8px 4px rgba(0, 0, 0, 0.20),
+                            3px 3px 4px 0px rgba(0, 0, 0, 0.40),
+                            -2px -2px 6px 0px rgba(242, 242, 242, 0.40);
+
+  --shadow-button-pressed:  inset -2px -2px 5px 4px rgba(0, 0, 0, 0.30),
+                            inset 8px 8px 7px 0px rgba(0, 0, 0, 0.20),
+                            inset 7px 7px 7px 0px rgba(0, 0, 0, 0.15),
+                            inset 5px 5px 4px 0px rgba(0, 0, 0, 0.15),
+                            inset 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
+
+  --shadow-panel:           2px 2px 5px rgba(0, 0, 0, 0.25),
+                            -1px 0px 3px rgba(112, 112, 112, 0.25);
+
+  /* Slider */
+  --slider-track-color:     linear-gradient(160deg, #272626 -15.62%, #6e6e6e 115.64%);
+  --slider-thumb-gradient:  linear-gradient(176deg, #5b5956 -12.98%, #999693 44.63%, #1b1b1a 101.95%);
+}
