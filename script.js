@@ -307,8 +307,8 @@ function updatePlayPauseIcon() {
 	if (!btnPlay) return;
 	const img = btnPlay.querySelector("img");
 	if (img)
-		img.src = getThemeAssetPath(isPlaying ? "pause.svg" : "play.svg");
-	btnPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
+		img.src = getThemeAssetPath("play.svg");
+	btnPlay.setAttribute("aria-label", "Play");
 }
 
 function updateLcdLabel() {
@@ -329,7 +329,9 @@ function onButtonPointerDown(btn, action) {
 	btn.addEventListener("pointerdown", () => playClickSound());
 	btn.addEventListener("click", action);
 }
-onButtonPointerDown(btnPlay, () => (isPlaying ? pauseAudio() : playAudio()));
+const btnPause = document.getElementById("btnPause");
+onButtonPointerDown(btnPlay, playAudio);
+onButtonPointerDown(btnPause, pauseAudio);
 onButtonPointerDown(btnStop, stopAudio);
 onButtonPointerDown(btnPrev, playPrev);
 onButtonPointerDown(btnNext, playNext);
