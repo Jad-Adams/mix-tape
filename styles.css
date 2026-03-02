@@ -106,24 +106,112 @@ body {
     max-width: 1200px;
 }
 
+/* ============================================================
+   Top Bar
+   ============================================================ */
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Negative margin offsets the parent's 24px side padding so the bar spans edge-to-edge */
+    margin: 0 -24px;
+    padding: 6px 24px;
+    background: var(--color-body);
+    /* 20px matches .md-player-inner's existing border-radius on top corners */
+    border-radius: 20px 20px 0 0;
+    transition: var(--transition-theme);
+}
+
+.power-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border: none;
+    background: var(--color-button-face);
+    border-radius: var(--radius-button);
+    box-shadow: var(--shadow-button);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition-button);
+}
+
+.power-btn:active {
+    box-shadow: var(--shadow-button-pressed);
+}
+
+.power-led {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--led-gradient);
+    border: 1px solid var(--led-stroke);
+    filter: var(--led-glow);
+    flex-shrink: 0;
+}
+
+.power-label {
+    font-family: var(--font-screen);
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-icon);
+}
+
+.speaker-grille {
+    flex: 1;
+    height: 24px;
+    background-image: radial-gradient(circle, var(--color-grille-dot) 1.5px, transparent 1.5px);
+    background-size: 8px 8px;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.clock-display {
+    font-family: var(--font-screen);
+    font-size: 11px;
+    color: var(--clock-text);
+    background: var(--screen-bg);
+    box-shadow: var(--clock-inner-shadow);
+    border-radius: var(--radius-screen);
+    padding: 3px 7px;
+    letter-spacing: 2px;
+    min-width: 46px;
+    text-align: center;
+    line-height: 1.4;
+}
+
 .theme-toggle {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
     border: none;
     background: transparent;
     cursor: pointer;
     border-radius: 4px;
+    flex-shrink: 0;
     transition: opacity 0.15s ease;
 }
 
 .theme-toggle:hover {
     opacity: 0.8;
 }
+
 .theme-toggle img {
     display: block;
 }
+
+/* ============================================================
+   Page copy
+   ============================================================ */
 
 .title-main {
     font-family: 'Barlow', sans-serif;
@@ -187,7 +275,7 @@ body {
 .md-player-inner {
     background: var(--gradient-player-inner);
     border-radius: 20px;
-    padding: 50px 24px 12px 24px;
+    padding: 0 24px 12px 24px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -533,27 +621,13 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding: 52px 16px 24px 16px;
+        padding: 0 16px 24px 16px;
     }
 
-    .theme-toggle {
-        position: absolute;
-        top: 2px;
-        right: 8px;
-        padding: 4px;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        scale: 0.8;
-        border-radius: 4px;
-        transition: opacity 0.15s ease;
-    }
-
-    .eject-button {
-    position: absolute;
-    top: 0px;
-    left: 36px;
-    transform: scale(0.7);
+    .top-bar {
+        margin: 0 -16px;
+        padding: 5px 16px;
+        border-radius: 20px 20px 0 0;
     }
 
     .player-outline-wrap {

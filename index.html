@@ -22,13 +22,18 @@
         <div class="md-player-scale-wrap">
             <div class="md-player player-shell">
                 <div class="md-player-inner">
-                    <div class="eject-container">
-                        <div class="eject-button">
-                            <img src="" alt="" width="40" height="40" data-asset="icon-eject.svg">
-                        </div>
-                        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                            <img src="" alt="" width="40" height="40" data-asset="theme-switch.svg">
+                    <div class="top-bar">
+                        <button type="button" class="power-btn" aria-label="Power">
+                            <span class="power-led" aria-hidden="true"></span>
+                            <span class="power-label">Power</span>
                         </button>
+                        <div class="speaker-grille" aria-hidden="true"></div>
+                        <div class="top-bar-right">
+                            <div class="clock-display" id="clockDisplay">00:00</div>
+                            <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                                <img src="" alt="" width="28" height="28" data-asset="theme-switch.svg">
+                            </button>
+                        </div>
                     </div>
                     <div class="player-outline-wrap">
                         <div class="screen-container">
@@ -95,5 +100,18 @@
     <audio id="audioPlayer" preload="metadata"></audio>
 
     <script src="script.js"></script>
+    <script>
+        /* Wall-clock display — script.js has no clock logic, so this handles it inline */
+        (function () {
+            var el = document.getElementById('clockDisplay');
+            function tick() {
+                if (!el) return;
+                var d = new Date(), h = d.getHours(), m = d.getMinutes();
+                el.textContent = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+            }
+            tick();
+            setInterval(tick, 1000);
+        }());
+    </script>
 </body>
 </html>

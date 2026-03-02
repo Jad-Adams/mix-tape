@@ -57,6 +57,9 @@
   --radius-button:          8px;
   --radius-screen:          6px;
 
+  /* Speaker grille */
+  --color-grille-dot:       oklch(0 0 0 / 0.30);
+
   /* Transitions */
   --transition-button:      box-shadow 80ms ease;
   --transition-theme:       background-color 200ms ease, color 200ms ease;
@@ -68,7 +71,7 @@
 
 [data-theme="dark"] {
   /* Page */
-  --color-background:       oklch(0.164 0 0);  /* #1c1c1c */
+  --color-background:       oklch(0.28 0 0);  /* #1c1c1c */
 
   /* Device layers */
   --color-frame:            oklch(0 0 0);        /* #000000 */
