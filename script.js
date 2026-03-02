@@ -302,8 +302,6 @@ const btnPlay = document.getElementById("btnPlay");
 const btnStop = document.getElementById("btnStop");
 const btnPrev = document.getElementById("btnPrev");
 const btnNext = document.getElementById("btnNext");
-const btnVolumeDown = document.getElementById("btnVolumeDown");
-const btnVolumeUp = document.getElementById("btnVolumeUp");
 
 function updatePlayPauseIcon() {
 	if (!btnPlay) return;
@@ -335,8 +333,12 @@ onButtonPointerDown(btnPlay, () => (isPlaying ? pauseAudio() : playAudio()));
 onButtonPointerDown(btnStop, stopAudio);
 onButtonPointerDown(btnPrev, playPrev);
 onButtonPointerDown(btnNext, playNext);
-onButtonPointerDown(btnVolumeDown, volumeDown);
-onButtonPointerDown(btnVolumeUp, volumeUp);
+const volumeSlider = document.getElementById('volumeSlider');
+if (volumeSlider) {
+	volumeSlider.addEventListener('input', function() {
+		audioPlayer.volume = this.value / 100;
+	});
+}
 
 audioPlayer.addEventListener("play", () => {
 	initAudioContext();
