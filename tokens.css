@@ -56,6 +56,7 @@
   --radius-panel:           10px;
   --radius-button:          8px;
   --radius-screen:          6px;
+  --radius-button-cap:      12px;
 
   /* Screen bezel and progress track */
   --color-screen-bezel-border: oklch(0.16 0 0);         /* #0d0d0d — outer frame edge */
