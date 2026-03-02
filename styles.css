@@ -36,7 +36,7 @@ body {
 }
   
 .container {
-    max-width: 1200px;
+    max-width: 1224px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -58,8 +58,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    /* Negative margin offsets the parent's 10px padding so the bar spans edge-to-edge */
-    margin: -10px -10px 0 -10px;
+    margin: 0;
     padding: 6px 10px;
     background: var(--color-body);
     border-radius: var(--radius-device) var(--radius-device) 0 0;
@@ -175,7 +174,6 @@ body {
 /* MD Player Container */
 .md-player-scale-wrap {
     width: 100%;
-    max-width: 800px;
 }
 
 /* Player Shell */
@@ -204,14 +202,13 @@ body {
 }
 
 .md-player {
-    width: 100%;
-    max-width: 800px;
+    width: 1224px;
     position: relative;
-    padding: 16px 8px 30px 8px;
+    padding: 16px;
 }
 
 .md-player-inner {
-    background: var(--color-body);
+    background: var(--color-frame);
     border-radius: 20px;
     padding: 10px;
     position: relative;
@@ -360,7 +357,7 @@ body {
     gap: 4px;
 }
 
-/* Shared button base — transparent footprint; raised cap via ::before */
+/* Shared button base — transparent footprint; two-part construction via ::before (base) and ::after (cap) */
 .btn {
     display: flex;
     align-items: center;
@@ -374,18 +371,33 @@ body {
     transition: var(--transition-button);
 }
 
-/* Raised cap surface — sits inside the transparent base footprint */
+.btn:focus-visible {
+    outline: 2px solid var(--color-icon);
+    outline-offset: 4px;
+}
+
+/* Base / button action plate — full footprint */
 .btn::before {
     content: '';
     position: absolute;
-    inset: 4px;
+    inset: 0;
+    background: var(--color-button-face);
+    border-radius: var(--radius-button);
+    transition: var(--transition-button);
+}
+
+/* Raised cap — inset keycap with shadow */
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 16px;
     background: var(--color-button-face);
     border-radius: var(--radius-button-cap);
     box-shadow: var(--shadow-button);
     transition: var(--transition-button);
 }
 
-.btn:active::before {
+.btn:active::after {
     box-shadow: var(--shadow-button-pressed);
 }
 
@@ -396,11 +408,18 @@ body {
     z-index: 1;
 }
 
-/* Square transport buttons: eject / stop / pause / play */
+/* Square transport buttons: eject / stop / pause / play — 143×143, two-part base/cap */
 .btn-transport {
-    width: 60px;
-    height: 60px;
+    width: 143px;
+    height: 143px;
     flex-shrink: 0;
+}
+
+/* Eject button cap: optional PNG asset at assets/shared/eject-cap.png for pixel-perfect match */
+.btn-transport-eject::after {
+    background-image: url('assets/shared/eject-cap.png');
+    background-size: cover;
+    background-position: center;
 }
 
 /* Wide skip buttons: prev / next — share available width equally */
@@ -488,9 +507,10 @@ body {
     justify-content: flex-start;
 }
 
+/* Utility buttons — same two-part base/cap and sizing as transport (143×143) */
 .btn-utility {
-    width: 60px;
-    height: 60px;
+    width: 143px;
+    height: 143px;
     flex-shrink: 0;
 }
 
@@ -544,7 +564,8 @@ body {
     align-items: center;
     justify-content: space-between;
     background: var(--color-body);
-    padding: 10px 0 4px;
+    padding: 10px;
+    border-radius: 8px;
     transition: var(--transition-theme);
 }
 
@@ -622,10 +643,7 @@ body {
         justify-content: center;
     }
 
-    .btn-transport {
-        width: 38px;
-        height: 38px;
-    }
+    /* Buttons do not scale down on mobile — same 143×143 as desktop (plan section 4) */
 
     .btn-skip {
         height: 38px;
@@ -651,9 +669,14 @@ body {
 /* Desktop: two-column player layout, title to the left of the player */
 @media (min-width: 901px) {
     .container {
-        flex-direction: row;
+        flex-direction: column;
         align-items: flex-start;
         gap: 40px;
+    }
+
+    .md-player-scale-wrap {
+        flex: 1;
+        min-width: 0;
     }
 
     .title-section {
@@ -665,7 +688,7 @@ body {
 
     .player-outline-wrap {
         display: grid;
-        grid-template-columns: 3fr 2fr;
+        grid-template-columns: 583px 583px;
         gap: 4px;
         align-items: start;
     }
@@ -675,5 +698,12 @@ body {
     .skip-area               { grid-column: 2; grid-row: 1; }
     .volume-slider-container { grid-column: 2; grid-row: 2; }
     .utility-area            { grid-column: 2; grid-row: 3; }
-    .md-player-text          { grid-column: 1 / -1; grid-row: 4; }
+    .md-player-text          { grid-column: 1 / -1; grid-row: 4; width: 100%; max-width: 1170px; }
+
+    /* Playback (skip) controls: fixed 280px width, centered in panel */
+    .skip-controls {
+        width: 280px;
+        max-width: 100%;
+        margin-inline: auto;
+    }
 }
