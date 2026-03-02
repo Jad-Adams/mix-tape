@@ -309,7 +309,7 @@ function updatePlayPauseIcon() {
 	if (!btnPlay) return;
 	const img = btnPlay.querySelector("img");
 	if (img)
-		img.src = getThemeAssetPath(isPlaying ? "icon-pause.svg" : "icon-play.svg");
+		img.src = getThemeAssetPath(isPlaying ? "pause.svg" : "play.svg");
 	btnPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
 }
 
