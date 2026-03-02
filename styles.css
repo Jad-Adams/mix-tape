@@ -188,26 +188,6 @@ body {
     line-height: 1.4;
 }
 
-.theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 4px;
-    flex-shrink: 0;
-    transition: opacity 0.15s ease;
-}
-
-.theme-toggle:hover {
-    opacity: 0.8;
-}
-
-.theme-toggle img {
-    display: block;
-}
 
 /* ============================================================
    Page copy
@@ -525,6 +505,25 @@ body {
     border: var(--slider-thumb-border);
     box-shadow: var(--slider-thumb-shadow);
     cursor: grab;
+}
+
+/* ============================================================
+   Utility buttons — light mode, dark mode, skin, info
+   ============================================================ */
+
+.utility-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-utility {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+.btn-utility:active {
+    box-shadow: var(--shadow-button-pressed);
 }
 
 .progress-bar-container {
