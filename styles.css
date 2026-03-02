@@ -77,7 +77,7 @@ body,
 }
 
 body {
-    font-family: 'Barlow', sans-serif;
+    font-family: var(--font-ui);
     background-color: var(--color-background);
     min-height: 100vh;
     display: flex;
@@ -99,11 +99,7 @@ body {
 /* Title Section */
 .title-section {
     align-self: flex-start;
-    margin-bottom: 40px;
-    position: relative;
-    left: max(20px, calc(50% - 600px));
-    width: 100%;
-    max-width: 1200px;
+    margin-bottom: 24px;
 }
 
 /* ============================================================
@@ -194,25 +190,25 @@ body {
    ============================================================ */
 
 .title-main {
-    font-family: 'Barlow', sans-serif;
+    font-family: var(--font-ui);
     font-size: 48px;
     font-weight: bold;
-    color: var(--color-title);
+    color: var(--color-text-primary);
     line-height: 1;
     margin-bottom: 8px;
 }
 
 .title-subtitle {
-    font-family: 'Barlow', sans-serif;
+    font-family: var(--font-ui);
     font-size: 18px;
-    color: var(--color-title);
+    color: var(--color-text-secondary);
     font-weight: 400;
     padding-left: 3px;
 }
 
 .title-subtitle.body {
     font-size: 14px;
-    color: var(--color-title);
+    color: var(--color-text-secondary);
     font-weight: 500;
     padding-left: 3px;
     padding-top: 8px;
@@ -221,7 +217,7 @@ body {
 .title-subtitle.body a,
 .title-subtitle.body a:link,
 .title-subtitle.body a:visited {
-    color: var(--color-title);
+    color: var(--color-text-secondary);
     text-decoration: underline;
 }
 
@@ -231,8 +227,8 @@ body {
 
 /* MD Player Container */
 .md-player-scale-wrap {
-    width: 800px;
-    transform-origin: top center;
+    width: 100%;
+    max-width: 800px;
 }
 
 /* Player Shell */
@@ -245,7 +241,6 @@ body {
 }
 
 .md-player {
-    height: 560px;
     width: 100%;
     max-width: 800px;
     position: relative;
@@ -259,7 +254,6 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
 }
 
 .eject-button {
@@ -272,8 +266,6 @@ body {
 .player-outline-wrap {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    min-height: 0;
 }
 
 /* ============================================================
@@ -284,7 +276,6 @@ body {
     position: relative;
     display: flex;
     align-items: flex-start;
-    margin-bottom: auto;
     width: 100%;
 }
 
@@ -590,15 +581,6 @@ body {
     letter-spacing: 1.5px;
 }
 
-/* Desktop scaling between ~900px and 1000px viewport widths */
-@media (min-width: 901px) {
-    .md-player-scale-wrap {
-        --player-scale: clamp(0.88, calc((100vw - 40px) / 900px), 1);
-        transform: scale(var(--player-scale));
-        margin-bottom: calc((var(--player-scale) - 1) * 560px);
-    }
-}
-
 /* Stacked mobile layout: screen on top, controls below, volume to right of knob */
 @media (max-width: 900px) {
     .md-player-scale-wrap {
@@ -660,9 +642,12 @@ body {
     }
 
     .controls-area {
-        flex-direction: row;
-        align-self: center;
-        gap: 6px;
+        align-self: stretch;
+    }
+
+    .transport-controls,
+    .utility-buttons {
+        justify-content: center;
     }
 
     .transport-controls,
@@ -694,4 +679,32 @@ body {
     .md-player-text {
         padding-top: 20px;
     }
+}
+
+/* Desktop: two-column player layout, title to the left of the player */
+@media (min-width: 901px) {
+    .container {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .title-section {
+        flex-shrink: 0;
+        margin-bottom: 0;
+    }
+
+    .player-outline-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        align-items: start;
+    }
+
+    .screen-container        { grid-column: 1; grid-row: 1; }
+    .transport-area          { grid-column: 1; grid-row: 2; }
+    .skip-area               { grid-column: 2; grid-row: 1; }
+    .volume-slider-container { grid-column: 2; grid-row: 2; }
+    .utility-area            { grid-column: 2; grid-row: 3; }
+    .md-player-text          { grid-column: 1 / -1; grid-row: 4; }
 }
