@@ -57,6 +57,10 @@
   --radius-button:          8px;
   --radius-screen:          6px;
 
+  /* Screen bezel and progress track */
+  --color-screen-bezel-border: oklch(0.55 0 0);         /* #808080 — outer frame edge */
+  --screen-track:              oklch(0.18 0.06 145);     /* dark green progress channel */
+
   /* Speaker grille */
   --color-grille-dot:       oklch(0 0 0 / 0.30);
 

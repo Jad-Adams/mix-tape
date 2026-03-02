@@ -296,52 +296,59 @@ body {
     min-height: 0;
 }
 
-/* LCD Screen */
+/* ============================================================
+   Screen
+   ============================================================ */
+
 .screen-container {
     position: relative;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: auto;
-    min-height: 300px;
     width: 100%;
 }
 
-
+/* Outer bezel — body-coloured frame around the LCD well */
 .screen {
     position: relative;
     z-index: 10;
-    background: transparent;
-    padding: 12px;
+    padding: 16px;
+    background: var(--color-body);
+    border: 1px solid var(--color-screen-bezel-border);
+    border-radius: var(--radius-button);   /* 8px — matches Figma outer frame */
     width: 100%;
+    max-width: 460px;
+    transition: var(--transition-theme);
 }
 
+/* Inner LCD well — deeply recessed, always the same green regardless of theme */
 .screen-outline {
-    background-image: var(--asset-screen-bg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 50px 30px 30px 50px;
-    min-height: 280px;
+    background: var(--screen-bg);
+    border: 1px solid var(--color-frame);
+    border-radius: var(--radius-screen);
+    box-shadow: var(--screen-inner-shadow);
+    padding: 12px;
+    min-height: 190px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+    overflow: hidden;
 }
 
 .screen-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-width: 365px;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
 }
 
 .lcd-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    color: var(--color-lcd-text);
+    font-family: var(--font-screen);
+    font-size: 10px;
+    color: var(--screen-text-dim);
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding-left: 8px;
 }
 
 /* On/off flicker when paused so the user can see playback is stopped */
@@ -355,10 +362,10 @@ body {
 }
 
 .lcd-song-info {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: var(--font-screen);
     font-size: 20px;
-    color: var(--color-lcd-text);
-    margin: 8px 0;
+    color: var(--screen-text);
+    text-shadow: var(--screen-glow);
     overflow: hidden;
     white-space: nowrap;
 }
@@ -382,15 +389,18 @@ body {
 
 .lcd-time-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 8px;
+    gap: 12px;
+    margin-top: auto;
 }
 
 .lcd-time {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 14px;
-    color: var(--color-lcd-text);
+    font-family: var(--font-screen);
+    font-size: 12px;
+    color: var(--screen-text);
+    text-shadow: var(--screen-glow);
+    letter-spacing: 1px;
+    flex-shrink: 0;
 }
 
 .control-container {
@@ -523,38 +533,38 @@ body {
 
 .progress-bar-container {
     flex: 1;
-    height: 4px;
-    background: var(--color-progress-track);
+    height: 8px;
+    background: var(--screen-track);
     border-radius: 2px;
-    margin: 0 10px;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
-    background: var(--color-progress-fill);
+    background: var(--screen-text);
     border-radius: 2px;
     width: 0%;
-    transition: width 0.1s linear, background 0.15s ease;
+    transition: width 0.1s linear;
 }
 
 .visualizer {
     display: flex;
     align-items: flex-end;
-    justify-content: center;
     gap: 4px;
-    height: 60px;
-    margin-top: auto;
+    height: 56px;
+    overflow: hidden;
 }
 
 .visualizer-bar {
-    width: 8px;
-    background: var(--color-progress-fill);
-    border-radius: 2px;
+    width: 4px;
+    flex-shrink: 0;
+    background: var(--screen-text);
+    border-radius: 1px;
     min-height: 2px;
-    /* Slight delay/ease so bar height changes aren’t jumpy */
-    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1), background 0.15s ease;
+    box-shadow: var(--screen-glow);
+    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 /* Hidden audio element */
@@ -644,18 +654,16 @@ body {
     .screen-container {
         flex: 0 0 auto;
         margin-bottom: 0;
-        min-height: 160px;
     }
 
-    .screen-content {
+    .screen {
         max-width: 100%;
-        gap: 8px;
+        padding: 10px;
     }
 
     .screen-outline {
         min-height: 160px;
-        padding: 20px;
-        background-image: none;
+        padding: 10px 12px;
     }
 
     .control-container {
@@ -730,12 +738,7 @@ body {
     }
 
     .visualizer {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        gap: 4px;
-        height: 48px;
-        margin-top: 0;
+        height: 44px;
     }
 
     /* MD Player Text */
