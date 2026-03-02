@@ -83,6 +83,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 40px 20px;
     position: relative;
 }
@@ -110,12 +111,11 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    /* Negative margin offsets the parent's 24px side padding so the bar spans edge-to-edge */
-    margin: 0 -24px;
-    padding: 6px 24px;
+    /* Negative margin offsets the parent's 10px padding so the bar spans edge-to-edge */
+    margin: -10px -10px 0 -10px;
+    padding: 6px 10px;
     background: var(--color-body);
-    /* 20px matches .md-player-inner's existing border-radius on top corners */
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--radius-device) var(--radius-device) 0 0;
     transition: var(--transition-theme);
 }
 
@@ -264,13 +264,14 @@ body {
 }
 
 .md-player-inner {
-    background: var(--gradient-player-inner);
+    background: var(--color-body);
     border-radius: 20px;
-    padding: 0 24px 12px 24px;
+    padding: 10px;
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .eject-button {
@@ -288,13 +289,6 @@ body {
 /* ============================================================
    Screen
    ============================================================ */
-
-.screen-container {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-}
 
 /* Outer bezel — body-coloured frame around the LCD well */
 .screen {
@@ -398,8 +392,8 @@ body {
 .controls-area {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 10px;
+    gap: 4px;
+    padding: 8px;
     background: var(--color-panel);
     border-radius: var(--radius-panel);
     box-shadow: var(--shadow-panel);
@@ -410,7 +404,7 @@ body {
 .transport-controls,
 .skip-controls {
     display: flex;
-    gap: 6px;
+    gap: 4px;
 }
 
 /* Shared button base */
@@ -438,15 +432,15 @@ body {
 
 /* Square transport buttons: eject / stop / pause / play */
 .btn-transport {
-    width: 44px;
-    height: 44px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
 }
 
 /* Wide skip buttons: prev / next — share available width equally */
 .btn-skip {
     flex: 1;
-    height: 44px;
+    height: 60px;
     min-width: 80px;
 }
 
@@ -521,12 +515,12 @@ body {
 
 .utility-buttons {
     display: flex;
-    gap: 6px;
+    gap: 4px;
 }
 
 .btn-utility {
-    width: 44px;
-    height: 44px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
 }
 
@@ -643,11 +637,6 @@ body {
         background-position: 10% 0;
     }
 
-    .screen-container {
-        flex: 0 0 auto;
-        margin-bottom: 0;
-    }
-
     .screen {
         max-width: 100%;
         padding: 10px;
@@ -714,11 +703,11 @@ body {
     .player-outline-wrap {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 4px;
         align-items: start;
     }
 
-    .screen-container        { grid-column: 1; grid-row: 1; }
+    .screen                  { grid-column: 1; grid-row: 1; }
     .transport-area          { grid-column: 1; grid-row: 2; }
     .skip-area               { grid-column: 2; grid-row: 1; }
     .volume-slider-container { grid-column: 2; grid-row: 2; }
