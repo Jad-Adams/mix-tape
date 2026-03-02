@@ -403,132 +403,63 @@ body {
     flex-shrink: 0;
 }
 
-.control-container {
-    width: clamp(180px, 32vw, 260px);
-    height: clamp(180px, 32vw, 260px);
-    position: absolute;
-    right: clamp(20px, 4vw, 35px);
-    top: clamp(50px, 13vh, 73px);
-    z-index: 15;
+/* ============================================================
+   Controls — transport and skip
+   ============================================================ */
+
+.controls-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background: var(--color-panel);
+    border-radius: var(--radius-panel);
+    box-shadow: var(--shadow-panel);
+    align-self: flex-start;
+    transition: var(--transition-theme);
 }
 
-.control-knob-area {
-    position: absolute;
-    inset: 0;
-    background: transparent;
+.transport-controls,
+.skip-controls {
+    display: flex;
+    gap: 6px;
 }
 
-/* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
-.playback-controls {
-    position: absolute;
-    left: 51%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto 1fr auto;
-    align-items: center;
-    justify-items: center;
-    gap: 22px;
-    min-width: clamp(100px, 20vw, 140px);
-    min-height: clamp(100px, 20vw, 140px);
-}
-
-.playback-controls-btn-stop {
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.playback-controls-btn-play {
-    grid-column: 2;
-    grid-row: 3;
-}
-
-.playback-controls-btn-play img {
-    width: 32px;
-    height: 32px;
-    /* transform: translateX(1px);   or 1px if you prefer */
-}
-
-.playback-controls-btn-prev {
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.playback-controls-btn-next {
-    grid-column: 3;
-    grid-row: 2;
-}
-
-.playback-controls-btn {
+/* Shared button base */
+.btn {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
+    border: none;
+    background: var(--color-button-face);
+    border-radius: var(--radius-button);
+    box-shadow: var(--shadow-button);
+    cursor: pointer;
+    transition: var(--transition-button);
+}
+
+.btn:active {
+    box-shadow: var(--shadow-button-pressed);
+}
+
+.btn img {
+    display: block;
+    pointer-events: none;
+}
+
+/* Square transport buttons: eject / stop / pause / play */
+.btn-transport {
     width: 44px;
     height: 44px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background 0.15s ease, transform 0.1s ease;
+    flex-shrink: 0;
 }
 
-.playback-controls-btn:hover {
-    /* background: var(--color-btn-hover); */
-}
-
-.playback-controls-btn:active {
-    transform: scale(0.96);
-}
-
-.playback-controls-btn img {
-    display: block;
-    pointer-events: none;
-}
-
-.playback-controls-btn-disabled {
-    opacity: 0.4;
-    cursor: default;
-    pointer-events: none;
-}
-
-/* Volume buttons: PNG assets, fixed at bottom of control area so playback-controls stays put */
-.volume-controls {
-    position: absolute;
-    left: 50%;
-    top: clamp(200px, 35vw, 280px);
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.volume-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: transform 0.1s ease;
-}
-
-.volume-btn img {
-    display: block;
-    width: auto;
-    height: 40px;
-    pointer-events: none;
-}
-
-.volume-btn:hover {
-    opacity: 0.95;
-}
-
-.volume-btn:active {
-    transform: scale(0.97);
+/* Wide skip buttons: prev / next — share available width equally */
+.btn-skip {
+    flex: 1;
+    height: 44px;
+    min-width: 80px;
 }
 
 .progress-bar-container {
@@ -666,75 +597,25 @@ body {
         padding: 10px 12px;
     }
 
-    .control-container {
-        position: relative;
-        top: -11px;
-        left: 5px;
-        width: auto;
-        height: auto;
-        flex: 0 0 auto;
-        display: flex;
+    .controls-area {
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
+        align-self: center;
+        gap: 6px;
     }
 
-    .control-knob-area {
-        position: relative;
-        inset: unset;
-        width: clamp(140px, 36vw, 200px);
-        aspect-ratio: 1;
-        flex-shrink: 0;
+    .transport-controls,
+    .skip-controls {
+        gap: 5px;
     }
 
-    .playback-controls {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -48%);
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: auto 1fr auto;
-        align-items: center;
-        justify-items: center;
-        gap: 1px;
-        min-width: clamp(100px, 20vw, 140px);
-        min-height: clamp(100px, 20vw, 140px);
+    .btn-transport {
+        width: 38px;
+        height: 38px;
     }
 
-    .playback-controls-btn-stop {
-        transform: scale(0.85);
-    }
-
-    .volume-controls {
-        position: static;
-        transform: none;
-        margin-top: 0;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Rotate volume buttons 90° so pills are vertical, then stack */
-    .volume-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 56px;
-        min-width: 32px;
-        min-height: 56px;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .volume-btn img {
-        width: 56px;
-        height: 32px;
-        transform: rotate(270deg);
-        object-fit: contain;
+    .btn-skip {
+        height: 38px;
+        min-width: 60px;
     }
 
     .visualizer {
@@ -766,28 +647,8 @@ body {
     }
 }
 
-/* Small screens: unique overrides only (rest inherits from 900px) */
-@media (max-width: 768px) {
-    .playback-controls {
-        transform: translate(-50%, -47%);
-    }
-}
-
-/* Very small viewports: unique overrides only (rest inherits from 900px/768px) */
+/* Very small viewports */
 @media (max-width: 500px) {
-    .control-container {
-        top: -12px;
-    }
-
-    .control-knob-area {
-        inset: 0;
-        width: 60%;
-    }
-
-    .playback-controls {
-        transform: translate(-50%, -47%);
-    }
-
     .md-player-text {
         padding-top: 20px;
     }
