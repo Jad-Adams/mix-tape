@@ -700,7 +700,7 @@ body {
     }
 
     .top-bar {
-        margin: 0 -16px;
+        margin: 0 -16px 0 0;
         padding: 4px;
         background: var(--color-body);
         border-radius: var(--radius-button);
