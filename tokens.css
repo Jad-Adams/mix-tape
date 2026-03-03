@@ -115,6 +115,7 @@
 
   /* Button border */
   --color-button-border:    oklch(0.2 0 0);   /* #2f2f2f — subtle dark edge */
+  --shadow-btn-base-border: none;
 
   /* Slider */
   --slider-track-color:     oklch(0 0 0);  /* #000000 */
@@ -166,6 +167,7 @@
 
   /* Button border */
   --color-button-border:    oklch(0.45 0 0);  /* mid-grey edge on lighter body */
+  --shadow-btn-base-border: var(--shadow-panel);
 
   /* Slider */
   --slider-track-color:     linear-gradient(160deg,

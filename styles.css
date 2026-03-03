@@ -105,11 +105,10 @@ body {
     display: flex;
     align-items: center;
     padding: 16px;
-    border: 1px solid var(--color-button-border);
-    box-shadow: var(--shadow-panel);
     background: var(--color-body);
     border-radius: var(--radius-button);
     transition: var(--transition-theme);
+    position: relative;
 }
 
 .speaker-grille {
@@ -125,11 +124,10 @@ body {
     display: flex;
     align-items: stretch;
     padding: 15px 16px;
-    border: 1px solid var(--color-button-border);
-    box-shadow: var(--shadow-panel);
     background: var(--color-body);
     border-radius: var(--radius-button);
     transition: var(--transition-theme);
+    position: relative;
 }
 
 .clock-container {
@@ -438,10 +436,10 @@ body {
 .btn-base-border {
     position: absolute;
     inset: 0;
-    border-radius: var(--radius-button);
+    border-radius: inherit;
     border: 1px solid var(--color-button-border);
     pointer-events: none;
-    box-shadow: var(--shadow-panel);
+    box-shadow: var(--shadow-btn-base-border);
     transition: var(--transition-button);
 }
 
@@ -531,10 +529,10 @@ body {
     padding: 20px 16px;
     background: var(--color-panel);
     border-radius: var(--radius-panel);
-    box-shadow: var(--shadow-panel);
     width: 100%;
     align-self: stretch;
     transition: var(--transition-theme);
+    position: relative;
 }
 
 .volume-slider {
@@ -659,6 +657,7 @@ body {
     padding: 14px 20px;
     border-radius: 8px;
     transition: var(--transition-theme);
+    position: relative;
 }
 
 .md-player-label {

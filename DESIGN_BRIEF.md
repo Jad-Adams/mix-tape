@@ -1,6 +1,7 @@
 # mix tape — UI Redesign Brief
 **For use with Claude Code and Cursor AI sessions**
 Always read this file before making any changes to the project.
+Be aware that the user is not an engineer, but a designer looking to become a design engineer.
 
 ---
 
