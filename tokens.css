@@ -52,7 +52,7 @@
   --font-ui:                'Space Grotesk', sans-serif;
 
   /* Border radius */
-  --radius-device:          16px;
+  --radius-device:          32px;
   --radius-panel:           10px;
   --radius-button:          8px;
   --radius-screen:          6px;
