@@ -189,8 +189,10 @@ body {
     text-decoration: underline;
 }
 
-.title-subtitle.body a:hover {
-    opacity: 0.8;
+@media (hover: hover) and (pointer: fine) {
+    .title-subtitle.body a:hover {
+        opacity: 0.8;
+    }
 }
 
 /* MD Player Container */
@@ -399,6 +401,7 @@ body {
     cursor: pointer;
     position: relative;
     transition: var(--transition-button);
+    touch-action: manipulation;
 }
 
 .btn:focus-visible {
@@ -546,6 +549,7 @@ body {
     border-radius: 2px;
     outline: none;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
 .volume-slider::-webkit-slider-runnable-track {
@@ -637,9 +641,12 @@ body {
     flex-shrink: 0;
     background: var(--screen-text);
     border-radius: 1px;
-    min-height: 2px;
+    height: 50px;
+    transform: scaleY(0.04);
+    transform-origin: bottom;
+    will-change: transform;
     box-shadow: var(--screen-glow);
-    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1);
+    transition: transform 0.15s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 /* Hidden audio element */
@@ -657,13 +664,13 @@ body {
     justify-content: space-between;
     background: var(--color-body);
     padding: 14px 20px;
-    border-radius: 8px;
+    border-radius: var(--radius-button);
     transition: var(--transition-theme);
     position: relative;
 }
 
 .md-player-label {
-    font-family: "Share Tech Mono";
+    font-family: var(--font-screen);
     font-size: 11px;
     font-weight: 500;
     color: var(--color-text-secondary);
@@ -672,7 +679,7 @@ body {
 }
 
 .md-player-stereo {
-    font-family: "Share Tech Mono";
+    font-family: var(--font-screen);
     font-size: 16px;
     font-weight: 900;
     color: var(--color-text-secondary);
@@ -770,6 +777,17 @@ body {
     .md-player-text {
         padding-top: 10px;
     }
+}
+
+/* ============================================================
+   Reduced motion — disable all animations for users who prefer it
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .lcd-label--paused { animation: none; }
+    .lcd-song-info--scroll .lcd-song-info-inner { animation: none; }
+    .visualizer-bar { transition: none; will-change: auto; }
+    .progress-bar { transition: none; }
 }
 
 /* Very small viewports */

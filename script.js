@@ -142,7 +142,7 @@ function updateVisualizer() {
 				visualizerMinHeight,
 				Math.min(visualizerMaxHeight, barSmoothedValues[index] * scale),
 			);
-			bar.style.height = `${height}px`;
+			bar.style.transform = `scaleY(${height / visualizerMaxHeight})`;
 		});
 	} else {
 		// Ease bars down when paused (smooth decay)
@@ -152,7 +152,7 @@ function updateVisualizer() {
 		const bars = visualizerEl.querySelectorAll(".visualizer-bar");
 		bars.forEach((bar, index) => {
 			const h = barSmoothedValues[index] * (visualizerMaxHeight / 255);
-			bar.style.height = `${Math.max(visualizerMinHeight, h)}px`;
+			bar.style.transform = `scaleY(${Math.max(visualizerMinHeight, h) / visualizerMaxHeight})`;
 		});
 	}
 
