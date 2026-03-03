@@ -14,7 +14,7 @@ body,
 .progress-bar-container,
 .md-player-label,
 .md-player-stereo {
-    transition: background-color 0.15s ease, color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+    transition: background-color 200ms ease, color 200ms ease, background 200ms ease, filter 200ms ease;
 }
 
 * {
@@ -423,6 +423,7 @@ body {
     border-radius: var(--radius-button);
     background: var(--color-button-face);
     overflow: hidden;
+    transition: background-color 200ms ease;
 }
 
 .btn-base-texture {
@@ -443,7 +444,7 @@ body {
     border: 1px solid var(--color-button-border);
     pointer-events: none;
     box-shadow: var(--shadow-btn-base-border);
-    transition: var(--transition-button);
+    transition: var(--transition-button), border-color 200ms ease;
 }
 
 .btn:active .btn-base-border {
@@ -467,6 +468,7 @@ body {
     inset: 0;
     border-radius: var(--radius-button-cap);
     background: var(--color-button-face);
+    transition: background-color 200ms ease;
 }
 
 .btn-cap-texture {
