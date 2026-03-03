@@ -758,7 +758,8 @@ body {
         flex: 1;
     }
 
-    .top-bar         { height: 80px; }
+    .top-bar         { height: 80px; max-width: 584px; }
+    .screen          { max-width: 584px; }
     .md-player-text  { height: 80px; }
 
     /* Playback (skip) controls: fill full right-column width */
