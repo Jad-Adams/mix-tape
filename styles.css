@@ -653,19 +653,27 @@ body {
 
 .md-player-text {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
     background: var(--color-body);
-    padding: 10px;
+    padding: 14px 20px;
     border-radius: 8px;
     transition: var(--transition-theme);
 }
 
-.md-player-label,
-.md-player-stereo {
-    font-family: var(--font-ui);
+.md-player-label {
+    font-family: "Share Tech Mono";
     font-size: 11px;
     font-weight: 500;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.md-player-stereo {
+    font-family: "Share Tech Mono";
+    font-size: 16px;
+    font-weight: 900;
     color: var(--color-text-secondary);
     text-transform: uppercase;
     letter-spacing: 1.5px;
