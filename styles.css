@@ -231,7 +231,7 @@ body {
 
 .md-player-inner {
     background: var(--color-frame);
-    border-radius: 20px;
+    border-radius: 16px;
     padding: 10px;
     position: relative;
     z-index: 1;
