@@ -692,7 +692,7 @@ body {
 
     .md-player {
         width: min(100%, 380px);
-        padding: 16px 12px 24px;
+        padding: 16px;
     }
 
     .md-player-inner {
