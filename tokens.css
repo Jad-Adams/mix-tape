@@ -63,7 +63,6 @@
   --screen-track:              oklch(0.18 0.06 145);     /* dark green progress channel */
 
   /* Top-bar section tiles */
-  --color-section-border:   oklch(0.55 0 0);        /* #808080 — border on each top-bar tile */
   --clock-bg:               oklch(0.17 0 0);        /* #212121 — inner clock display recess */
 
   /* Speaker grille */
