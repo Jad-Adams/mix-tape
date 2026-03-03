@@ -69,11 +69,11 @@ body {
 }
 
 /* Cap overrides for the power button — shallower inset and left-aligned content */
-.power-cap {
-    inset: 12px;
-    border-radius: 5px;
-    justify-content: flex-start;
-    padding-left: 12px;
+.btn-cap.power-cap {
+    inset: 10px;
+    border-radius: 4px;
+    justify-content: center;
+    padding-left: 0;
     gap: 10px;
 }
 
