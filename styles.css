@@ -493,6 +493,8 @@ body {
 /* Icon image sits above cap layers */
 .btn img {
     display: block;
+    width: 40px;
+    height: 40px;
     pointer-events: none;
     position: relative;
     z-index: 1;
