@@ -336,13 +336,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 8px;
-    background: var(--color-panel);
-    border-radius: var(--radius-panel);
-    box-shadow: var(--shadow-panel);
     width: 100%;
     align-self: stretch;
-    transition: var(--transition-theme);
 }
 
 .transport-controls,
@@ -756,7 +751,7 @@ body {
     .screen                  { grid-column: 1; grid-row: 1; }
     .transport-area          { grid-column: 1; grid-row: 2; }
     .skip-area               { grid-column: 2; grid-row: 1; }
-    .volume-slider-container { grid-column: 2; grid-row: 2; }
+    .volume-area             { grid-column: 2; grid-row: 2; }
     .utility-area            { grid-column: 2; grid-row: 3; }
     .md-player-text          { grid-column: 1 / -1; grid-row: 4; width: 100%; max-width: 1170px; }
 
