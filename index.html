@@ -1,10 +1,11 @@
-¦<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mixtape by Jad</title>
     <link rel="icon" type="image/svg+xml" href="assets/shared/bit.svg">
+    <link rel="stylesheet" href="tokens.css">
     <link rel="stylesheet" href="styles.css">
     <!-- Sound Effect by Lesiakower from Pixabay -->
     <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
@@ -19,21 +20,37 @@
         </div>
 
         <div class="md-player-scale-wrap">
-            <div class="md-player">
+            <div class="md-player player-shell">
                 <div class="md-player-inner">
-                    <div class="eject-container">
-                        <div class="eject-button">
-                            <img src="" alt="" width="40" height="40" data-asset="icon-eject.svg">
-                        </div>
-                        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                            <img src="" alt="" width="40" height="40" data-asset="theme-switch.svg">
-                        </button>
-                    </div>
                     <div class="player-outline-wrap">
-                        <div class="screen-container">
-                            
-                            <!-- LCD Screen -->
-                            <div class="screen">
+                        <div class="player-col-left">
+                        <div class="top-bar">
+                            <button type="button" class="btn power-btn" aria-label="Power">
+                                <div class="btn-base">
+                                    <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                    <div class="btn-base-border"></div>
+                                    <div class="btn-cap power-cap">
+                                        <div class="btn-cap-bg"></div>
+                                        <div class="btn-cap-texture"></div>
+                                        <span class="power-led" aria-hidden="true"></span>
+                                        <span class="power-label">Power</span>
+                                    </div>
+                                    <div class="btn-inset-shadow"></div>
+                                </div>
+                            </button>
+                            <div class="speaker-section" aria-hidden="true">
+                                <div class="btn-base-border"></div>
+                                <div class="speaker-grille"></div>
+                            </div>
+                            <div class="top-bar-clock">
+                                <div class="btn-base-border"></div>
+                                <div class="clock-container">
+                                    <div class="clock-display" id="clockDisplay">00:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- LCD Screen -->
+                        <div class="screen">
                                 <div class="screen-outline">
                                     <div class="screen-content">
                                         <div class="lcd-label" id="lcdLabel">NOW PLAYING</div>
@@ -53,38 +70,153 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="control-container">
-                            <div class="control-knob-area">
-                                <div class="playback-controls">
-                                    <button type="button" class="playback-controls-btn playback-controls-btn-stop" id="btnStop" aria-label="Stop">
-                                        <img src="" alt="" width="22" height="22" data-asset="button-stop.svg">
-                                    </button>
-                                    <button type="button" class="playback-controls-btn playback-controls-btn-play" id="btnPlay" aria-label="Play">
-                                        <img src="" alt="" width="28" height="28" data-asset="icon-play.svg">
-                                    </button>
-                                    <button type="button" class="playback-controls-btn playback-controls-btn-prev" id="btnPrev" aria-label="Previous track">
-                                        <img src="" alt="" width="28" height="28" data-asset="icon-skip-back.svg">
-                                    </button>
-                                    <button type="button" class="playback-controls-btn playback-controls-btn-next" id="btnNext" aria-label="Next track">
-                                        <img src="" alt="" width="28" height="28" data-asset="icon-skip-forward.svg">
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="volume-controls">
-                                <button type="button" class="volume-btn volume-btn-down" id="btnVolumeDown" aria-label="Volume down">
-                                    <img src="" alt="" width="56" height="32" data-asset="volume-down.png">
+                        <div class="controls-area transport-area">
+                            <div class="transport-controls">
+                                <button type="button" class="btn btn-transport btn-transport-eject" id="btnEject" aria-label="Eject">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="eject.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
                                 </button>
-                                <button type="button" class="volume-btn volume-btn-up" id="btnVolumeUp" aria-label="Volume up">
-                                    <img src="" alt="" width="56" height="32" data-asset="volume-up.png">
+                                <button type="button" class="btn btn-transport" id="btnStop" aria-label="Stop">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="stop.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn btn-transport" id="btnPause" aria-label="Pause">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="pause.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn btn-transport" id="btnPlay" aria-label="Play">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="play.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        </div><!-- /.player-col-left -->
+                        <div class="player-col-right">
+                        <div class="controls-area skip-area">
+                            <div class="skip-controls">
+                                <button type="button" class="btn btn-skip" id="btnPrev" aria-label="Previous track">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="28" height="28" data-asset="skip-back.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn btn-skip" id="btnNext" aria-label="Next track">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="28" height="28" data-asset="skip-forward.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="controls-area volume-area">
+                            <div class="volume-slider-container">
+                                <div class="btn-base-border"></div>
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80" aria-label="Volume">
+                            </div>
+                        </div>
+                        <div class="controls-area utility-area">
+                            <div class="utility-buttons">
+                                <button type="button" class="btn btn-utility" id="btnLightMode" aria-label="Light mode">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="sun.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn btn-utility" id="btnDarkMode" aria-label="Dark mode">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="moon.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn btn-utility" id="btnSkin" aria-label="Change skin">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="tamagotchi.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn btn-utility" id="btnInfo" aria-label="Info">
+                                    <div class="btn-base">
+                                        <div class="btn-base-bg"><div class="btn-base-texture"></div></div>
+                                        <div class="btn-base-border"></div>
+                                        <div class="btn-cap">
+                                            <div class="btn-cap-bg"></div>
+                                            <div class="btn-cap-texture"></div>
+                                            <img src="" alt="" width="22" height="22" data-asset="info.svg">
+                                        </div>
+                                        <div class="btn-inset-shadow"></div>
+                                    </div>
                                 </button>
                             </div>
                         </div>
                         <div class="md-player-text">
+                            <div class="btn-base-border"></div>
                             <p class="md-player-label">MD PLAYER MP-1337</p>
                             <p class="md-player-stereo">STEREO</p>
                         </div>
+                        </div><!-- /.player-col-right -->
                     </div>
                 </div>
             </div>
@@ -94,5 +226,18 @@
     <audio id="audioPlayer" preload="metadata"></audio>
 
     <script src="script.js"></script>
+    <script>
+        /* Wall-clock display — script.js has no clock logic, so this handles it inline */
+        (function () {
+            var el = document.getElementById('clockDisplay');
+            function tick() {
+                if (!el) return;
+                var d = new Date(), h = d.getHours(), m = d.getMinutes();
+                el.textContent = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+            }
+            tick();
+            setInterval(tick, 1000);
+        }());
+    </script>
 </body>
 </html>

@@ -302,15 +302,13 @@ const btnPlay = document.getElementById("btnPlay");
 const btnStop = document.getElementById("btnStop");
 const btnPrev = document.getElementById("btnPrev");
 const btnNext = document.getElementById("btnNext");
-const btnVolumeDown = document.getElementById("btnVolumeDown");
-const btnVolumeUp = document.getElementById("btnVolumeUp");
 
 function updatePlayPauseIcon() {
 	if (!btnPlay) return;
 	const img = btnPlay.querySelector("img");
 	if (img)
-		img.src = getThemeAssetPath(isPlaying ? "icon-pause.svg" : "icon-play.svg");
-	btnPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
+		img.src = getThemeAssetPath("play.svg");
+	btnPlay.setAttribute("aria-label", "Play");
 }
 
 function updateLcdLabel() {
@@ -331,12 +329,18 @@ function onButtonPointerDown(btn, action) {
 	btn.addEventListener("pointerdown", () => playClickSound());
 	btn.addEventListener("click", action);
 }
-onButtonPointerDown(btnPlay, () => (isPlaying ? pauseAudio() : playAudio()));
+const btnPause = document.getElementById("btnPause");
+onButtonPointerDown(btnPlay, playAudio);
+onButtonPointerDown(btnPause, pauseAudio);
 onButtonPointerDown(btnStop, stopAudio);
 onButtonPointerDown(btnPrev, playPrev);
 onButtonPointerDown(btnNext, playNext);
-onButtonPointerDown(btnVolumeDown, volumeDown);
-onButtonPointerDown(btnVolumeUp, volumeUp);
+const volumeSlider = document.getElementById('volumeSlider');
+if (volumeSlider) {
+	volumeSlider.addEventListener('input', function() {
+		audioPlayer.volume = this.value / 100;
+	});
+}
 
 audioPlayer.addEventListener("play", () => {
 	initAudioContext();
@@ -397,16 +401,19 @@ audioPlayer.addEventListener("ended", () => {
 	refreshThemeImages();
 })();
 
-// Theme toggle button: brief icon fade so the switch feels smoother
-const themeToggle = document.getElementById("themeToggle");
-if (themeToggle) {
-	themeToggle.addEventListener("click", () => {
-		const next = currentTheme === "dark" ? "light" : "dark";
-		themeToggle.classList.add("theme-toggle--switching");
-		setTimeout(() => {
-			setTheme(next);
-			themeToggle.classList.remove("theme-toggle--switching");
-		}, 220);
+/// Utility buttons: dedicated light/dark mode switchers
+const btnLightMode = document.getElementById('btnLightMode');
+const btnDarkMode = document.getElementById('btnDarkMode');
+
+if (btnLightMode) {
+	btnLightMode.addEventListener('click', function() {
+		setTheme('light');
+	});
+}
+
+if (btnDarkMode) {
+	btnDarkMode.addEventListener('click', function() {
+		setTheme('dark');
 	});
 }
 

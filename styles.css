@@ -1,58 +1,5 @@
-/* Fonts: load once here, use via font-family below */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400&family=Barlow+Condensed:wght@400&family=Share+Tech+Mono&display=swap');
-@import url('https://fonts.cdnfonts.com/css/din-alternate');
-@import url('https://fonts.cdnfonts.com/css/d-din');
-
-/* DIN typefaces available: 'DIN Alternate', 'D-DIN Condensed' */
-
-/* Theme: default and light */
-:root,
-[data-theme="light"] {
-    --color-page-bg: oklch(0.875 0.042 248);
-    --color-title: oklch(0.13 0.02 75);
-    --gradient-player-outer: linear-gradient(180deg, oklch(0.29 0.032 264) -1.09%, oklch(0.57 0.065 264) 48.49%, oklch(0.29 0.032 264) 100%);
-    --shadow-player-outer: drop-shadow(0 8px 12px oklch(0.16 0.03 264 / 0.25)) drop-shadow(0 6px 12px oklch(0.16 0.03 264 / 0.25));
-    --gradient-player-inner: linear-gradient(171deg, oklch(0.68 0.085 264) -110.67%, oklch(0.39 0.038 264) 38.28%);
-    --color-lcd-text: oklch(1 0 0);
-    --color-lcd-muted: oklch(0.6 0 0);
-    --color-progress-track: oklch(1 0 0 / 0.2);
-    --color-progress-fill: oklch(1 0 0);
-    --color-btn-hover: oklch(1 0 0 / 0.12);
-    --color-player-label: oklch(1 0 0);
-    --color-player-stereo: oklch(0.6 0 0);
-    --font-family-player-label: 'Barlow Condensed', sans-serif;
-    --font-family-player-stereo: 'DIN Alternate', sans-serif;
-    --font-size-player-label: 31px;
-    --font-size-player-stereo: 31px;
-    --font-weight-player-label: 700;
-    --font-weight-player-stereo: 700;
-    --asset-screen-bg: url('assets/themes/light/screen-main-2.png');
-    --asset-player-outline-mobile: url('assets/themes/light/player-outline-mobile.png');
-}
-
-/* Theme: dark */
-[data-theme="dark"] {
-    --color-page-bg: oklch(0.22 0 0);
-    --color-title: oklch(0.55 0 0);
-    --gradient-player-outer: linear-gradient(178deg, oklch(0.20 0 0) 13.01%, oklch(0.38 0 0) 54.4%, oklch(0.10 0 0) 87.32%);
-    --shadow-player-outer: drop-shadow(0 8px 12px oklch(0 0 0 / 0.25)) drop-shadow(0 6px 12px oklch(0 0 0 / 0.25));
-    --gradient-player-inner: linear-gradient(180deg, oklch(0.28 0 0) -8.89%, oklch(0.22 0.008 285) 11.18%, oklch(0.17 0.01 285) 100%);
-    --color-lcd-text: oklch(1 0 0);
-    --color-lcd-muted: oklch(0.6 0 0);
-    --color-progress-track: oklch(1 0 0 / 0.2);
-    --color-progress-fill: oklch(1 0 0);
-    --color-btn-hover: oklch(1 0 0 / 0.12);
-    --color-player-label: oklch(0.26 0 0);
-    --color-player-stereo: oklch(0.26 0 0);
-    --font-family-player-label: 'Barlow Condensed', sans-serif;
-    --font-family-player-stereo: 'DIN Alternate', sans-serif;
-    --font-size-player-label: 31px;
-    --font-size-player-stereo: 31px;
-    --font-weight-player-label: 700;
-    --font-weight-player-stereo: 700;
-    --asset-screen-bg: url('assets/themes/dark/screen-main-2.png');
-    --asset-player-outline-mobile: url('assets/themes/dark/player-outline-mobile.png');
-}
+/* Fonts — Space Grotesk (UI) + Share Tech Mono (screen) */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Share+Tech+Mono&display=swap');
 
 /* Theme transition: short ease so the switch feels responsive */
 body,
@@ -77,18 +24,19 @@ body,
 }
 
 body {
-    font-family: 'Barlow', sans-serif;
-    background-color: var(--color-page-bg);
+    font-family: var(--font-ui);
+    background-color: var(--color-background);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 40px 20px;
     position: relative;
 }
   
 .container {
-    max-width: 1200px;
+    max-width: 1224px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -99,52 +47,136 @@ body {
 /* Title Section */
 .title-section {
     align-self: flex-start;
-    margin-bottom: 40px;
-    position: relative;
-    left: max(20px, calc(50% - 600px));
+    margin-bottom: 24px;
+}
+
+/* ============================================================
+   Top Bar
+   ============================================================ */
+
+.top-bar {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    margin: 0;
     width: 100%;
-    max-width: 1200px;
+    transition: var(--transition-theme);
 }
 
-.theme-toggle {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    padding: 4px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
+.power-btn {
+    width: 116px;
+    flex-shrink: 0;
+}
+
+/* Cap overrides for the power button — shallower inset and left-aligned content */
+.btn-cap.power-cap {
+    inset: 10px;
     border-radius: 4px;
-    transition: opacity 0.15s ease;
+    justify-content: center;
+    padding-left: 0;
+    gap: 10px;
 }
 
-.theme-toggle:hover {
-    opacity: 0.8;
-}
-.theme-toggle img {
+.power-led {
     display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--led-gradient);
+    border: 1px solid var(--led-stroke);
+    filter: var(--led-glow);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
 }
+
+.power-label {
+    font-family: var(--font-screen);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-icon);
+    position: relative;
+    z-index: 1;
+}
+
+.speaker-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: var(--color-body);
+    border-radius: var(--radius-button);
+    transition: var(--transition-theme);
+    position: relative;
+}
+
+.speaker-grille {
+    width: 100%;
+    height: 40px;
+    background-image: radial-gradient(circle, var(--color-grille-dot) 1.5px, transparent 1.5px);
+    background-size: 8px 8px;
+}
+
+.top-bar-clock {
+    flex-shrink: 0;
+    width: 116px;
+    display: flex;
+    align-items: stretch;
+    padding: 15px 16px;
+    background: var(--color-body);
+    border-radius: var(--radius-button);
+    transition: var(--transition-theme);
+    position: relative;
+}
+
+.clock-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--clock-bg);
+    border: 1px solid var(--color-frame);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: var(--clock-inner-shadow);
+}
+
+.clock-display {
+    font-family: var(--font-screen);
+    font-size: 21px;
+    color: var(--clock-text);
+    letter-spacing: 1px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ============================================================
+   Page copy
+   ============================================================ */
 
 .title-main {
-    font-family: 'Barlow', sans-serif;
+    font-family: var(--font-ui);
     font-size: 48px;
-    font-weight: bold;
-    color: var(--color-title);
+    font-weight: 400;
+    color: var(--color-text-primary);
     line-height: 1;
     margin-bottom: 8px;
 }
 
 .title-subtitle {
-    font-family: 'Barlow', sans-serif;
+    font-family: var(--font-ui);
     font-size: 18px;
-    color: var(--color-title);
+    color: var(--color-text-secondary);
     font-weight: 400;
     padding-left: 3px;
 }
 
 .title-subtitle.body {
     font-size: 14px;
-    color: var(--color-title);
+    color: var(--color-text-secondary);
     font-weight: 500;
     padding-left: 3px;
     padding-top: 8px;
@@ -153,7 +185,7 @@ body {
 .title-subtitle.body a,
 .title-subtitle.body a:link,
 .title-subtitle.body a:visited {
-    color: var(--color-title);
+    color: var(--color-text-secondary);
     text-decoration: underline;
 }
 
@@ -163,29 +195,49 @@ body {
 
 /* MD Player Container */
 .md-player-scale-wrap {
-    width: 800px;
-    transform-origin: top center;
+    width: 100%;
+}
+
+/* Player Shell */
+.player-shell {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-body);
+    border: 1px solid var(--color-frame);
+    border-radius: var(--radius-device);
+    box-shadow: var(--shadow-device);
+    transition: var(--transition-theme);
+}
+
+.player-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-device);
+    background-image: url('assets/shared/noise.png');
+    background-repeat: repeat;
+    background-size: auto;
+    opacity: 0.04;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .md-player {
-    height: 560px;
-    width: 100%;
-    max-width: 800px;
+    width: 1224px;
     position: relative;
-    padding: 16px 8px 30px 8px;
-    background: var(--gradient-player-outer);
-    border-radius: 30px;
-    filter: var(--shadow-player-outer);
+    padding: 16px;
 }
 
 .md-player-inner {
-    background: var(--gradient-player-inner);
-    border-radius: 20px;
-    padding: 50px 24px 12px 24px;
+    background: var(--color-frame);
+    border-radius: 16px;
+    padding: 10px;
     position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    gap: 4px;
 }
 
 .eject-button {
@@ -198,56 +250,61 @@ body {
 .player-outline-wrap {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    min-height: 0;
 }
 
-/* LCD Screen */
-.screen-container {
-    position: relative;
+.player-col-left,
+.player-col-right {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: auto;
-    min-height: 300px;
-    width: 100%;
+    flex-direction: column;
+    gap: 4px;
 }
 
+/* ============================================================
+   Screen
+   ============================================================ */
 
+/* Outer bezel — body-coloured frame around the LCD well */
 .screen {
     position: relative;
     z-index: 10;
-    background: transparent;
-    padding: 12px;
+    padding: 16px;
+    background: var(--color-body);
+    border: 1px solid var(--color-screen-bezel-border);
+    border-radius: var(--radius-button);   /* 8px — matches Figma outer frame */
     width: 100%;
+    height: 100%;
+    transition: var(--transition-theme);
 }
 
+/* Inner LCD well — deeply recessed, always the same green regardless of theme */
 .screen-outline {
-    background-image: var(--asset-screen-bg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 50px 30px 30px 50px;
-    min-height: 280px;
+    background: var(--screen-bg);
+    border: 1px solid var(--color-frame);
+    border-radius: var(--radius-screen);
+    box-shadow: var(--screen-inner-shadow);
+    padding: 12px;
+    min-height: 190px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+    overflow: hidden;
 }
 
 .screen-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-width: 365px;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
 }
 
 .lcd-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    color: var(--color-lcd-text);
+    font-family: var(--font-screen);
+    font-size: 10px;
+    color: var(--screen-text-dim);
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding-left: 8px;
 }
 
 /* On/off flicker when paused so the user can see playback is stopped */
@@ -261,10 +318,10 @@ body {
 }
 
 .lcd-song-info {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: var(--font-screen);
     font-size: 20px;
-    color: var(--color-lcd-text);
-    margin: 8px 0;
+    color: var(--screen-text);
+    text-shadow: var(--screen-glow);
     overflow: hidden;
     white-space: nowrap;
 }
@@ -288,179 +345,301 @@ body {
 
 .lcd-time-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 8px;
+    gap: 12px;
+    margin-top: auto;
 }
 
 .lcd-time {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 14px;
-    color: var(--color-lcd-text);
+    font-family: var(--font-screen);
+    font-size: 12px;
+    color: var(--screen-text);
+    text-shadow: var(--screen-glow);
+    letter-spacing: 1px;
+    flex-shrink: 0;
 }
 
-.control-container {
-    width: clamp(180px, 32vw, 260px);
-    height: clamp(180px, 32vw, 260px);
-    position: absolute;
-    right: clamp(20px, 4vw, 35px);
-    top: clamp(50px, 13vh, 73px);
-    z-index: 15;
+/* ============================================================
+   Controls — transport and skip
+   ============================================================ */
+
+.controls-area {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    align-self: stretch;
 }
 
-.control-knob-area {
+.transport-controls,
+.skip-controls {
+    display: flex;
+    gap: 0;
+    width: 100%;
+}
+
+.transport-controls {
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+.skip-controls {
+    gap: 4px;
+}
+
+/* Shared button base */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-button);
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition-button);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--color-icon);
+    outline-offset: 4px;
+}
+
+/* Base — full-footprint plate */
+.btn-base {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-button);
+}
+
+.btn-base-bg {
     position: absolute;
     inset: 0;
-    background: transparent;
+    border-radius: var(--radius-button);
+    background: var(--color-button-face);
+    overflow: hidden;
 }
 
-/* Four-button cardinal layout: Pause (top), Play (bottom), Prev (left), Next (right). Centered in container so layout is unchanged. */
-.playback-controls {
+.btn-base-texture {
     position: absolute;
-    left: 51%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto 1fr auto;
-    align-items: center;
-    justify-items: center;
-    gap: 22px;
-    min-width: clamp(100px, 20vw, 140px);
-    min-height: clamp(100px, 20vw, 140px);
+    inset: 0;
+    border-radius: var(--radius-button);
+    background-image: url('assets/shared/noise.png');
+    background-size: 114.4px 114.4px;
+    background-position: top left;
+    opacity: 0.05;
 }
 
-.playback-controls-btn-stop {
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.playback-controls-btn-play {
-    grid-column: 2;
-    grid-row: 3;
-}
-
-.playback-controls-btn-play img {
-    width: 32px;
-    height: 32px;
-    /* transform: translateX(1px);   or 1px if you prefer */
-}
-
-.playback-controls-btn-prev {
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.playback-controls-btn-next {
-    grid-column: 3;
-    grid-row: 2;
-}
-
-.playback-controls-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background 0.15s ease, transform 0.1s ease;
-}
-
-.playback-controls-btn:hover {
-    /* background: var(--color-btn-hover); */
-}
-
-.playback-controls-btn:active {
-    transform: scale(0.96);
-}
-
-.playback-controls-btn img {
-    display: block;
-    pointer-events: none;
-}
-
-.playback-controls-btn-disabled {
-    opacity: 0.4;
-    cursor: default;
-    pointer-events: none;
-}
-
-/* Volume buttons: PNG assets, fixed at bottom of control area so playback-controls stays put */
-.volume-controls {
+/* Border + panel shadow — gives each button a visible edge */
+.btn-base-border {
     position: absolute;
-    left: 50%;
-    top: clamp(200px, 35vw, 280px);
-    transform: translateX(-50%);
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid var(--color-button-border);
+    pointer-events: none;
+    box-shadow: var(--shadow-btn-base-border);
+    transition: var(--transition-button);
+}
+
+.btn:active .btn-base-border {
+    box-shadow: none;
+}
+
+/* Cap — raised keycap floating above the base */
+.btn-cap {
+    position: absolute;
+    inset: 16px;
+    border-radius: var(--radius-button-cap);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    box-shadow: var(--shadow-button);
+    overflow: hidden;
 }
 
-.volume-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: transform 0.1s ease;
+.btn-cap-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button-cap);
+    background: var(--color-button-face);
 }
 
-.volume-btn img {
+.btn-cap-texture {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button-cap);
+    background-image: url('assets/shared/noise.png');
+    background-size: 114.4px 114.4px;
+    background-position: top left;
+    opacity: 0.05;
+}
+
+/* Inset shadow overlay — appears on press over the base */
+.btn-inset-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button);
+    pointer-events: none;
+    box-shadow: none;
+    transition: var(--transition-button);
+}
+
+.btn:active .btn-inset-shadow {
+    box-shadow: var(--shadow-button-pressed);
+}
+
+/* Icon image sits above cap layers */
+.btn img {
     display: block;
-    width: auto;
+    width: 40px;
     height: 40px;
     pointer-events: none;
+    position: relative;
+    z-index: 1;
 }
 
-.volume-btn:hover {
-    opacity: 0.95;
+/* Square transport buttons: eject / stop / pause / play — 143×143, two-part base/cap */
+.btn-transport {
+    width: 143px;
+    height: 143px;
+    flex-shrink: 0;
 }
 
-.volume-btn:active {
-    transform: scale(0.97);
+/* Eject button cap: optional PNG asset at assets/shared/eject-cap.png for pixel-perfect match */
+.btn-transport-eject::after {
+    background-image: url('assets/shared/eject-cap.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Wide skip buttons: prev / next — share available width equally */
+.btn-skip {
+    flex: 1;
+    height: 60px;
+    min-width: 80px;
+}
+
+/* ============================================================
+   Volume slider
+   ============================================================ */
+
+.volume-slider-container {
+    display: flex;
+    align-items: center;
+    padding: 20px 16px;
+    background: var(--color-panel);
+    border-radius: var(--radius-panel);
+    width: 100%;
+    align-self: stretch;
+    transition: var(--transition-theme);
+    position: relative;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--slider-track-color);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--slider-track-color);
+    border-radius: 2px;
+}
+
+.volume-slider::-moz-range-track {
+    height: 4px;
+    background: var(--slider-track-color);
+    border-radius: 2px;
+}
+
+/* Thumb: tall and narrow — matches the physical slider in the Figma design */
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 64px;
+    margin-top: -30px;  /* centre on 4px track: -(64/2 - 4/2) */
+    background: var(--slider-thumb-gradient);
+    border-radius: var(--slider-thumb-radius);
+    border: var(--slider-thumb-border);
+    box-shadow: var(--slider-thumb-shadow);
+    cursor: grab;
+}
+
+.volume-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 22px;
+    height: 64px;
+    background: var(--slider-thumb-gradient);
+    border-radius: var(--slider-thumb-radius);
+    border: var(--slider-thumb-border);
+    box-shadow: var(--slider-thumb-shadow);
+    cursor: grab;
+}
+
+/* ============================================================
+   Utility buttons — light mode, dark mode, skin, info
+   ============================================================ */
+
+.utility-buttons {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+/* Utility buttons — same two-part base/cap and sizing as transport (143×143) */
+.btn-utility {
+    width: 143px;
+    height: 143px;
+    flex-shrink: 0;
 }
 
 .progress-bar-container {
     flex: 1;
-    height: 4px;
-    background: var(--color-progress-track);
+    height: 8px;
+    background: var(--screen-track);
     border-radius: 2px;
-    margin: 0 10px;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
-    background: var(--color-progress-fill);
+    background: var(--screen-text);
     border-radius: 2px;
     width: 0%;
-    transition: width 0.1s linear, background 0.15s ease;
+    transition: width 0.1s linear;
 }
 
 .visualizer {
     display: flex;
     align-items: flex-end;
-    justify-content: center;
     gap: 4px;
-    height: 60px;
-    margin-top: auto;
+    height: 56px;
+    overflow: hidden;
 }
 
 .visualizer-bar {
-    width: 8px;
-    background: var(--color-progress-fill);
-    border-radius: 2px;
+    width: 4px;
+    flex-shrink: 0;
+    background: var(--screen-text);
+    border-radius: 1px;
     min-height: 2px;
-    /* Slight delay/ease so bar height changes aren’t jumpy */
-    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1), background 0.15s ease;
+    box-shadow: var(--screen-glow);
+    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 /* Hidden audio element */
@@ -468,38 +647,37 @@ body {
     display: none;
 }
 
-/* MD Player Text */
+/* ============================================================
+   Footer bar
+   ============================================================ */
+
 .md-player-text {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
+    background: var(--color-body);
+    padding: 14px 20px;
+    border-radius: 8px;
+    transition: var(--transition-theme);
+    position: relative;
 }
 
 .md-player-label {
-    font-family: var(--font-family-player-label);
-    font-size: var(--font-size-player-label);
-    font-weight: var(--font-weight-player-label);
-    color: var(--color-player-label);
+    font-family: "Share Tech Mono";
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 .md-player-stereo {
-    font-family: var(--font-family-player-stereo);
-    font-size: var(--font-size-player-stereo);
-    font-weight: var(--font-weight-player-stereo);
-    color: var(--color-player-stereo);
+    font-family: "Share Tech Mono";
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--color-text-secondary);
     text-transform: uppercase;
-    letter-spacing: 2.4px;
-}
-
-/* Desktop scaling between ~900px and 1000px viewport widths */
-@media (min-width: 901px) {
-    .md-player-scale-wrap {
-        --player-scale: clamp(0.88, calc((100vw - 40px) / 900px), 1);
-        transform: scale(var(--player-scale));
-        margin-bottom: calc((var(--player-scale) - 1) * 560px);
-    }
+    letter-spacing: 1.5px;
 }
 
 /* Stacked mobile layout: screen on top, controls below, volume to right of knob */
@@ -513,41 +691,22 @@ body {
     }
 
     .md-player {
-        height: 560px;
-        min-height: 0;
         width: min(100%, 380px);
-        aspect-ratio: 9 / 16;
-        display: flex;
-        flex-direction: column;
-        padding: 16px 12px 24px;
+        padding: 16px;
     }
 
     .md-player-inner {
-        flex: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        padding: 52px 16px 24px 16px;
+        padding: 8px;
     }
 
-    .theme-toggle {
-        position: absolute;
-        top: 2px;
-        right: 8px;
-        padding: 4px;
+    .top-bar .power-btn {
         border: none;
-        background: transparent;
-        cursor: pointer;
-        scale: 0.8;
-        border-radius: 4px;
-        transition: opacity 0.15s ease;
     }
 
-    .eject-button {
-    position: absolute;
-    top: 0px;
-    left: 36px;
-    transform: scale(0.7);
+    .top-bar .speaker-section,
+    .top-bar .top-bar-clock {
+        border: none;
+        background: var(--color-body);
     }
 
     .player-outline-wrap {
@@ -555,157 +714,116 @@ body {
         min-height: 0;
         display: flex;
         flex-direction: column;
+        gap: 4px;
         background-image: var(--asset-player-outline-mobile);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: 10% 0;
     }
 
-    .screen-container {
-        flex: 0 0 auto;
-        margin-bottom: 0;
-        min-height: 160px;
-    }
-
-    .screen-content {
+    .screen {
         max-width: 100%;
-        gap: 8px;
+        padding: 10px;
     }
 
     .screen-outline {
         min-height: 160px;
-        padding: 20px;
-        background-image: none;
+        padding: 10px 12px;
     }
 
-    .control-container {
-        position: relative;
-        top: -11px;
-        left: 5px;
+    .controls-area {
+        align-self: stretch;
+    }
+
+    .transport-controls,
+    .utility-buttons {
+        justify-content: center;
+    }
+
+    .btn-transport {
+        flex: 1;
         width: auto;
         height: auto;
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-    }
-
-    .control-knob-area {
-        position: relative;
-        inset: unset;
-        width: clamp(140px, 36vw, 200px);
         aspect-ratio: 1;
-        flex-shrink: 0;
+        flex-shrink: 1;
+        min-width: 0;
     }
 
-    .playback-controls {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -48%);
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: auto 1fr auto;
-        align-items: center;
-        justify-items: center;
-        gap: 1px;
-        min-width: clamp(100px, 20vw, 140px);
-        min-height: clamp(100px, 20vw, 140px);
+    .btn-utility {
+        flex: 1;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1;
+        flex-shrink: 1;
+        min-width: 0;
     }
 
-    .playback-controls-btn-stop {
-        transform: scale(0.85);
-    }
-
-    .volume-controls {
-        position: static;
-        transform: none;
-        margin-top: 0;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Rotate volume buttons 90° so pills are vertical, then stack */
-    .volume-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 56px;
-        min-width: 32px;
-        min-height: 56px;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .volume-btn img {
-        width: 56px;
-        height: 32px;
-        transform: rotate(270deg);
-        object-fit: contain;
+    .btn-skip {
+        height: 72px;
+        min-width: 0;
     }
 
     .visualizer {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        gap: 4px;
-        height: 48px;
-        margin-top: 0;
+        height: 44px;
     }
 
-    /* MD Player Text */
     .md-player-text {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 12px;
-    }
-
-    .md-player-label {
-        font-family: var(--font-family-player-label);
-        font-size: 16px;
-        color: var(--color-player-label);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .md-player-stereo {
-        font-family: var(--font-family-player-stereo);
-        font-size: 12px;
-        color: var(--color-player-stereo);
-        text-transform: uppercase;
-        letter-spacing: 2.4px;
+        padding-top: 10px;
     }
 }
 
-/* Small screens: unique overrides only (rest inherits from 900px) */
-@media (max-width: 768px) {
-    .playback-controls {
-        transform: translate(-50%, -47%);
-    }
-}
-
-/* Very small viewports: unique overrides only (rest inherits from 900px/768px) */
+/* Very small viewports */
 @media (max-width: 500px) {
-    .control-container {
-        top: -12px;
-    }
-
-    .control-knob-area {
-        inset: 0;
-        width: 60%;
-    }
-
-    .playback-controls {
-        transform: translate(-50%, -47%);
-    }
-
     .md-player-text {
         padding-top: 20px;
+    }
+}
+
+/* Desktop: two-column player layout, title to the left of the player */
+@media (min-width: 901px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .md-player-scale-wrap {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .title-section {
+        flex-shrink: 0;
+        margin-bottom: 0;
+        /* Push title copy down past the top bar so "mixtape" aligns with the player body */
+        padding-top: 0px;
+    }
+
+    .player-outline-wrap {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .player-col-left,
+    .player-col-right {
+        flex: 1;
+    }
+
+    .top-bar         { height: 80px; max-width: 584px; }
+    .screen          { max-width: 584px; }
+    .md-player-text  { height: 80px; }
+
+    /* Playback (skip) controls: fill full right-column width */
+    .skip-controls {
+        width: 100%;
+        margin-inline: 0;
+    }
+
+    .btn-skip {
+        height: 143px;
+    }
+
+    .volume-slider-container {
+        height: 143px;
     }
 }

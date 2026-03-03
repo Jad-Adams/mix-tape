@@ -1,6 +1,7 @@
 # mix tape — UI Redesign Brief
 **For use with Claude Code and Cursor AI sessions**
 Always read this file before making any changes to the project.
+Be aware that the user is not an engineer, but a designer looking to become a design engineer.
 
 ---
 
@@ -95,7 +96,7 @@ box-shadow:
 
 ### Noise texture
 
-A subtle noise texture is applied to the player body to simulate the grain of real matte plastic. This is a tiled PNG image at low opacity (`3–5%`) using `mix-blend-mode: overlay`. It should be a separate asset file referenced in CSS, not an inline base64 string.
+A subtle noise texture is applied to the components to simulate the grain of real matte plastic. This is a tiled PNG image at low opacity (`3–5%`) using `mix-blend-mode: soft-light`. It should be a separate asset file referenced in CSS, not an inline base64 string.
 
 ---
 
@@ -184,7 +185,7 @@ The player is made up of these discrete components, each its own CSS block:
 ```
 mix-tape/
 ├── index.html
-├── script.js              ← do not modify
+├── script.js              ← always ask for permission before modifying
 ├── styles.css             ← replace with new CSS
 ├── tokens.css             ← new file: all CSS custom properties, both themes
 ├── playlist.json          ← do not modify
@@ -211,5 +212,5 @@ Before making any changes in a new Claude Code or Cursor session, confirm:
 1. You have read this file
 2. You have read `tokens.css` and `styles.css`
 3. You have read the existing `index.html` to understand the current JS structure
-4. You will not modify any JavaScript
+4. You will not modify any JavaScript without explicit permission
 5. You will not hardcode any colour values
