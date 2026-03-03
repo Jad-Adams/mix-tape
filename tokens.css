@@ -110,6 +110,9 @@
   --shadow-device:          0 8px 32px oklch(0 0 0 / 0.55),
                             4px 4px 16px oklch(0 0 0 / 0.35);
 
+  /* Button border */
+  --color-button-border:    oklch(0.2 0 0);   /* #2f2f2f — subtle dark edge */
+
   /* Slider */
   --slider-track-color:     oklch(0 0 0);  /* #000000 */
   --slider-thumb-gradient:  linear-gradient(176deg,
@@ -157,6 +160,9 @@
   /* Device page shadow */
   --shadow-device:          0 8px 24px oklch(0 0 0 / 0.25),
                             4px 4px 12px oklch(0 0 0 / 0.15);
+
+  /* Button border */
+  --color-button-border:    oklch(0.45 0 0);  /* mid-grey edge on lighter body */
 
   /* Slider */
   --slider-track-color:     linear-gradient(160deg,

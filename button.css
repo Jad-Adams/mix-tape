@@ -1,0 +1,129 @@
+/* ── Neumorphic Button ── pure CSS, no framework classes ── */
+
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100vh;
+  background-color: #1a1a1a;
+}
+
+/* Wrapper handles the press — the whole unit sinks */
+.btn {
+  position: relative;
+  width: 143px;
+  height: 138px;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btn:active {
+}
+
+/* BASE */
+.btn-base {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.btn-base-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: #2b2b2b;
+  overflow: hidden;
+}
+
+.btn-base-texture {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  opacity: 0.05;
+  background-size: 114.4px 114.4px;
+  background-position: top left;
+}
+
+.btn-base-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 0.894px solid #2F2F2F;
+  pointer-events: none;
+  box-shadow:
+    -1px 0px 3px 0px rgba(112, 112, 112, 0.25),
+    2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.08s ease;
+}
+
+.btn:active .btn-base-border {
+  box-shadow: none;
+}
+
+/* CAP — never changes on press */
+.btn-cap {
+  position: absolute;
+  left: 18.77px;
+  top: 16.11px;
+  width: 105.45px;
+  height: 105.45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    5.363px 5.363px 10.725px 0px rgba(0, 0, 0, 0.35),
+    3.575px 3.575px 7.15px 0px rgba(0, 0, 0, 0.2),
+    2.681px 2.681px 3.575px 0px rgba(0, 0, 0, 0.4),
+    -1.788px -1.788px 5.363px 0px rgba(112, 112, 112, 0.4);
+  overflow: hidden;
+}
+
+/* INSET SHADOW OVERLAY — reveals on press */
+.btn-inset-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
+  box-shadow: none;
+  transition: box-shadow 0.08s ease;
+}
+
+.btn:active .btn-inset-shadow {
+  box-shadow:
+    inset -2px -2px 5px 0px rgba(0, 0, 0, 0.3),
+    inset 8px 8px 7px 0px rgba(0, 0, 0, 0.2),
+    inset 7px 7px 7px 0px rgba(0, 0, 0, 0.15),
+    inset 5px 5px 4px 0px rgba(0, 0, 0, 0.15),
+    inset 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cap-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: #2b2b2b;
+}
+
+.btn-cap-texture {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  opacity: 0.05;
+  background-size: 114.4px 114.4px;
+  background-position: top left;
+}
+
+/* STOP ICON */
+.btn-icon {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 1px;
+  background: #909090;
+}

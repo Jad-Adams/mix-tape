@@ -357,7 +357,7 @@ body {
     gap: 4px;
 }
 
-/* Shared button base — transparent footprint; two-part construction via ::before (base) and ::after (cap) */
+/* Shared button base */
 .btn {
     display: flex;
     align-items: center;
@@ -376,31 +376,91 @@ body {
     outline-offset: 4px;
 }
 
-/* Base / button action plate — full footprint */
-.btn::before {
-    content: '';
+/* Base — full-footprint plate */
+.btn-base {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-button);
+}
+
+.btn-base-bg {
     position: absolute;
     inset: 0;
-    background: var(--color-button-face);
     border-radius: var(--radius-button);
+    background: var(--color-button-face);
+    overflow: hidden;
+}
+
+.btn-base-texture {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button);
+    background-image: url('assets/shared/noise.png');
+    background-size: 114.4px 114.4px;
+    background-position: top left;
+    opacity: 0.05;
+}
+
+/* Border + panel shadow — gives each button a visible edge */
+.btn-base-border {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button);
+    border: 1px solid var(--color-button-border);
+    pointer-events: none;
+    box-shadow: var(--shadow-panel);
     transition: var(--transition-button);
 }
 
-/* Raised cap — inset keycap with shadow */
-.btn::after {
-    content: '';
+.btn:active .btn-base-border {
+    box-shadow: none;
+}
+
+/* Cap — raised keycap floating above the base */
+.btn-cap {
     position: absolute;
     inset: 16px;
-    background: var(--color-button-face);
     border-radius: var(--radius-button-cap);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: var(--shadow-button);
+    overflow: hidden;
+}
+
+.btn-cap-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button-cap);
+    background: var(--color-button-face);
+}
+
+.btn-cap-texture {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button-cap);
+    background-image: url('assets/shared/noise.png');
+    background-size: 114.4px 114.4px;
+    background-position: top left;
+    opacity: 0.05;
+}
+
+/* Inset shadow overlay — appears on press over the base */
+.btn-inset-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button);
+    pointer-events: none;
+    box-shadow: none;
     transition: var(--transition-button);
 }
 
-.btn:active::after {
+.btn:active .btn-inset-shadow {
     box-shadow: var(--shadow-button-pressed);
 }
 
+/* Icon image sits above cap layers */
 .btn img {
     display: block;
     pointer-events: none;
