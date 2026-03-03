@@ -160,7 +160,7 @@ body {
 .title-main {
     font-family: var(--font-ui);
     font-size: 48px;
-    font-weight: bold;
+    font-weight: 400;
     color: var(--color-text-primary);
     line-height: 1;
     margin-bottom: 8px;
@@ -796,7 +796,7 @@ body {
         flex-shrink: 0;
         margin-bottom: 0;
         /* Push title copy down past the top bar so "mixtape" aligns with the player body */
-        padding-top: 50px;
+        padding-top: 0px;
     }
 
     .player-outline-wrap {
