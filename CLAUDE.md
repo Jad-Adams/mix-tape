@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Before making any changes in a new Claude Code or Cursor session, confirm:
 1. You have read this file
-2. You have read `tokens.css` and `styles.css`
+2. ¦You have read `tokens.css` and `styles.css`
 3. You have read the existing `index.html` to understand the current JS structure
 4. You will not modify any JavaScript without explicit permission
 5. You will not hardcode any colour values

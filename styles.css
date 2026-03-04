@@ -779,6 +779,21 @@ body {
     .md-player-text {
         padding-top: 10px;
     }
+
+    /* Flatten column wrappers so sections can be individually reordered */
+    .player-col-left,
+    .player-col-right {
+        display: contents;
+    }
+
+    /* Restore correct vertical stacking order for mobile */
+    .top-bar        { order: 1; }
+    .screen         { order: 2; }
+    .transport-area { order: 3; }
+    .skip-area      { order: 4; }
+    .volume-area    { order: 5; }
+    .utility-area   { order: 6; }
+    .md-player-text { order: 7; }
 }
 
 /* ============================================================
