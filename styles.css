@@ -801,6 +801,12 @@ body {
    Power off state
    ============================================================ */
 
+/* Transport and skip buttons inert while powered off */
+[data-powered="false"] .btn-transport,
+[data-powered="false"] .btn-skip {
+    pointer-events: none;
+}
+
 /* LED: dark, no glow */
 [data-powered="false"] .power-led {
     background: var(--led-off-gradient);

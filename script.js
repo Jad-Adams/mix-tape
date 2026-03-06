@@ -490,6 +490,7 @@ if (powerBtnEl) {
 				}
 			}, 500);
 		} else {
+			stopAudio();
 			if (screenContentEl) screenContentEl.classList.add('screen-content--powering-off');
 			if (screenOutlineEl) screenOutlineEl.classList.add('screen-outline--glitch-off');
 			setTimeout(() => {
