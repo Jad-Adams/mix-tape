@@ -448,4 +448,43 @@ function initPlaylist() {
 		});
 }
 
+// Power button
+const powerBtnEl = document.querySelector('.power-btn');
+const htmlEl = document.documentElement;
+
+function calibrateNoPowerBounce() {
+	const overlay = document.querySelector('.no-power-overlay');
+	const label = document.querySelector('.no-power-label');
+	if (!overlay || !label) return;
+	const maxX = overlay.clientWidth - label.offsetWidth;
+	const maxY = overlay.clientHeight - label.offsetHeight;
+	overlay.style.setProperty('--bounce-x-end', Math.max(4, maxX) + 'px');
+	overlay.style.setProperty('--bounce-y-end', Math.max(4, maxY) + 'px');
+}
+
+if (powerBtnEl) {
+	powerBtnEl.addEventListener('pointerdown', () => playClickSound());
+	powerBtnEl.addEventListener('click', () => {
+		const isOff = htmlEl.dataset.powered === 'false';
+		if (isOff) {
+			const screenOutlineEl = document.querySelector('.screen-outline');
+			const screenContentEl = document.querySelector('.screen-content');
+			if (screenOutlineEl) screenOutlineEl.classList.add('screen-outline--glitch');
+			setTimeout(() => {
+				htmlEl.dataset.powered = 'true';
+				if (screenOutlineEl) screenOutlineEl.classList.remove('screen-outline--glitch');
+				if (screenContentEl) {
+					screenContentEl.classList.add('screen-content--powering-on');
+					setTimeout(() => screenContentEl.classList.remove('screen-content--powering-on'), 400);
+				}
+			}, 500);
+		} else {
+			htmlEl.dataset.powered = 'false';
+		}
+	});
+}
+
+requestAnimationFrame(calibrateNoPowerBounce);
+window.addEventListener('resize', calibrateNoPowerBounce);
+
 initPlaylist();
