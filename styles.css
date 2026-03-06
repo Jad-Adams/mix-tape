@@ -900,6 +900,35 @@ body {
     animation: content-glitch-in 400ms steps(1, end) forwards;
 }
 
+/* Power-off glitch: screen collapses back to dark */
+@keyframes screen-glitch-off {
+     0% { background: var(--screen-bg); }
+    15% { background: var(--screen-off-bg); }
+    20% { background: var(--screen-glitch-flash-3); }
+    35% { background: var(--screen-off-bg); }
+    45% { background: var(--screen-glitch-flash-2); }
+    55% { background: var(--screen-off-bg); }
+    70% { background: var(--screen-glitch-flash-1); }
+    80% { background: var(--screen-off-bg); }
+   100% { background: var(--screen-off-bg); }
+}
+
+.screen-outline--glitch-off {
+    animation: screen-glitch-off 500ms steps(1, end) forwards;
+}
+
+/* Screen content flickers out on power off */
+@keyframes content-glitch-out {
+     0%, 20% { visibility: visible; opacity: 1; }
+    22%, 27% { visibility: visible; opacity: 0; }
+    30%, 35% { visibility: visible; opacity: 1; }
+    37%, 100% { visibility: hidden; opacity: 0; }
+}
+
+.screen-content--powering-off {
+    animation: content-glitch-out 300ms steps(1, end) forwards;
+}
+
 /* ============================================================
    Reduced motion — disable all animations for users who prefer it
    ============================================================ */
@@ -912,7 +941,9 @@ body {
     .no-power-bounce-x,
     .no-power-bounce-y { animation: none; }
     .screen-outline--glitch { animation: none; }
+    .screen-outline--glitch-off { animation: none; }
     .screen-content--powering-on { animation: none; visibility: visible; opacity: 1; }
+    .screen-content--powering-off { animation: none; visibility: hidden; opacity: 0; }
 }
 
 /* Very small viewports */

@@ -462,24 +462,47 @@ function calibrateNoPowerBounce() {
 	overlay.style.setProperty('--bounce-y-end', Math.max(4, maxY) + 'px');
 }
 
+let isPowerAnimating = false;
+
 if (powerBtnEl) {
 	powerBtnEl.addEventListener('pointerdown', () => playClickSound());
 	powerBtnEl.addEventListener('click', () => {
+		if (isPowerAnimating) return;
+		isPowerAnimating = true;
+
 		const isOff = htmlEl.dataset.powered === 'false';
+		const screenOutlineEl = document.querySelector('.screen-outline');
+		const screenContentEl = document.querySelector('.screen-content');
+
 		if (isOff) {
-			const screenOutlineEl = document.querySelector('.screen-outline');
-			const screenContentEl = document.querySelector('.screen-content');
 			if (screenOutlineEl) screenOutlineEl.classList.add('screen-outline--glitch');
 			setTimeout(() => {
 				htmlEl.dataset.powered = 'true';
 				if (screenOutlineEl) screenOutlineEl.classList.remove('screen-outline--glitch');
 				if (screenContentEl) {
 					screenContentEl.classList.add('screen-content--powering-on');
-					setTimeout(() => screenContentEl.classList.remove('screen-content--powering-on'), 400);
+					setTimeout(() => {
+						screenContentEl.classList.remove('screen-content--powering-on');
+						isPowerAnimating = false;
+					}, 400);
+				} else {
+					isPowerAnimating = false;
 				}
 			}, 500);
 		} else {
-			htmlEl.dataset.powered = 'false';
+			if (screenContentEl) screenContentEl.classList.add('screen-content--powering-off');
+			if (screenOutlineEl) screenOutlineEl.classList.add('screen-outline--glitch-off');
+			setTimeout(() => {
+				htmlEl.dataset.powered = 'false';
+				if (screenOutlineEl) screenOutlineEl.classList.remove('screen-outline--glitch-off');
+				if (screenContentEl) screenContentEl.classList.remove('screen-content--powering-off');
+				const overlayEl = document.querySelector('.no-power-overlay');
+				if (overlayEl) {
+					overlayEl.style.display = 'none';
+					setTimeout(() => overlayEl.style.removeProperty('display'), 200);
+				}
+				isPowerAnimating = false;
+			}, 500);
 		}
 	});
 }
