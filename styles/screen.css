@@ -1,0 +1,152 @@
+/* ============================================================
+   Screen
+   ============================================================ */
+
+/* Outer bezel — body-coloured frame around the LCD well */
+.screen {
+    position: relative;
+    z-index: 10;
+    padding: 16px;
+    background: var(--color-body);
+    border: 1px solid var(--color-screen-bezel-border);
+    border-radius: var(--radius-button);   /* 8px — matches Figma outer frame */
+    width: 100%;
+    height: 100%;
+    transition: var(--transition-theme);
+}
+
+/* Inner LCD well — deeply recessed, always the same green regardless of theme */
+.screen-outline {
+    background: var(--screen-bg);
+    border: 1px solid var(--color-frame);
+    border-radius: var(--radius-screen);
+    box-shadow: var(--screen-inner-shadow);
+    padding: 12px;
+    min-height: 190px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow: hidden;
+    position: relative;
+}
+
+.screen-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.lcd-label {
+    font-family: var(--font-screen);
+    font-size: 10px;
+    color: var(--screen-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* On/off flicker when paused so the user can see playback is stopped */
+.lcd-label--paused {
+    animation: lcd-label-paused-flicker 1500ms steps(1, end) infinite;
+}
+
+@keyframes lcd-label-paused-flicker {
+    0%, 49.99% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.lcd-song-info {
+    font-family: var(--font-screen);
+    font-size: 20px;
+    color: var(--screen-text);
+    text-shadow: var(--screen-glow);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.lcd-song-info-inner {
+    display: inline-block;
+}
+
+/* When text overflows, scroll left-to-right (JS adds .lcd-song-info--scroll and sets --scroll-end) */
+.lcd-song-info--scroll .lcd-song-info-inner {
+    animation: lcd-song-info-scroll 14s ease-in-out infinite;
+}
+
+@keyframes lcd-song-info-scroll {
+    0%, 12% { transform: translateX(0); }
+    45% { transform: translateX(var(--scroll-end, 0)); }
+    55% { transform: translateX(var(--scroll-end, 0)); }
+    88% { transform: translateX(0); }
+    100% { transform: translateX(0); }
+}
+
+.lcd-time-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.lcd-time {
+    font-family: var(--font-screen);
+    font-size: 12px;
+    color: var(--screen-text);
+    text-shadow: var(--screen-glow);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   Progress bar
+   ============================================================ */
+
+.progress-bar-container {
+    flex: 1;
+    height: 8px;
+    background: var(--screen-track);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--screen-text);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* ============================================================
+   Visualizer
+   ============================================================ */
+
+.visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 56px;
+    overflow: hidden;
+}
+
+.visualizer-bar {
+    width: 4px;
+    flex-shrink: 0;
+    background: var(--screen-text);
+    border-radius: 1px;
+    height: 50px;
+    transform: scaleY(0.04);
+    transform-origin: bottom;
+    will-change: transform;
+    box-shadow: var(--screen-glow);
+    transition: transform 0.15s cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+/* Hidden audio element */
+#audioPlayer {
+    display: none;
+}

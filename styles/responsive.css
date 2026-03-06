@@ -1,0 +1,188 @@
+/* ============================================================
+   Stacked mobile layout (max-width: 900px)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .md-player-scale-wrap {
+        width: 100%;
+        transform: none;
+        margin-bottom: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .md-player {
+        width: min(100%, 380px);
+        padding: 16px;
+    }
+
+    .md-player-inner {
+        padding: 8px;
+    }
+
+    .top-bar .power-btn {
+        border: none;
+    }
+
+    .top-bar .speaker-section,
+    .top-bar .top-bar-clock {
+        border: none;
+        background: var(--color-body);
+    }
+
+    .player-outline-wrap {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        background-image: var(--asset-player-outline-mobile);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 10% 0;
+    }
+
+    .screen {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .screen-outline {
+        min-height: 160px;
+        padding: 10px 12px;
+    }
+
+    .controls-area {
+        align-self: stretch;
+    }
+
+    .transport-controls,
+    .utility-buttons {
+        justify-content: center;
+    }
+
+    .btn-transport {
+        flex: 1;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1;
+        flex-shrink: 1;
+        min-width: 0;
+    }
+
+    .btn-utility {
+        flex: 1;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1;
+        flex-shrink: 1;
+        min-width: 0;
+    }
+
+    .btn-skip {
+        height: 72px;
+        min-width: 0;
+    }
+
+    .visualizer {
+        height: 44px;
+    }
+
+    .md-player-text {
+        padding-top: 10px;
+    }
+
+    /* Flatten column wrappers so sections can be individually reordered */
+    .player-col-left,
+    .player-col-right {
+        display: contents;
+    }
+
+    /* Restore correct vertical stacking order for mobile */
+    .top-bar        { order: 1; }
+    .screen         { order: 2; }
+    .transport-area { order: 3; }
+    .skip-area      { order: 4; }
+    .volume-area    { order: 5; }
+    .utility-area   { order: 6; }
+    .md-player-text { order: 7; }
+}
+
+/* ============================================================
+   Reduced motion — disable all animations for users who prefer it
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .lcd-label--paused { animation: none; }
+    .lcd-song-info--scroll .lcd-song-info-inner { animation: none; }
+    .visualizer-bar { transition: none; will-change: auto; }
+    .progress-bar { transition: none; }
+    .no-power-bounce-x,
+    .no-power-bounce-y { animation: none; }
+    .screen-outline--glitch { animation: none; }
+    .screen-outline--glitch-off { animation: none; }
+    .screen-content--powering-on { animation: none; visibility: visible; opacity: 1; }
+    .screen-content--powering-off { animation: none; visibility: hidden; opacity: 0; }
+}
+
+/* ============================================================
+   Very small viewports
+   ============================================================ */
+
+@media (max-width: 500px) {
+    .md-player-text {
+        padding-top: 20px;
+    }
+}
+
+/* ============================================================
+   Desktop: two-column player layout (min-width: 901px)
+   ============================================================ */
+
+@media (min-width: 901px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .md-player-scale-wrap {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .title-section {
+        flex-shrink: 0;
+        margin-bottom: 0;
+        /* Push title copy down past the top bar so "mixtape" aligns with the player body */
+        padding-top: 0px;
+    }
+
+    .player-outline-wrap {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .player-col-left,
+    .player-col-right {
+        flex: 1;
+    }
+
+    .top-bar         { height: 80px; max-width: 584px; }
+    .screen          { max-width: 584px; }
+    .md-player-text  { height: 80px; }
+
+    /* Playback (skip) controls: fill full right-column width */
+    .skip-controls {
+        width: 100%;
+        margin-inline: 0;
+    }
+
+    .btn-skip {
+        height: 143px;
+    }
+
+    .volume-slider-container {
+        height: 143px;
+    }
+}

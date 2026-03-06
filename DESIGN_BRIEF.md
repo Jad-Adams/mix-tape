@@ -141,7 +141,7 @@ A subtle noise texture is applied to the components to simulate the grain of rea
 
 ## Themes
 
-Two themes are implemented. Themes are applied by swapping a `data-theme` attribute on the `<body>` or root element. All theme values are CSS custom properties defined in `tokens.css`.
+Two themes are implemented. Themes are applied by swapping a `data-theme` attribute on `<html>`. All theme values are CSS custom properties defined in `tokens.css`.
 
 ### Dark theme (default)
 See `tokens.css` — `[data-theme="dark"]`
@@ -186,19 +186,20 @@ The player is made up of these discrete components, each its own CSS block:
 mix-tape/
 ├── index.html
 ├── script.js              ← always ask for permission before modifying
-├── styles.css             ← replace with new CSS
-├── tokens.css             ← new file: all CSS custom properties, both themes
+├── styles.css             ← imports only; all styles live in styles/
+├── styles/                ← CSS partials (core, screen, buttons, slider, power, responsive, animations)
+├── tokens.css             ← all CSS custom properties, both themes
 ├── playlist.json          ← do not modify
 ├── generate-playlist.js   ← do not modify
-├── DESIGN_BRIEF.md        ← this file (replaces CLAUDE.md)
+├── DESIGN_BRIEF.md        ← this file (authority for design and visual decisions)
 ├── assets/
 │   ├── shared/
 │   │   ├── bit.svg
 │   │   ├── button-click.mp3
-│   │   └── noise.png      ← new file to add: noise texture for player body
+│   │   └── noise.png      ← grain texture overlay for player body
 │   └── themes/
-│       ├── light/         ← 11 icon/asset files
-│       └── dark/          ← 11 icon/asset files (same names)
+│       ├── light/         ← 12 SVG icon files
+│       └── dark/          ← 12 SVG icon files (same names)
 └── music/                 ← mp3 files, do not modify
 ```
 
@@ -206,11 +207,4 @@ Fonts are loaded via Google Fonts link in `index.html`, no local font files need
 
 ---
 
-## Session startup checklist
-
-Before making any changes in a new Claude Code or Cursor session, confirm:
-1. You have read this file
-2. You have read `tokens.css` and `styles.css`
-3. You have read the existing `index.html` to understand the current JS structure
-4. You will not modify any JavaScript without explicit permission
-5. You will not hardcode any colour values
+> **Session startup checklist is in `CLAUDE.md`** — read that file first in every new session.

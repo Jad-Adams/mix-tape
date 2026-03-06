@@ -1,0 +1,146 @@
+/* ============================================================
+   Power off state
+   ============================================================ */
+
+/* Transport and skip buttons inert while powered off */
+[data-powered="false"] .btn-transport,
+[data-powered="false"] .btn-skip {
+    pointer-events: none;
+}
+
+/* LED: dark, no glow */
+[data-powered="false"] .power-led {
+    background: var(--led-off-gradient);
+    border-color: var(--led-off-stroke);
+    filter: none;
+}
+
+/* Screen: dark background when off */
+[data-powered="false"] .screen-outline {
+    background: var(--screen-off-bg);
+}
+
+/* Normal screen content hidden when off */
+[data-powered="false"] .screen-content {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* No-power overlay: hidden by default, shown when off */
+.no-power-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+[data-powered="false"] .no-power-overlay {
+    display: block;
+}
+
+/* DVD-style two-axis bounce */
+.no-power-bounce-x {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: bounce-x 6s linear infinite alternate;
+    will-change: transform;
+}
+
+.no-power-bounce-y {
+    display: block;
+    animation: bounce-y 4.3s linear infinite alternate;
+    will-change: transform;
+}
+
+.no-power-label {
+    font-family: var(--font-screen);
+    font-size: 20px;
+    color: var(--no-power-text);
+    white-space: nowrap;
+    display: block;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+@keyframes bounce-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(var(--bounce-x-end, 80px)); }
+}
+
+@keyframes bounce-y {
+    from { transform: translateY(0); }
+    to   { transform: translateY(var(--bounce-y-end, 60px)); }
+}
+
+/* ============================================================
+   Glitch animations — power on
+   ============================================================ */
+
+/* Screen background fills in with CRT-style flashes */
+@keyframes screen-glitch-on {
+     0% { background: var(--screen-off-bg); }
+    10% { background: var(--screen-glitch-flash-1); }
+    15% { background: var(--screen-off-bg); }
+    25% { background: var(--screen-glitch-flash-2); }
+    30% { background: var(--screen-off-bg); }
+    50% { background: var(--screen-glitch-flash-3); }
+    70% { background: var(--screen-bg); }
+   100% { background: var(--screen-bg); }
+}
+
+.screen-outline--glitch {
+    animation: screen-glitch-on 500ms steps(1, end) forwards;
+}
+
+/* Hide the no-power overlay during the glitch */
+.screen-outline--glitch .no-power-overlay {
+    display: none;
+}
+
+/* Screen content flickers in after power on */
+@keyframes content-glitch-in {
+     0%, 55% { visibility: hidden; opacity: 0; }
+    60%, 65% { visibility: visible; opacity: 1; }
+    67%, 72% { visibility: visible; opacity: 0; }
+    75%, 100% { visibility: visible; opacity: 1; }
+}
+
+.screen-content--powering-on {
+    animation: content-glitch-in 400ms steps(1, end) forwards;
+}
+
+/* ============================================================
+   Glitch animations — power off
+   ============================================================ */
+
+/* Screen collapses back to dark */
+@keyframes screen-glitch-off {
+     0% { background: var(--screen-bg); }
+    15% { background: var(--screen-off-bg); }
+    20% { background: var(--screen-glitch-flash-3); }
+    35% { background: var(--screen-off-bg); }
+    45% { background: var(--screen-glitch-flash-2); }
+    55% { background: var(--screen-off-bg); }
+    70% { background: var(--screen-glitch-flash-1); }
+    80% { background: var(--screen-off-bg); }
+   100% { background: var(--screen-off-bg); }
+}
+
+.screen-outline--glitch-off {
+    animation: screen-glitch-off 500ms steps(1, end) forwards;
+}
+
+/* Screen content flickers out on power off */
+@keyframes content-glitch-out {
+     0%, 20% { visibility: visible; opacity: 1; }
+    22%, 27% { visibility: visible; opacity: 0; }
+    30%, 35% { visibility: visible; opacity: 1; }
+    37%, 100% { visibility: hidden; opacity: 0; }
+}
+
+.screen-content--powering-off {
+    animation: content-glitch-out 300ms steps(1, end) forwards;
+}

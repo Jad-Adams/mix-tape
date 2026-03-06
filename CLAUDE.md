@@ -1,13 +1,11 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-**Design standards and component rules live in `DESIGN_BRIEF.md`. Read that file before making any UI changes.**
+This file covers **architecture and workflow**. Design standards, component rules, and visual specifications live in `DESIGN_BRIEF.md` — read that file before making any UI changes.
 
 ## Before making any changes in a new Claude Code or Cursor session, confirm:
 1. You have read this file
-2. ¦You have read `tokens.css` and `styles.css`
-3. You have read the existing `index.html` to understand the current JS structure
+2. You have read `tokens.css` and the relevant file in `styles/`
+3. You have read the existing `index.html` to understand the current structure
 4. You will not modify any JavaScript without explicit permission
 5. You will not hardcode any colour values
 
@@ -38,21 +36,28 @@ This scans `music/` for `.mp3`, `.m4a`, `.ogg`, `.wav` files and writes `playlis
 
 ## Architecture
 
-Five files do all the work:
+Key files:
 
 - **`index.html`** — Static shell. Images use `data-asset="filename.svg"` instead of `src`; JavaScript resolves the real path at runtime based on the active theme.
 - **`script.js`** — All player logic. Fetches `playlist.json`, drives the Web Audio API analyser/visualiser, handles playback state, theming, and UI events. **Do not modify without explicit permission.**
 - **`tokens.css`** — All CSS custom properties (colours, shadows, radii, transitions) for both themes. Every colour value in the project lives here.
-- **`styles.css`** — All layout and component styles. References tokens from `tokens.css`. No hardcoded colour values.
-- **`button.css`** — Button component styles (neumorphic base/cap/shadow system).
+- **`styles.css`** — Entry point only. Imports all partials from `styles/`. No styles live here directly.
+- **`styles/`** — CSS partials, each with a single responsibility:
+  - `core.css` — resets, body, container, title section
+  - `screen.css` — LCD display, progress bar, visualizer
+  - `buttons.css` — `.btn` system and all button size variants
+  - `slider.css` — volume range input styling
+  - `power.css` — power state, LED, no-power overlay, glitch keyframes
+  - `responsive.css` — all `@media` queries
+  - `animations.css` — all `@keyframes`
 
 ---
 
 ## Theming
 
-Two themes are implemented: `light` and `dark`. Themes are applied via a `data-theme` attribute on `<html>`. All theme values are CSS custom properties defined in `tokens.css`. Theme preference persists via `localStorage` key `mixtape-theme`.
+Two themes: `light` and `dark`. Applied via `data-theme` attribute on `<html>`. All theme values are CSS custom properties in `tokens.css`. Theme preference persists via `localStorage` key `mixtape-theme`.
 
-Each theme has a folder at `assets/themes/<theme>/` containing 12 icon SVG files. Both folders use identical filenames. Adding a new theme requires adding a new folder with all 12 files.
+Each theme has a folder at `assets/themes/<theme>/` containing **12 SVG icon files**: eject, info, minus, moon, pause, play, plus, skip-back, skip-forward, stop, sun, tamagotchi. Both folders use identical filenames.
 
 ---
 
@@ -75,13 +80,20 @@ Each theme has a folder at `assets/themes/<theme>/` containing 12 icon SVG files
 mix-tape/
 ├── index.html
 ├── script.js              ← do not modify without explicit permission
-├── styles.css
+├── styles.css             ← imports only; all styles live in styles/
+├── styles/                ← CSS partials (one concern each)
+│   ├── core.css
+│   ├── screen.css
+│   ├── buttons.css
+│   ├── slider.css
+│   ├── power.css
+│   ├── responsive.css
+│   └── animations.css
 ├── tokens.css             ← all CSS custom properties, both themes
-├── button.css             ← button component styles
 ├── playlist.json          ← do not modify
 ├── generate-playlist.js   ← do not modify
-├── DESIGN_BRIEF.md        ← authoritative design and code standards doc
-├── CLAUDE.md              ← this file
+├── DESIGN_BRIEF.md        ← authority for design and visual decisions
+├── CLAUDE.md              ← authority for architecture and workflow (this file)
 ├── playground.html        ← scratch/experimental file, not production
 ├── assets/
 │   ├── shared/
