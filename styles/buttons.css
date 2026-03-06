@@ -1,0 +1,189 @@
+/* ============================================================
+   Controls — transport and skip layout
+   ============================================================ */
+
+.controls-area {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    align-self: stretch;
+}
+
+.transport-controls,
+.skip-controls {
+    display: flex;
+    gap: 0;
+    width: 100%;
+}
+
+.transport-controls {
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+.skip-controls {
+    gap: 4px;
+}
+
+/* ============================================================
+   Shared button base
+   ============================================================ */
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-button);
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition-button);
+    touch-action: manipulation;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--color-icon);
+    outline-offset: 4px;
+}
+
+/* Base — full-footprint plate */
+.btn-base {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-button);
+}
+
+.btn-base-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button);
+    background: var(--color-button-face);
+    overflow: hidden;
+    transition: background-color 200ms ease;
+}
+
+.btn-base-texture {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button);
+    background-image: url('../assets/shared/noise.png');
+    background-size: 114.4px 114.4px;
+    background-position: top left;
+    opacity: 0.05;
+}
+
+/* Border + panel shadow — gives each button a visible edge */
+.btn-base-border {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid var(--color-button-border);
+    pointer-events: none;
+    box-shadow: var(--shadow-btn-base-border);
+    transition: var(--transition-button), border-color 200ms ease;
+}
+
+.btn:active .btn-base-border {
+    box-shadow: none;
+}
+
+/* Cap — raised keycap floating above the base */
+.btn-cap {
+    position: absolute;
+    inset: 16px;
+    border-radius: var(--radius-button-cap);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-button);
+    overflow: hidden;
+}
+
+.btn-cap-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button-cap);
+    background: var(--color-button-face);
+    transition: background-color 200ms ease;
+}
+
+.btn-cap-texture {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button-cap);
+    background-image: url('../assets/shared/noise.png');
+    background-size: 114.4px 114.4px;
+    background-position: top left;
+    opacity: 0.05;
+}
+
+/* Inset shadow overlay — appears on press over the base */
+.btn-inset-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-button);
+    pointer-events: none;
+    box-shadow: none;
+    transition: var(--transition-button);
+}
+
+.btn:active .btn-inset-shadow {
+    box-shadow: var(--shadow-button-pressed);
+}
+
+/* Icon image sits above cap layers */
+.btn img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================
+   Button sizes
+   ============================================================ */
+
+/* Square transport buttons: eject / stop / pause / play — 143×143 */
+.btn-transport {
+    width: 143px;
+    height: 143px;
+    flex-shrink: 0;
+}
+
+/* Eject button cap: optional PNG asset at assets/shared/eject-cap.png for pixel-perfect match */
+.btn-transport-eject::after {
+    background-image: url('../assets/shared/eject-cap.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Wide skip buttons: prev / next — share available width equally */
+.btn-skip {
+    flex: 1;
+    height: 60px;
+    min-width: 80px;
+}
+
+/* ============================================================
+   Utility buttons — light mode, dark mode, skin, info
+   ============================================================ */
+
+.utility-buttons {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+/* Utility buttons — same two-part base/cap and sizing as transport (143×143) */
+.btn-utility {
+    width: 143px;
+    height: 143px;
+    flex-shrink: 0;
+}
