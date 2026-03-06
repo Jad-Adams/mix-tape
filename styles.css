@@ -14,7 +14,7 @@ body,
 .progress-bar-container,
 .md-player-label,
 .md-player-stereo {
-    transition: background-color 0.15s ease, color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+    transition: background-color 200ms ease, color 200ms ease, background 200ms ease, filter 200ms ease;
 }
 
 * {
@@ -189,8 +189,10 @@ body {
     text-decoration: underline;
 }
 
-.title-subtitle.body a:hover {
-    opacity: 0.8;
+@media (hover: hover) and (pointer: fine) {
+    .title-subtitle.body a:hover {
+        opacity: 0.8;
+    }
 }
 
 /* MD Player Container */
@@ -289,6 +291,7 @@ body {
     flex-direction: column;
     gap: 14px;
     overflow: hidden;
+    position: relative;
 }
 
 .screen-content {
@@ -399,6 +402,7 @@ body {
     cursor: pointer;
     position: relative;
     transition: var(--transition-button);
+    touch-action: manipulation;
 }
 
 .btn:focus-visible {
@@ -420,6 +424,7 @@ body {
     border-radius: var(--radius-button);
     background: var(--color-button-face);
     overflow: hidden;
+    transition: background-color 200ms ease;
 }
 
 .btn-base-texture {
@@ -440,7 +445,7 @@ body {
     border: 1px solid var(--color-button-border);
     pointer-events: none;
     box-shadow: var(--shadow-btn-base-border);
-    transition: var(--transition-button);
+    transition: var(--transition-button), border-color 200ms ease;
 }
 
 .btn:active .btn-base-border {
@@ -464,6 +469,7 @@ body {
     inset: 0;
     border-radius: var(--radius-button-cap);
     background: var(--color-button-face);
+    transition: background-color 200ms ease;
 }
 
 .btn-cap-texture {
@@ -546,6 +552,7 @@ body {
     border-radius: 2px;
     outline: none;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
 .volume-slider::-webkit-slider-runnable-track {
@@ -637,9 +644,12 @@ body {
     flex-shrink: 0;
     background: var(--screen-text);
     border-radius: 1px;
-    min-height: 2px;
+    height: 50px;
+    transform: scaleY(0.04);
+    transform-origin: bottom;
+    will-change: transform;
     box-shadow: var(--screen-glow);
-    transition: height 0.15s cubic-bezier(0.33, 0, 0.2, 1);
+    transition: transform 0.15s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 /* Hidden audio element */
@@ -657,13 +667,13 @@ body {
     justify-content: space-between;
     background: var(--color-body);
     padding: 14px 20px;
-    border-radius: 8px;
+    border-radius: var(--radius-button);
     transition: var(--transition-theme);
     position: relative;
 }
 
 .md-player-label {
-    font-family: "Share Tech Mono";
+    font-family: var(--font-screen);
     font-size: 11px;
     font-weight: 500;
     color: var(--color-text-secondary);
@@ -672,7 +682,7 @@ body {
 }
 
 .md-player-stereo {
-    font-family: "Share Tech Mono";
+    font-family: var(--font-screen);
     font-size: 16px;
     font-weight: 900;
     color: var(--color-text-secondary);
@@ -770,6 +780,170 @@ body {
     .md-player-text {
         padding-top: 10px;
     }
+
+    /* Flatten column wrappers so sections can be individually reordered */
+    .player-col-left,
+    .player-col-right {
+        display: contents;
+    }
+
+    /* Restore correct vertical stacking order for mobile */
+    .top-bar        { order: 1; }
+    .screen         { order: 2; }
+    .transport-area { order: 3; }
+    .skip-area      { order: 4; }
+    .volume-area    { order: 5; }
+    .utility-area   { order: 6; }
+    .md-player-text { order: 7; }
+}
+
+/* ============================================================
+   Power off state
+   ============================================================ */
+
+/* LED: dark, no glow */
+[data-powered="false"] .power-led {
+    background: var(--led-off-gradient);
+    border-color: var(--led-off-stroke);
+    filter: none;
+}
+
+/* Screen: dark background when off */
+[data-powered="false"] .screen-outline {
+    background: var(--screen-off-bg);
+}
+
+/* Normal screen content hidden when off */
+[data-powered="false"] .screen-content {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* No-power overlay: hidden by default, shown when off */
+.no-power-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+[data-powered="false"] .no-power-overlay {
+    display: block;
+}
+
+/* DVD-style two-axis bounce */
+.no-power-bounce-x {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: bounce-x 7s linear infinite alternate;
+    will-change: transform;
+}
+
+.no-power-bounce-y {
+    display: block;
+    animation: bounce-y 5.3s linear infinite alternate;
+    will-change: transform;
+}
+
+.no-power-label {
+    font-family: var(--font-screen);
+    font-size: 32px;
+    color: var(--no-power-text);
+    white-space: nowrap;
+    display: block;
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+@keyframes bounce-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(var(--bounce-x-end, 80px)); }
+}
+
+@keyframes bounce-y {
+    from { transform: translateY(0); }
+    to   { transform: translateY(var(--bounce-y-end, 60px)); }
+}
+
+/* Power-on glitch: screen background fills in with CRT-style flashes */
+@keyframes screen-glitch-on {
+     0% { background: var(--screen-off-bg); }
+    10% { background: var(--screen-glitch-flash-1); }
+    15% { background: var(--screen-off-bg); }
+    25% { background: var(--screen-glitch-flash-2); }
+    30% { background: var(--screen-off-bg); }
+    50% { background: var(--screen-glitch-flash-3); }
+    70% { background: var(--screen-bg); }
+   100% { background: var(--screen-bg); }
+}
+
+.screen-outline--glitch {
+    animation: screen-glitch-on 500ms steps(1, end) forwards;
+}
+
+/* Hide the no-power overlay during the glitch */
+.screen-outline--glitch .no-power-overlay {
+    display: none;
+}
+
+/* Screen content flickers in after power on */
+@keyframes content-glitch-in {
+     0%, 55% { visibility: hidden; opacity: 0; }
+    60%, 65% { visibility: visible; opacity: 1; }
+    67%, 72% { visibility: visible; opacity: 0; }
+    75%, 100% { visibility: visible; opacity: 1; }
+}
+
+.screen-content--powering-on {
+    animation: content-glitch-in 400ms steps(1, end) forwards;
+}
+
+/* Power-off glitch: screen collapses back to dark */
+@keyframes screen-glitch-off {
+     0% { background: var(--screen-bg); }
+    15% { background: var(--screen-off-bg); }
+    20% { background: var(--screen-glitch-flash-3); }
+    35% { background: var(--screen-off-bg); }
+    45% { background: var(--screen-glitch-flash-2); }
+    55% { background: var(--screen-off-bg); }
+    70% { background: var(--screen-glitch-flash-1); }
+    80% { background: var(--screen-off-bg); }
+   100% { background: var(--screen-off-bg); }
+}
+
+.screen-outline--glitch-off {
+    animation: screen-glitch-off 500ms steps(1, end) forwards;
+}
+
+/* Screen content flickers out on power off */
+@keyframes content-glitch-out {
+     0%, 20% { visibility: visible; opacity: 1; }
+    22%, 27% { visibility: visible; opacity: 0; }
+    30%, 35% { visibility: visible; opacity: 1; }
+    37%, 100% { visibility: hidden; opacity: 0; }
+}
+
+.screen-content--powering-off {
+    animation: content-glitch-out 300ms steps(1, end) forwards;
+}
+
+/* ============================================================
+   Reduced motion — disable all animations for users who prefer it
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .lcd-label--paused { animation: none; }
+    .lcd-song-info--scroll .lcd-song-info-inner { animation: none; }
+    .visualizer-bar { transition: none; will-change: auto; }
+    .progress-bar { transition: none; }
+    .no-power-bounce-x,
+    .no-power-bounce-y { animation: none; }
+    .screen-outline--glitch { animation: none; }
+    .screen-outline--glitch-off { animation: none; }
+    .screen-content--powering-on { animation: none; visibility: visible; opacity: 1; }
+    .screen-content--powering-off { animation: none; visibility: hidden; opacity: 0; }
 }
 
 /* Very small viewports */
