@@ -843,24 +843,25 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    animation: bounce-x 7s linear infinite alternate;
+    animation: bounce-x 6s linear infinite alternate;
     will-change: transform;
 }
 
 .no-power-bounce-y {
     display: block;
-    animation: bounce-y 5.3s linear infinite alternate;
+    animation: bounce-y 4.3s linear infinite alternate;
     will-change: transform;
 }
 
 .no-power-label {
     font-family: var(--font-screen);
-    font-size: 32px;
+    font-size: 20px;
     color: var(--no-power-text);
     white-space: nowrap;
     display: block;
     line-height: 1;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 @keyframes bounce-x {
