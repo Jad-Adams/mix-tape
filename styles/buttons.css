@@ -156,6 +156,13 @@
     flex-shrink: 0;
 }
 
+/* Eject button: explicitly centre the icon inside its cap (mirrors the mobile fix) */
+.btn-transport-eject .btn-cap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Eject button cap: optional PNG asset at assets/shared/eject-cap.png for pixel-perfect match */
 .btn-transport-eject::after {
     background-image: url('../assets/shared/eject-cap.png');

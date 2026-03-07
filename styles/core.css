@@ -5,7 +5,7 @@
 body,
 .title-main,
 .title-sub,
-.title-section a,
+.page-header a,
 .md-player-outer,
 .md-player-inner,
 .lcd-label,
@@ -44,10 +44,13 @@ body {
     gap: 24px;
 }
 
-/* Title Section */
-.title-section {
+/* Page header (album info) and footer (mixtape / Curated by Jad) */
+.page-header {
     align-self: flex-start;
-    margin-bottom: 24px;
+}
+
+.page-footer {
+    margin-top: 24px;
 }
 
 /* ============================================================
@@ -195,6 +198,29 @@ body {
     }
 }
 
+/* Album info (page header) */
+.album-info {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    padding-left: 3px;
+    padding-top: 8px;
+}
+
+.album-info a,
+.album-info a:link,
+.album-info a:visited {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .album-info a:hover {
+        opacity: 0.8;
+    }
+}
+
 /* MD Player Container */
 .md-player-scale-wrap {
     width: 100%;
@@ -226,7 +252,7 @@ body {
 }
 
 .md-player {
-    width: 1224px;
+    width: 1400px;
     position: relative;
     padding: 16px;
 }
