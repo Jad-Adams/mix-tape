@@ -3,6 +3,14 @@
    ============================================================ */
 
 @media (max-width: 900px) {
+    /* ---- Token overrides ---- */
+
+    :root {
+        --radius-button: 4px;
+        --radius-screen: 4px;
+        --radius-panel:  4px;
+    }
+
     /* ---- Page layout ---- */
 
     body {
@@ -80,16 +88,16 @@
 
     .md-player {
         width: 100%;
-        padding: 16px;
-        border-radius: 10px;
+        padding: 8px;
+        border-radius: 12px;
     }
 
     .player-shell::after {
-        border-radius: 10px;
+        border-radius: 12px;
     }
 
     .md-player-inner {
-        padding: 8px;
+        padding: 5px;
         border-radius: 6px;
     }
 
@@ -152,7 +160,7 @@
 
     .screen {
         max-width: 100%;
-        padding: 10px;
+        padding: 6px;
     }
 
     .screen-outline {
