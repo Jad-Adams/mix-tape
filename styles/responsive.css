@@ -210,12 +210,13 @@
     }
 
     .md-player-text {
+        height: 50px;
         padding: 10px 8px;
     }
 
 
     .md-player-label, .md-player-stereo {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     /* Flatten column wrappers so sections can be individually reordered */
