@@ -5,7 +5,7 @@
 body,
 .title-main,
 .title-sub,
-.title-section a,
+.page-header a,
 .md-player-outer,
 .md-player-inner,
 .lcd-label,
@@ -44,10 +44,13 @@ body {
     gap: 24px;
 }
 
-/* Title Section */
-.title-section {
+/* Page header (album info) and footer (mixtape / Curated by Jad) */
+.page-header {
     align-self: flex-start;
-    margin-bottom: 24px;
+}
+
+.page-footer {
+    margin-top: 24px;
 }
 
 /* ============================================================

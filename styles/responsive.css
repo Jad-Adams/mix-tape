@@ -3,25 +3,103 @@
    ============================================================ */
 
 @media (max-width: 900px) {
+    /* ---- Page layout ---- */
+
+    body {
+        padding: 0;
+        height: 100svh;
+        min-height: 100svh;
+    }
+
+    .container {
+        flex: 1;
+        padding: 16px;
+        gap: 0;
+        align-items: stretch;
+    }
+
+    .page-header {
+        flex-shrink: 0;
+        padding-bottom: 12px;
+    }
+
+    .page-footer {
+        flex-shrink: 0;
+        text-align: right;
+        padding-top: 12px;
+        margin-top: auto;
+    }
+
+    .title-main {
+        font-size: 24px;
+    }
+
+    .title-subtitle {
+        font-size: 13px;
+    }
+
+    /* ---- Player container ---- */
+
     .md-player-scale-wrap {
         width: 100%;
         transform: none;
         margin-bottom: 0;
-        display: flex;
-        justify-content: center;
     }
 
+    /* ---- Player shell ---- */
+
     .md-player {
-        width: min(100%, 380px);
+        width: 100%;
         padding: 16px;
+        border-radius: 10px;
+    }
+
+    .player-shell::after {
+        border-radius: 10px;
     }
 
     .md-player-inner {
         padding: 8px;
+        border-radius: 6px;
+    }
+
+    /* ---- Top bar ---- */
+
+    .top-bar {
+        height: 36px;
     }
 
     .top-bar .power-btn {
         border: none;
+        width: 80px;
+    }
+
+    .btn-cap.power-cap {
+        inset: 6px;
+        gap: 6px;
+    }
+
+    .power-led {
+        width: 8px;
+        height: 8px;
+    }
+
+    .power-label {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .speaker-grille {
+        height: 20px;
+    }
+
+    .top-bar-clock {
+        width: 80px;
+        padding: 6px 8px;
+    }
+
+    .clock-display {
+        font-size: 14px;
     }
 
     .top-bar .speaker-section,
@@ -80,7 +158,7 @@
     }
 
     .btn-skip {
-        height: 72px;
+        height: 60px;
         min-width: 0;
     }
 
@@ -106,6 +184,42 @@
     .volume-area    { order: 5; }
     .utility-area   { order: 6; }
     .md-player-text { order: 7; }
+
+    /* ---- Volume slider ---- */
+
+    .volume-slider-container {
+        height: 60px;
+        padding: 0 16px;
+        overflow: hidden;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+        height: 44px;
+        margin-top: -20px; /* centre on 4px track: -(44/2 - 4/2) */
+    }
+
+    .volume-slider::-moz-range-thumb {
+        height: 44px;
+    }
+
+    /* ---- Button caps & icons ---- */
+
+    .btn-cap {
+        inset: 8px;
+        border-radius: 6px;
+    }
+
+    /* Ensure eject icon is properly centred inside its cap */
+    .btn-transport-eject .btn-cap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn img {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 /* ============================================================
@@ -151,11 +265,9 @@
         min-width: 0;
     }
 
-    .title-section {
+    .page-header,
+    .page-footer {
         flex-shrink: 0;
-        margin-bottom: 0;
-        /* Push title copy down past the top bar so "mixtape" aligns with the player body */
-        padding-top: 0px;
     }
 
     .player-outline-wrap {
