@@ -45,12 +45,13 @@ body {
 }
 
 /* Page header (album info) and footer (mixtape / Curated by Jad) */
-.page-header {
-    align-self: flex-start;
+.page-header,
+.page-footer {
+    flex-shrink: 0;
 }
 
-.page-footer {
-    margin-top: 24px;
+.page-header {
+    align-self: center;
 }
 
 /* ============================================================

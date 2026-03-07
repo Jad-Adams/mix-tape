@@ -27,20 +27,23 @@
         justify-content: center;
     }
 
-    .page-header {
-        flex-shrink: 0;
-        padding-bottom: 12px;
+    /* Shared: constrain both text blocks to player width */
+    .page-header,
+    .page-footer {
         width: 100%;
         max-width: 320px;
     }
 
+    /* Footer (mixtape/Curated) above the player */
     .page-footer {
-        flex-shrink: 0;
-        text-align: right;
-        padding-top: 12px;
-        margin-top: 0;
-        width: 100%;
-        max-width: 320px;
+        order: 1;
+        padding-bottom: 20px;
+    }
+
+    /* Header (album info) below the player */
+    .page-header {
+        order: 3;
+        padding-top: 20px;
     }
 
     /* Album info mobile typography */
@@ -62,21 +65,23 @@
     }
 
     .title-main {
-        font-size: 16px;
+        font-size: 24px;
         letter-spacing: -0.96px;
     }
 
-    .title-main .kern-x { letter-spacing: -2.08px; }
-    .title-main .kern-t { letter-spacing: -0.8px; }
+    .title-main .kern-x { letter-spacing: -2.88px; }
+    .title-main .kern-t { letter-spacing: -1.12px; }
     .title-main .kern-a { letter-spacing: -0.64px; }
 
     .title-subtitle {
-        font-size: 12px;
+        font-size: 10px;
+        padding-left: 1px;
     }
 
     /* ---- Player container ---- */
 
     .md-player-scale-wrap {
+        order: 2;
         width: 100%;
         max-width: 320px;
         margin-inline: auto;
@@ -317,12 +322,11 @@
 
     .page-header,
     .page-footer {
-        flex-shrink: 0;
         align-self: flex-start;
     }
 
     /* Stack both text blocks above the player */
-    .page-footer          { order: 1; }
+    .page-footer          { order: 1; margin-top: 24px; }
     .page-header          { order: 2; margin-top: -18px; }
     .md-player-scale-wrap { order: 3; }
 
