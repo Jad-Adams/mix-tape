@@ -168,7 +168,12 @@ body {
     color: var(--color-text-primary);
     line-height: 1;
     margin-bottom: 8px;
+    letter-spacing: -1.92px;
 }
+
+.title-main .kern-x { letter-spacing: -5.76px; }
+.title-main .kern-t { letter-spacing: -2.24px; }
+.title-main .kern-a { letter-spacing: -1.28px; }
 
 .title-subtitle {
     font-family: var(--font-ui);
