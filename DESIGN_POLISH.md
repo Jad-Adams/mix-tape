@@ -6,8 +6,10 @@ A living handoff document. Update the **Status** section at the end of every ses
 
 ## Status
 
-**All sessions complete.**
-Sessions complete: Session 1 (page layout & typography), Session 2 (player shell & top bar), Session 3 (button cap, icons & eject alignment), Session 4 (volume slider height)
+**All sessions complete + post-session fix applied.**
+Sessions complete: Session 1 (page layout & typography), Session 2 (player shell & top bar), Session 3 (button cap, icons & eject alignment), Session 4 (volume slider height), Post-session fix (player no longer stretches to fill viewport)
+
+**Important:** The session 1 notes below describe `.md-player-scale-wrap` getting `flex: 1` — this was later reverted. Do NOT add `flex: 1` to that element. See the post-session fix section at the bottom for what actually landed.
 
 ---
 
@@ -172,9 +174,38 @@ Check slider thumb doesn't visually overflow the container. If it does, add `ove
 
 ---
 
+---
+
+## Post-session fix — Player hugs content (not stretch)
+
+After all four sessions, the player shell was stretching to fill the full viewport height because `.md-player-scale-wrap` had `flex: 1`. This was reverted.
+
+**What actually landed in `responsive.css` (inside `@media (max-width: 900px)`):**
+
+```css
+/* Player container — no flex:1, hugs content */
+.md-player-scale-wrap {
+    width: 100%;
+    transform: none;
+    margin-bottom: 0;
+}
+
+/* Footer pinned to bottom via margin-top: auto */
+.page-footer {
+    flex-shrink: 0;
+    text-align: right;
+    padding-top: 12px;
+    margin-top: auto;
+}
+```
+
+The `body { height: 100svh }` + `container { flex: 1 }` combination means the container fills the viewport. The player sits at natural content height, and `margin-top: auto` on `.page-footer` pushes it to the bottom.
+
+---
+
 ## How to resume in a new session
 
 1. Read this file (`DESIGN_POLISH.md`) first
-2. Read the **Status** block at the top — it says which session to start from
-3. Read the session details in this document — they contain the exact CSS changes to make
-4. After completing the session, update the **Status** block
+2. Read the **Status** block at the top
+3. If all sessions are complete, there is no planned work remaining
+4. If adding new polish sessions, follow the same rules (no hardcoded colours, no inline styles, mobile overrides in `responsive.css`)
