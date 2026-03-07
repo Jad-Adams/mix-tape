@@ -23,7 +23,7 @@
                             0px 0px 2.14px oklch(0.82 0.10 142 / 0.05);  /* #9acf97 @ 5%  */
 
   /* Clock display */
-  --clock-text:             oklch(0.834 0 0);  /* #cfcfcf */
+  --clock-text:             oklch(0.572 0 0);  /* #787878 */
   --clock-inner-shadow:     inset 12px 12px 32px oklch(0 0 0 / 0.20),
                             inset 7px 7px 22px  oklch(0 0 0 / 0.15),
                             inset 2px 2px 12px  oklch(0 0 0 / 0.15),

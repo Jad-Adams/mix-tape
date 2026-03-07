@@ -45,12 +45,13 @@ body {
 }
 
 /* Page header (album info) and footer (mixtape / Curated by Jad) */
-.page-header {
-    align-self: flex-start;
+.page-header,
+.page-footer {
+    flex-shrink: 0;
 }
 
-.page-footer {
-    margin-top: 24px;
+.page-header {
+    align-self: center;
 }
 
 /* ============================================================
@@ -126,7 +127,7 @@ body {
     width: 116px;
     display: flex;
     align-items: stretch;
-    padding: 15px 16px;
+    padding: 10px 10px;
     background: var(--color-body);
     border-radius: var(--radius-button);
     transition: var(--transition-theme);
@@ -147,7 +148,7 @@ body {
 
 .clock-display {
     font-family: var(--font-screen);
-    font-size: 21px;
+    font-size: 18px;
     color: var(--clock-text);
     letter-spacing: 1px;
     text-align: center;
@@ -167,7 +168,12 @@ body {
     color: var(--color-text-primary);
     line-height: 1;
     margin-bottom: 8px;
+    letter-spacing: -1.92px;
 }
+
+.title-main .kern-x { letter-spacing: -5.76px; }
+.title-main .kern-t { letter-spacing: -2.24px; }
+.title-main .kern-a { letter-spacing: -1.28px; }
 
 .title-subtitle {
     font-family: var(--font-ui);
@@ -203,7 +209,7 @@ body {
     font-family: var(--font-ui);
     font-size: 14px;
     color: var(--color-text-secondary);
-    font-weight: 500;
+    font-weight: 400;
     padding-left: 3px;
     padding-top: 8px;
 }
@@ -252,7 +258,7 @@ body {
 }
 
 .md-player {
-    width: 1400px;
+    width: 1224px;
     position: relative;
     padding: 16px;
 }
@@ -296,7 +302,7 @@ body {
     align-items: end;
     justify-content: space-between;
     background: var(--color-body);
-    padding: 14px 20px;
+    padding: 16px;
     border-radius: var(--radius-button);
     transition: var(--transition-theme);
     position: relative;

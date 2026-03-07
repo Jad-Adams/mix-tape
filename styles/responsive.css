@@ -27,20 +27,23 @@
         justify-content: center;
     }
 
-    .page-header {
-        flex-shrink: 0;
-        padding-bottom: 12px;
+    /* Shared: constrain both text blocks to player width */
+    .page-header,
+    .page-footer {
         width: 100%;
         max-width: 320px;
     }
 
+    /* Footer (mixtape/Curated) above the player */
     .page-footer {
-        flex-shrink: 0;
-        text-align: right;
-        padding-top: 12px;
-        margin-top: 0;
-        width: 100%;
-        max-width: 320px;
+        order: 1;
+        padding-bottom: 20px;
+    }
+
+    /* Header (album info) below the player */
+    .page-header {
+        order: 3;
+        padding-top: 20px;
     }
 
     /* Album info mobile typography */
@@ -58,25 +61,27 @@
     .album-name {
         display: block;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 400;
     }
 
     .title-main {
-        font-size: 16px;
+        font-size: 24px;
         letter-spacing: -0.96px;
     }
 
-    .title-main .kern-x { letter-spacing: -2.08px; }
-    .title-main .kern-t { letter-spacing: -0.8px; }
+    .title-main .kern-x { letter-spacing: -2.88px; }
+    .title-main .kern-t { letter-spacing: -1.12px; }
     .title-main .kern-a { letter-spacing: -0.64px; }
 
     .title-subtitle {
-        font-size: 12px;
+        font-size: 10px;
+        padding-left: 1px;
     }
 
     /* ---- Player container ---- */
 
     .md-player-scale-wrap {
+        order: 2;
         width: 100%;
         max-width: 320px;
         margin-inline: auto;
@@ -104,7 +109,7 @@
     /* ---- Top bar ---- */
 
     .top-bar {
-        height: 36px;
+        height: 44px;
     }
 
     .top-bar .power-btn {
@@ -114,7 +119,7 @@
 
     .btn-cap.power-cap {
         inset: 6px;
-        gap: 6px;
+        gap: 7px;
     }
 
     .power-led {
@@ -133,11 +138,11 @@
 
     .top-bar-clock {
         width: 80px;
-        padding: 6px 8px;
+        padding: 6px;
     }
 
     .clock-display {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .top-bar .speaker-section,
@@ -165,7 +170,7 @@
 
     .screen-outline {
         min-height: 160px;
-        padding: 10px 12px;
+        padding: 12px;
     }
 
     .controls-area {
@@ -205,7 +210,13 @@
     }
 
     .md-player-text {
-        padding-top: 10px;
+        height: 50px;
+        padding: 10px 8px;
+    }
+
+
+    .md-player-label, .md-player-stereo {
+        font-size: 12px;
     }
 
     /* Flatten column wrappers so sections can be individually reordered */
@@ -227,7 +238,7 @@
 
     .volume-slider-container {
         height: 60px;
-        padding: 0 16px;
+        padding: 20px;
         overflow: hidden;
     }
 
@@ -276,7 +287,7 @@
 
 @media (max-width: 500px) {
     .md-player-text {
-        padding-top: 20px;
+        padding-top: 10px;
     }
 }
 
@@ -317,14 +328,15 @@
 
     .page-header,
     .page-footer {
-        flex-shrink: 0;
         align-self: flex-start;
     }
 
     /* Stack both text blocks above the player */
-    .page-header        { order: 1; }
-    .page-footer        { order: 2; margin-top: 0; }
+    .page-footer          { order: 1; margin-top: 24px; }
+    .page-header          { order: 2; margin-top: -18px; }
     .md-player-scale-wrap { order: 3; }
+
+    .page-header .album-info { padding-top: 0; }
 
     .player-outline-wrap {
         flex-direction: row;
