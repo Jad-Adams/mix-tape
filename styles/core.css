@@ -198,6 +198,29 @@ body {
     }
 }
 
+/* Album info (page header) */
+.album-info {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    padding-left: 3px;
+    padding-top: 8px;
+}
+
+.album-info a,
+.album-info a:link,
+.album-info a:visited {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .album-info a:hover {
+        opacity: 0.8;
+    }
+}
+
 /* MD Player Container */
 .md-player-scale-wrap {
     width: 100%;
