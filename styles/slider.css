@@ -10,6 +10,7 @@
     border-radius: var(--radius-panel);
     width: 100%;
     align-self: stretch;
+    overflow: hidden;
     transition: var(--transition-theme);
     position: relative;
 }
@@ -23,7 +24,7 @@
     border-radius: 2px;
     outline: none;
     cursor: pointer;
-    touch-action: manipulation;
+    touch-action: pan-y;
 }
 
 .volume-slider::-webkit-slider-runnable-track {
