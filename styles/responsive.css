@@ -58,7 +58,7 @@
     .album-name {
         display: block;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 400;
     }
 
     .title-main {
@@ -322,9 +322,11 @@
     }
 
     /* Stack both text blocks above the player */
-    .page-header        { order: 1; }
-    .page-footer        { order: 2; margin-top: 0; }
+    .page-footer          { order: 1; }
+    .page-header          { order: 2; margin-top: -18px; }
     .md-player-scale-wrap { order: 3; }
+
+    .page-header .album-info { padding-top: 0; }
 
     .player-outline-wrap {
         flex-direction: row;
