@@ -247,13 +247,6 @@
         border-radius: 6px;
     }
 
-    /* Ensure eject icon is properly centred inside its cap */
-    .btn-transport-eject .btn-cap {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     .btn img {
         width: 24px;
         height: 24px;
@@ -295,6 +288,31 @@
     .md-player-scale-wrap {
         flex: 1;
         min-width: 0;
+    }
+
+    /* ---- Player sizing & border-radii ---- */
+
+    .md-player {
+        width: 1215px;
+    }
+
+    .md-player-inner {
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .player-shell {
+        border-radius: 24px;
+    }
+
+    .player-shell::after {
+        border-radius: 24px;
+    }
+
+    /* ---- Button cap ---- */
+
+    .btn-cap {
+        inset: 20px;
     }
 
     .page-header,
