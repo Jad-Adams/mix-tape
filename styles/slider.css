@@ -5,7 +5,7 @@
 .volume-slider-container {
     display: flex;
     align-items: center;
-    padding: 20px 16px;
+    padding: 20px;
     background: var(--color-panel);
     border-radius: var(--radius-panel);
     width: 100%;

@@ -1,19 +1,13 @@
-# mix tape — UI Redesign Brief
+# mix tape — Design guidelines
 **For use with Claude Code and Cursor AI sessions**
 Always read this file before making any changes to the project.
 Be aware that the user is not an engineer, but a designer looking to become a design engineer.
 
 ---
 
-## Project overview
 
-mix tape is a personal mixtape player website. It uses separate `index.html`, `script.js`, and `styles.css` files. The project is deployed on Vercel.
 
-This brief covers a full UI redesign. The **goal is to replace all HTML structure and CSS styling** while preserving all existing JavaScript functionality exactly as-is.
-
----
-
-## What must be preserved — do not touch
+## What must be preserved — do not touch without permission
 
 The following JavaScript features are working correctly and must not be modified, removed, or refactored:
 
@@ -25,14 +19,6 @@ The following JavaScript features are working correctly and must not be modified
 - Theme switching logic (already exists — extend it, do not replace it)
 
 **Rule: If it is JavaScript, do not change it unless explicitly instructed.**
-
----
-
-## What is being replaced
-
-- All HTML markup (structure, class names, element hierarchy)
-- All CSS (layout, colours, shadows, typography, component styles)
-- Any inline styles
 
 ---
 
@@ -127,10 +113,9 @@ A subtle noise texture is applied to the components to simulate the grain of rea
 
 ### Desktop (breakpoint: ~900px and above)
 - Player rotates to horizontal (landscape orientation)
-- Copy sits to the left of the player, left edge of copy aligns with left edge of player
-- "mixtape" aligns to the top edge of the player
+- Copy sits to the top left of the player
+- "mixtape" aligns to the top left edge of the player
 - The copy + player group is centred on the viewport as a unit
-- Artist name truncates with ellipsis — never wraps or pushes the player
 
 ### Page background
 - Changes with the active theme
